@@ -1,0 +1,12 @@
+trait SafeStarter {
+    private boolean started = false
+    public void run() {
+        if (!started  || Thread.currentThread()) this.start()
+        started = true
+        super.run()
+    }
+}
+
+println "Main thread: ${Thread.currentThread()}"
+def t = new Thread({println "Running in ${Thread.currentThread()}"}).withTraits SafeStarter
+t.run()  //This is normally a mistake, start() should be called on a thread to start running asynchronously
