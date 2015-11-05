@@ -39,3 +39,16 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * Exercises to work with during the lesson are located in the “lecture2/exercises” folder
 * The homework is to be found at “lecture2/homework”
 * The “lecture2/slides” holds the slides for the lecture
+
+## Lesson 3
+### Agenda
+* Statically typed languages (Scala)
+
+### Preparation
+* Install Java (if you don't have it installed) from the Java download site
+* Install Scala-IDE from http://scala-ide.org/download/sdk.html (take version for Scala 2.10.4) 
+
+### Resources
+* Exercises and the homework are located in the “lecture3/exercises + homework” folder
+* The homework for Lesson 3 is H1
+* The “lecture3/slides” holds the slides for the lecture
