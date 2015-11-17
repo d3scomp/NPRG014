@@ -52,3 +52,24 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * Exercises and the homework are located in the “lecture3/exercises + homework” folder
 * The homework for Lesson 3 is H1
 * The “lecture3/slides” holds the slides for the lecture
+
+## Lesson 4
+### Agenda
+
+* Concurrency abstractions in modern languages
+** Dataflow
+** Fork-join
+** Actors
+** Parallel collections
+** Agents
+
+### Preparation
+* Grab Groovy 2.4 from the groovy download page
+* Install Java JDK (if you don't have it installed) from the Java download site
+* Checkout this repository to get all examples
+
+### Resources
+* Exercises to work with during the lesson are located in the “lecture4/exercises” folder
+* The homework is to be found at “lecture4/homework”
+* The “lecture4/slides” holds the slides for the lecture
+
