@@ -51,7 +51,7 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 ### Resources
 * Exercises and the homework are located in the “lecture3/exercises + homework” folder
 * The homework for Lesson 3 is H1
-* The “lecture3/slides” holds the slides for the lecture
+* The “lecture3+5/slides” folder holds the slides for the lecture
 
 ## Lesson 4
 ### Agenda
@@ -72,4 +72,27 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * Exercises to work with during the lesson are located in the “lecture4/exercises” folder
 * The homework is to be found at “lecture4/homework”
 * The “lecture4/slides” holds the slides for the lecture
+
+## Lesson 5
+### Agenda
+* Statically typed languages (Scala) -- 2nd part
+
+### Preparation & Resources
+* The same as for Lesson 3
+* The homework for Lesson 5 is H2
+
+## Lesson 6
+### Agenda
+* Prototype-based languages
+
+
+### Preparation
+* Install IO langauge from [http://iolanguage.org/]
+* Install Node.js from [http://nodejs.org/]
+* Binaries for Windows (32-bit) will be available during the lecture
+
+### Resources
+* Exercises and the homework are located in the “lecture6/exercises + homework” folder
+* The homework is located in file ioH.io
+* The “lecture6/slides” folder holds the slides for the lecture
 
