@@ -46,7 +46,7 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 
 ### Preparation
 * Install Java (if you don't have it installed) from the Java download site
-* Install Scala-IDE from http://scala-ide.org/download/sdk.html (take version for Scala 2.10.4) 
+* Install Scala-IDE from http://scala-ide.org/download/sdk.html
 
 ### Resources
 * Exercises and the homework are located in the “lecture3/exercises + homework” folder
