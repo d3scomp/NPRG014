@@ -9,5 +9,3 @@ println "You are probably freezing at ${result} degrees Farhenheit"
 
 final temperatures = [-20, -10, 0, 10, 20, 30]
 //TASK For each value in Celsius print out the value in Fahrenheit such as '0 Celsius is 32 Fahrenheit'
-//TASK Do the web service access in parallel
-//TASK Compare the time required for sequential and parallel version
