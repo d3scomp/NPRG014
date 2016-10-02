@@ -2,9 +2,6 @@
 class Story {
     String words
         
-    public Story map(Closure<String> f) {
-        new Story(words: f(this.words))
-    }        
 }
 
 def story = new Story(words: "")
