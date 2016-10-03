@@ -3,13 +3,11 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 
 # Lessons
 
-## Lesson 1
+## Lesson 1 - 3rd October 2016
 ### Agenda
 * Language dynamism - typing, casting, object construction, method invocation
 * Functional programming in OO languages
 * Scripting
-* Dynamic meta-programming
-* Intro into Domain Specific Languages
 
 ### Preparation
 * Grab Groovy 2.4 from the groovy download page
@@ -17,18 +15,19 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * Checkout this repository to get all examples
 
 ### Resources
-* Exercises to work with during the lesson are located in the “lecture1/exercises” folder
-* The homework is to be found at “lecture1/homework”
-* The “lecture1/slides” holds the slides for the lecture
+* Exercises to work with during the lesson are located in the “lecture1003/exercises” folder
+* The homework is to be found at “lecture1003/homework”
+* The “lecture1003/slides” holds the slides for the lecture
 
 
-## Lesson 2
+## Lesson 2 - 10th October 2016
 ### Agenda
 
+* Dynamic meta-programming
+* Intro into Domain Specific Languages
 * Domain specific languages
 * Builders
 * DSL-based frameworks
-* Static meta-progrqamming, AST transformations
 
 ### Preparation
 * Grab Groovy 2.4 from the groovy download page
@@ -36,24 +35,27 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * Checkout this repository to get all examples
 
 ### Resources
-* Exercises to work with during the lesson are located in the “lecture2/exercises” folder
-* The homework is to be found at “lecture2/homework”
-* The “lecture2/slides” holds the slides for the lecture
+* Exercises to work with during the lesson are located in the “lecture1010/exercises” folder
+* The homework is to be found at “lecture1010/homework”
+* The “lecture1010/slides” holds the slides for the lecture
 
-## Lesson 3
+## Lesson 6 - 21st November 2016
 ### Agenda
-* Statically typed languages (Scala)
+
+* Static meta-progrqamming, AST transformations
+* Concurrency primer
 
 ### Preparation
-* Install Java (if you don't have it installed) from the Java download site
-* Install Scala-IDE from http://scala-ide.org/download/sdk.html
+* Grab Groovy 2.4 from the groovy download page
+* Install Java JDK (if you don't have it installed) from the Java download site
+* Checkout this repository to get all examples
 
 ### Resources
-* Exercises and the homework are located in the “lecture3/exercises + homework” folder
-* The homework for Lesson 3 is H1
-* The “lecture3+5/slides” folder holds the slides for the lecture
+* Exercises to work with during the lesson are located in the “lecture1121/exercises” folder
+* The homework is to be found at “lecture1121/homework”
+* The “lecture1121/slides” holds the slides for the lecture
 
-## Lesson 4
+## Lesson 7 - 28th November 2016
 ### Agenda
 
 * Concurrency abstractions in modern languages
@@ -69,9 +71,25 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * Checkout this repository to get all examples
 
 ### Resources
-* Exercises to work with during the lesson are located in the “lecture4/exercises” folder
-* The homework is to be found at “lecture4/homework”
-* The “lecture4/slides” holds the slides for the lecture
+* Exercises to work with during the lesson are located in the “lecture1128/exercises” folder
+* The homework is to be found at “lecture1128/homework”
+* The “lecture1128/slides” holds the slides for the lecture
+
+
+# Backlog from last year
+
+## Lesson 3
+### Agenda
+* Statically typed languages (Scala)
+
+### Preparation
+* Install Java (if you don't have it installed) from the Java download site
+* Install Scala-IDE from http://scala-ide.org/download/sdk.html
+
+### Resources
+* Exercises and the homework are located in the “lecture3/exercises + homework” folder
+* The homework for Lesson 3 is H1
+* The “lecture3+5/slides” folder holds the slides for the lecture
 
 ## Lesson 5
 ### Agenda
