@@ -10,7 +10,7 @@ class Util {
         l.collect(f)
     }
 
-    static Closure<Closure<List>> bind = {Closure<List> f ->
+    static Closure<List> bind = {List a, Closure<List> f ->
       //...
     }
 
@@ -21,7 +21,7 @@ class Util {
 
 class StringUtil {
     public static List rightShift(List source, Closure<List> g) {
-        bind(g).call(source)
+        bind(source, g)
     }
 
 }

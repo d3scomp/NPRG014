@@ -17,12 +17,9 @@ class Maybe {
     }
     
     //f: Integer -> Maybe
-    //returns: Maybe -> Maybe
-    static Closure<Closure<Maybe>> bind = {Closure<Maybe> f ->
-        return {Maybe r -> 
-            if (r instanceof None) return new None()
-            else return f(r.value)
-        }
+    static Closure<Maybe> bind = {Maybe a, Closure<Maybe> f ->
+        if (a instanceof None) return new None()
+        else return f(a.value)
     }
 
     //Allows plain Integer -> Integer functions to join the monad
@@ -36,7 +33,7 @@ class Maybe {
     //f: Integer -> Maybe
     //returns: Maybe   
     public Maybe rightShift(Closure<Maybe> g) {
-        bind(g).call(this)
+        bind(this, g)
     }
 }
 
@@ -63,8 +60,7 @@ Closure<Maybe> liftedIncrement = lift(increment)
 println("Lifted: " + liftedIncrement(0))
 
 //Bind monadic functions to monadic data parameters
-def boundIncrement = bind(liftedIncrement)
-println ("Bound: " + boundIncrement(unit(0)))
+println ("Bound: " + bind(unit(0), liftedIncrement))
 
 //Apply monadic function to monadic data
 println ("Applied: " + (unit(0) >> liftedIncrement))

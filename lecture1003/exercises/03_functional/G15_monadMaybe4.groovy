@@ -20,11 +20,9 @@ class Maybe {
         unit(f(m.value))
     }
     
-    static Closure<Closure<Maybe>> bind = {Closure<Maybe> f ->
-        return {Maybe r -> 
-            if (r instanceof None) return r
-            else return f(r.value)
-        }
+    static Closure<Maybe> bind = {Maybe a, Closure<Maybe> f ->
+        if (a instanceof None) return a
+        else return f(a.value)
     }
 
     static Closure<Maybe> lift = {Closure f ->
@@ -32,7 +30,7 @@ class Maybe {
     }
     
     public Maybe rightShift(Closure<Maybe> g) {
-        bind(g).call(this)
+        bind(this, g)
     }
 }
 

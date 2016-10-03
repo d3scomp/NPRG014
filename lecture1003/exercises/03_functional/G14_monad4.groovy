@@ -17,14 +17,11 @@ class Result {
     }
 
     //f: Integer -> Result<Integer, String>
-    //returns: Result<Integer, String> -> Result<Integer, String>
-    static Closure<Closure<Result>> bind = {Closure<Result> f ->
-        return {Result r -> 
-            def calculated = f(r.value)
-            return new Result(value: calculated.value, description: r.description + 
-            (r.description?.size()>0 && calculated.description?.size()>0 ? '. ' : '') + 
-            calculated.description)
-        }
+    static Closure<Result> bind = {Result a, Closure<Result> f ->
+        def calculated = f(a.value)
+        return new Result(value: calculated.value, description: a.description + 
+        (a.description?.size()>0 && calculated.description?.size()>0 ? '. ' : '') + 
+        calculated.description)
     }
 
     //Allows plain Integer -> Integer function to join the monad
@@ -38,7 +35,7 @@ class Result {
     //f: Integer -> Result<Integer, String>
     //returns: Result<Integer, String>    
     public Result rightShift(Closure<Result> g) {
-        bind(g).call(this)
+        bind(this, g)
     }
 }
 
@@ -68,15 +65,15 @@ Closure<Result> triple = {Integer v ->
 }
 
 def initial = new Result(value: 0, description: '')
-def dbound = bind(doubler)
-def sbound = bind(square)
-def tbound = bind(triple)
-def ibound = bind(increment)
+def dbound = bind.rcurry(doubler)
+def sbound = bind.rcurry(square)
+def tbound = bind.rcurry(triple)
+def ibound = bind.rcurry(increment)
 println ("1. " + (tbound(sbound(dbound(ibound(initial))))))
 println ("2. " + (initial >> increment >> doubler >> square >> triple))
 println ("3. " + (unit(0) >> increment >> doubler >> square >> triple))
 
 //Bound functions form a monoid
-def unitBound = bind(unit)
+def unitBound = bind.rcurry(unit)
 def allBound = [ibound, dbound, sbound, tbound, ibound, ibound, tbound].inject(unitBound){acc, v -> acc >> v}
 println ("4. " + allBound(initial))

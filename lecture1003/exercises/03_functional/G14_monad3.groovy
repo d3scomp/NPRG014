@@ -17,14 +17,11 @@ class Result {
     }
 
     //f: Integer -> Result<Integer, String>
-    //returns: Result<Integer, String> -> Result<Integer, String>
-    static Closure<Closure<Result>> bind = {Closure<Result> f ->
-        return {Result r -> 
-            def calculated = f(r.value)
-            return new Result(value: calculated.value, description: r.description + 
-            (r.description?.size()>0 && calculated.description?.size()>0 ? '. ' : '') + 
-            calculated.description)
-        }
+    static Closure<Result> bind = {Result a, Closure<Result> f ->
+        def calculated = f(a.value)
+        return new Result(value: calculated.value, description: a.description + 
+        (a.description?.size()>0 && calculated.description?.size()>0 ? '. ' : '') + 
+        calculated.description)
     }
 
     //Allows plain Integer -> Integer function to join the monad
@@ -38,7 +35,7 @@ class Result {
     //f: Integer -> Result<Integer, String>
     //returns: Result<Integer, String>    
     public Result rightShift(Closure<Result> g) {
-        bind(g).call(this)
+        bind(this, g)
     }
 }
 
@@ -60,8 +57,7 @@ Closure<Result> liftedIncrement = lift(plainIncrement)
 println("Lifted: " + liftedIncrement(100))
 
 //Bind monadic functions to monadic data parameters
-def boundIncrement = bind(liftedIncrement)
-println ("Bound" + boundIncrement(unit(200)))
+println ("Bound" + bind(unit(200),liftedIncrement))
 
 //Apply a monadic function to monadic data
 println ("Applied: " + (unit(300) >> liftedIncrement))

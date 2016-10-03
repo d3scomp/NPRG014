@@ -1,6 +1,7 @@
 //Monad - (Result, unit, bind)
 
 @groovy.transform.ToString
+@groovy.transform.Immutable
 class Result {
     Integer value
     String description
@@ -11,14 +12,11 @@ class Result {
     }
 
     //f: Integer -> Result<Integer, String>
-    //returns: Result<Integer, String> -> Result<Integer, String>
-    static Closure<Closure<Result>> bind = {Closure<Result> f ->
-        return {Result r -> 
-            def calculated = f(r.value)
-            return new Result(value: calculated.value, description: r.description + 
-            (r.description?.size()>0 && calculated.description?.size()>0 ? '. ' : '') + 
-            calculated.description)
-        }
+    static Closure<Result> bind = {Result a, Closure<Result> f ->
+        def calculated = f(a.value)
+        return new Result(value: calculated.value, description: a.description + 
+        (a.description?.size()>0 && calculated.description?.size()>0 ? '. ' : '') + 
+        calculated.description)
     }
 }
 
@@ -33,8 +31,24 @@ def triple = {Integer value -> new Result(value: value * 3, description: "Triple
 
 //Bind monadic functions to monadic data parameters
 Result data = unit(0)
-Result incremented = bind(increment)(data)
+Result incremented = bind(data, increment)
 println incremented
 
-Result tripled = bind(triple)(incremented)
+Result tripled = bind(incremented, triple)
 println tripled
+
+//Monad laws
+Result m = unit(20)
+def f = increment
+def g = triple
+
+//1.
+assert bind(unit(10), f) == f(10)
+
+//2.
+assert bind(m, unit) == m
+
+//3.
+def v1 = bind(bind(m, f), g)
+def v2 = bind(m, {x -> bind(f(x), g)})
+assert v1 == v2

@@ -13,12 +13,10 @@ class IO<A> {
     }
 
     //action: A -> IO<B>
-    static Closure<Closure<IO>> bind = {Closure<IO> action ->
-        return {IO<A> param -> 
-            new IO(run: {
-                def result = param.run.call()
-                action(result).run.call()})
-        }
+    static Closure<Closure<IO>> bind = {IO<A> a, Closure<IO> action ->
+        new IO(run: {
+            def result = a.run.call()
+            action(result).run.call()})
     }
     
     static Closure<IO> lift = {Closure f ->
@@ -26,7 +24,7 @@ class IO<A> {
     }
     
     public IO rightShift(Closure<IO> g) {
-        bind(g).call(this)
+        bind(this, g)
     }    
 }
 
