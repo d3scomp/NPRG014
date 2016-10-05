@@ -1,9 +1,8 @@
 trait SafeStarter {
     private boolean started = false
     public void run() {
-        if (!started  || Thread.currentThread()) this.start()
+        if (!started) this.start()
         started = true
-        super.run()
     }
 }
 

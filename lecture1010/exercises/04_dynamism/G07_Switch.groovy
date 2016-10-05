@@ -25,7 +25,7 @@ switch (currentDay) {
 }
 
 class TrainingDays {
-    final trainingDays = [Mon, Tue, Fri]
+    final days = [Mon, Tue, Fri]
 }
 
 //TASK Make the following pass by implementing the isCase() method on the TrainingDays class

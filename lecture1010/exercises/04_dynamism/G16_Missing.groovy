@@ -1,33 +1,19 @@
-final slave = new Slave()
-slave.with {
+//example from www.groovy.cz
+
+zdravim damy, slecny
+zdravim pany
 
 
-    create gold
-    mine silver
-    prepare breakfast, lunch, dinner
 
 
+
+
+
+
+
+def methodMissing(String name, args) {
+    println "$name ${args.join(', ')}"
 }
-//TASK use scripting to supply custom commands provided at run-time
-String myCode = '''
-create house
-move furniture
-'''
 
-def binding = new Binding()
-binding['slave'] = slave
-new GroovyShell(binding).evaluate("""
-slave.with {
-    $myCode
-}
-""")
+def propertyMissing(String name) { name }
 
-class Slave {
-    def propertyMissing(String name) {
-        "*${name.toUpperCase()}*"
-    }
-
-    def methodMissing(String name, args) {
-        println "${name[0].toUpperCase() + name[1..-2]}ing ${args.join(', ')} as requested"
-    }
-}

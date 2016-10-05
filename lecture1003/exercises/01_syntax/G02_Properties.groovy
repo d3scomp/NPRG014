@@ -2,19 +2,11 @@ class ProgrammingLanguage {
     String name
     String version
     boolean easy = true
-
-    ProgrammingLanguage() {}
-
-    ProgrammingLanguage(String name, String version, boolean easy) {
-        this.name = name
-        this.version = version
-        this.easy = easy
-    }
 }
 
 //TASK Make the easy constructor parameter true by default
 //TASK Use name parameters to create the instance
-ProgrammingLanguage lang = new ProgrammingLanguage('Groovy', '1.8', true)
+ProgrammingLanguage lang = new ProgrammingLanguage(name: 'Groovy', version: '1.8', easy: true)
 
 println lang.dump()
 lang.version = '2.0'
