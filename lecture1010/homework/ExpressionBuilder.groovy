@@ -27,7 +27,7 @@ def build(builder, String specification) {
     return builder
 }
 
-//Custom expression to display
+//Custom expression to display. It shoud be eventually pretty-printed as (1 + (7 * (2 - 3)))
 String description = '''
 builder.'+' {
     number(value: 1)
@@ -49,4 +49,3 @@ println xml.toString()
 def expression = build(new NumericExpressionBuilder(), description)
 println (expression.toString())
 assert '(1 + (7 * (2 - 3)))' == expression.toString()
-
