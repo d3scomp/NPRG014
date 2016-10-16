@@ -39,6 +39,38 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * The homework is to be found at “lecture1010/homework”
 * The “lecture1010/slides” holds the slides for the lecture
 
+## Lesson 3 - 17th October 2016
+### Agenda
+* Bytecode
+* Statically-typed languages (Scala) - Part I
+
+### Preparation
+* Grab and install SBT (http://www.scala-sbt.org/)
+* Install Java JDK (if you don't have it installed) from the Java download site
+* Checkout this repository to get all examples
+* Got to lecture1017/exercises-homework and run "sbt compile" to download all necessary packages (Scala and related libraries)
+
+### Resources
+* Exercises to work with during the lesson and the homework are located in the “lecture1017/exercises-homework” folder
+* The “lecture1017/slides” holds the slides for the lecture
+
+
+## Lesson 4 - 24th October 2016
+### Agenda
+* Statically-typed languages (Scala) - Part II
+
+### Preparation
+* ... will be made available before the lecture ...
+
+
+## Lesson 5 - 31st October 2016
+### Agenda
+* Statically-typed languages (Scala) - Part III
+
+### Preparation
+* ... will be made available before the lecture ...
+
+
 ## Lesson 6 - 21st November 2016
 ### Agenda
 
@@ -75,42 +107,4 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * The homework is to be found at “lecture1128/homework”
 * The “lecture1128/slides” holds the slides for the lecture
 
-
-# Backlog from last year
-
-## Lesson 3
-### Agenda
-* Statically typed languages (Scala)
-
-### Preparation
-* Install Java (if you don't have it installed) from the Java download site
-* Install Scala-IDE from http://scala-ide.org/download/sdk.html
-
-### Resources
-* Exercises and the homework are located in the “lecture3/exercises + homework” folder
-* The homework for Lesson 3 is H1
-* The “lecture3+5/slides” folder holds the slides for the lecture
-
-## Lesson 5
-### Agenda
-* Statically typed languages (Scala) -- 2nd part
-
-### Preparation & Resources
-* The same as for Lesson 3
-* The homework for Lesson 5 is H2
-
-## Lesson 6
-### Agenda
-* Prototype-based languages
-
-
-### Preparation
-* Install IO langauge from [http://iolanguage.org/]
-* Install Node.js from [http://nodejs.org/]
-* Binaries for Windows (32-bit) will be available during the lecture
-
-### Resources
-* Exercises and the homework are located in the “lecture6/exercises + homework” folder
-* The homework is located in file ioH.io
-* The “lecture6/slides” folder holds the slides for the lecture
 
