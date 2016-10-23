@@ -4,6 +4,7 @@ package e06
  * - arbitrary operators
  * - infix notation (without a dot)
  * - additional constructor
+ * - if-else is an expression
  * - requirements
  */
 
@@ -40,7 +41,7 @@ object Rational {
 	def main(args: Array[String]) {
 		val a = Rational(3, 5)
 		val b = Rational(6, 7)
-		
+
 		val c = -a + b
 
 		println(c)
@@ -58,7 +59,7 @@ object Rational {
 		 */
 		
 		/* ASSIGNMENT 3
-		 * Make possible to prefix an integer number with R ~ to turn the number into rational. The following statement should print out "5/3"
+		 * Make it possible to prefix an integer number with R ~ to turn the number into a rational one. The following statement should print out "5/3"
 		 * 
 		 * println(R ~ 5/3)
 		 */

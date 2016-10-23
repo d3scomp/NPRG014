@@ -11,7 +11,7 @@ package e05
  */
 
 class MyList[T] private(private val item: T, private val next: MyList[T]) {
-	
+
 	override def toString(): String = {
 		val result = new StringBuilder
 		

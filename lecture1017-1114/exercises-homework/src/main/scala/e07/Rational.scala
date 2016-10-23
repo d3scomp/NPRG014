@@ -30,7 +30,7 @@ object Rational {
 	def apply(n: Int) = new Rational(n)
 
 	implicit def intToRational(x: Int) = new Rational(x)
-	
+
 	def main(args: Array[String]) {
 		val c = 1 + Rational(1, 2)
 		println(c)

@@ -52,7 +52,7 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 
 ### Resources
 * Exercises to work with during the lesson and the homework are located in the “lecture1017/exercises-homework” folder
-* The “lecture1017/slides” holds the slides for the lecture
+* The “lecture1017-1114/slides” holds the slides for the lecture
 
 
 ## Lesson 4 - 24th October 2016
@@ -60,12 +60,20 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * Statically-typed languages (Scala) - Part II
 
 ### Preparation
-* ... will be made available before the lecture ...
+* Same as for Lesson 3
 
 
 ## Lesson 5 - 31st October 2016
 ### Agenda
 * Statically-typed languages (Scala) - Part III
+
+### Preparation
+* ... will be made available before the lecture ...
+
+
+## Lesson 5b - 14th November 2016 (tentative in case anything overflows from Lesson 5)
+### Agenda
+* Statically-typed languages (Scala) - Part IV 
 
 ### Preparation
 * ... will be made available before the lecture ...
