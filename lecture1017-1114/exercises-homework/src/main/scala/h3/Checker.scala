@@ -1,4 +1,4 @@
-/* Uncomment this to get the code finalize
+/* Uncomment this to finalize the code
 
 package h3
 import scala.collection.mutable.MutableList

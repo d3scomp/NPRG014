@@ -13,23 +13,22 @@ object ControlTest {
 			writer.close()
 		}
 	}
-	
+
 	def doNTimes(times: Int)(op: => Unit) {
 		for (i <- 1 to times) {
 			op
 		}
 	}
 
-
 	def main(args: Array[String]) {
 		withPrintWriter("out.txt") {
-			writer => 
+			writer =>
 				doNTimes(5) {
 					writer.println("Test")
 					writer.println("Test2")
 				}
 		}
-		
+
 		/* ASSIGNMENT:
 		 * Define a function ifThenElse which can be used as demonstrated below
  

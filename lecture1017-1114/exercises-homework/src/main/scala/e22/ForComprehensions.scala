@@ -26,9 +26,8 @@ object ForComprehensions {
 
 			
 		println("----------------------------")
-			
-			
-		val forLineLengths2 = filesHere.			
+
+		val forLineLengths2 = filesHere.
 			withFilter { file => file.getName.endsWith(".scala") }.
 			flatMap { file => fileLines(file).map(line => (file, line))	}.
 			map { case (file, line) => (file, line, line.trim) }.

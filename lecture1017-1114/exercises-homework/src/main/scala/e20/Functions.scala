@@ -10,8 +10,8 @@ object Functions {
 		else {
 			val pivot = xs(xs.length / 2)
 			Array.concat(
-					sort(xs filter (pivot >)), 
-					xs filter (pivot ==), 
+					sort(xs filter (pivot >)),
+  				xs filter (pivot ==),
 					sort(xs filter (pivot <)))
 		}
 	}
@@ -35,7 +35,6 @@ object Functions {
 
 		println(someNumbers.filter(_ > 0))
 
-		
 		val otherNumbers = sort(Array(1,4,2,9,-1))
 		
 		val conc = (x: Int) => x + " "

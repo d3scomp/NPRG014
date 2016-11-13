@@ -25,8 +25,6 @@ object FuncTest {
 	}
 	
 	def main(args: Array[String]): Unit = {
-		execute(F)
-
 		/* ASSIGNMENT:
 		 * Adjust the code above in such a way that the line below works.
 		 * 

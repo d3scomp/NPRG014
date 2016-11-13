@@ -68,18 +68,18 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * Statically-typed languages (Scala) - Part III
 
 ### Preparation
-* ... will be made available before the lecture ...
+* Same as for Lesson 3
 
 
-## Lesson 5b - 14th November 2016 (tentative in case anything overflows from Lesson 5)
+## Lesson 6 - 14th November 2016
 ### Agenda
 * Statically-typed languages (Scala) - Part IV 
 
 ### Preparation
-* ... will be made available before the lecture ...
+* Same as for Lesson 3
 
 
-## Lesson 6 - 21st November 2016
+## Lesson 7 - 21st November 2016
 ### Agenda
 
 * Static meta-progrqamming, AST transformations
@@ -95,7 +95,7 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * The homework is to be found at “lecture1121/homework”
 * The “lecture1121/slides” holds the slides for the lecture
 
-## Lesson 7 - 28th November 2016
+## Lesson 8 - 28th November 2016
 ### Agenda
 
 * Concurrency abstractions in modern languages

@@ -32,7 +32,7 @@ object ExtractorTest {
   def validateEmail(email: String): Unit = {
     println(email + " " + (
         email match {
-          case EMail(_, "d3s.mff.cuni.cz") => "is a department address address"
+          case EMail(_, "d3s.mff.cuni.cz") => "is a department address"
           case EMail(_, DomainRev("cz", "cuni", _*)) => "is a university address"
           case EMail(_, _) => "is a private address"
           case _ => "is in a bad format"
@@ -42,6 +42,7 @@ object ExtractorTest {
   }
 
   def main(args: Array[String]): Unit = {
+    validateEmail("bures@d3s.mff.cuni.cz")
     validateEmail(EMail("bures", "d3s.mff.cuni.cz"))
     validateEmail(EMail("doe", "xyz.natur.cuni.cz"))
     validateEmail("XXX")

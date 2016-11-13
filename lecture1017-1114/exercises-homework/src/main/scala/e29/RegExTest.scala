@@ -10,7 +10,7 @@ import scala.util.matching.Regex
 
 object RegExTest {
   def test1(): Unit = {
-    val emailRegex = """([^@]+)@(.*)""".r
+    val emailRegex = "([^@]+)@(.*)".r
 
     val emailRegex(name, domain) = "bures@d3s.mff.cuni.cz"
 
@@ -26,7 +26,7 @@ object RegExTest {
   }
 
   def test2(): Unit = {
-    val r"""([^@]+)$name@(.*)$domain""" = "bures@d3s.mff.cuni.cz"
+    val r"([^@]+)$name@(.*)$domain" = "bures@d3s.mff.cuni.cz"
 
     println(s"Email is $name @ $domain")
   }

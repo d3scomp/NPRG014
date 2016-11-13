@@ -1,4 +1,4 @@
-/* Uncomment this to get the code finalize
+/* Uncomment this to finalize the code
 
 /*
   Add necessary definitions where indicated to make the statement in the main work as specified there.
