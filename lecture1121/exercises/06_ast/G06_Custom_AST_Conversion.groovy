@@ -7,40 +7,41 @@ import org.codehaus.groovy.ast.ClassHelper
 import org.codehaus.groovy.ast.ClassNode
 import org.codehaus.groovy.ast.Parameter
 import org.codehaus.groovy.ast.builder.AstBuilder
-import org.codehaus.groovy.control.CompilePhase
 import org.codehaus.groovy.control.SourceUnit
 import org.codehaus.groovy.transform.ASTTransformation
 import org.codehaus.groovy.transform.GroovyASTTransformation
 import org.codehaus.groovy.transform.GroovyASTTransformationClass
+import org.codehaus.groovy.ast.expr.*
+import org.codehaus.groovy.ast.stmt.*
 import groovyjarjarasm.asm.Opcodes
 import static org.codehaus.groovy.control.CompilePhase.SEMANTIC_ANALYSIS
 
 @Retention(RetentionPolicy.SOURCE)
 @Target([ElementType.TYPE])
-@GroovyASTTransformationClass("ZeroTransformation2")
-public @interface Zero2 {}
+@GroovyASTTransformationClass("NumberConversionTransformation")
+public @interface NumberConversion {}
 
-//TASK Complete the transformation code ASTBuilder.buildFromCode() at the indicated position so as the test passes
-// Documentation and hints:
-// Documentation and hints:
-// http://docs.groovy-lang.org/docs/groovy-latest/html/api/org/codehaus/groovy/ast/package-summary.html
-// http://docs.groovy-lang.org/docs/groovy-latest/html/api/org/codehaus/groovy/ast/expr/package-summary.html
-// http://docs.groovy-lang.org/docs/groovy-latest/html/api/org/codehaus/groovy/ast/stmt/package-summary.html
 
 @GroovyASTTransformation(phase = SEMANTIC_ANALYSIS)
-public class ZeroTransformation2 implements ASTTransformation {
+public class NumberConversionTransformation implements ASTTransformation {
 
     public void visit(ASTNode[] astNodes, SourceUnit source) {
+        ClassNode annotatedClass = astNodes[1]
+                
+        ClassNode clazz = org.codehaus.groovy.ast.ClassHelper.make(Integer)
+        ASTNode call = new StaticMethodCallExpression(clazz, "parseInt", new VariableExpression('valueToConvert'))
+        ASTNode stmt = new ExpressionStatement(call)
+        
+        def param = new Parameter(ClassHelper.STRING_TYPE, "valueToConvert")
+        annotatedClass.addMethod("convertToNumber", Opcodes.ACC_PUBLIC, ClassHelper.Integer_TYPE, [param] as Parameter[], [] as ClassNode[], stmt)
     }
 }
 
-final calculator = new GroovyShell(Zero2.class.getClassLoader()).evaluate('''
-@Zero2
+final calculator = new GroovyShell(this.class.getClassLoader()).evaluate('''
+@NumberConversion
 class Calculator {}
 
 new Calculator()
 ''')
 
-assert 0 == calculator.zero
-
-println 'done'
+println calculator.convertToNumber("20")

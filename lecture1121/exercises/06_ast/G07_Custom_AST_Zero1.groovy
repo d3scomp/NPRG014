@@ -22,8 +22,9 @@ public @interface Zero1 {}
 
 //TASK Complete the transformation code using ASTBuilder.buildFromString() at the indicated position so as the test passes
 // Documentation and hints:
-// http://groovy.codehaus.org/api/org/codehaus/groovy/ast/MethodNode.html
-// The G05_Custom_AST_Complete.groovy sample
+// http://docs.groovy-lang.org/docs/groovy-latest/html/api/org/codehaus/groovy/ast/package-summary.html
+// http://docs.groovy-lang.org/docs/groovy-latest/html/api/org/codehaus/groovy/ast/expr/package-summary.html
+// http://docs.groovy-lang.org/docs/groovy-latest/html/api/org/codehaus/groovy/ast/stmt/package-summary.html
 
 @GroovyASTTransformation(phase = SEMANTIC_ANALYSIS)
 public class ZeroTransformation1 implements ASTTransformation {

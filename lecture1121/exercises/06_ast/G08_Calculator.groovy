@@ -31,9 +31,9 @@ public class UnsupportedTransformation implements ASTTransformation {
         // You can take inspiration from exercises
         // TASK Report an error when the method declared as @Unsupported has nonnempty body - e.g. multiply()
         // Documentation and hints:
-        // http://groovy.codehaus.org/api/org/codehaus/groovy/ast/MethodNode.html
-        // http://groovy.codehaus.org/api/org/codehaus/groovy/ast/stmt/BlockStatement.html
-        // The G05_Custom_AST_Complete.groovy sample
+        // http://docs.groovy-lang.org/docs/groovy-latest/html/api/org/codehaus/groovy/ast/package-summary.html
+        // http://docs.groovy-lang.org/docs/groovy-latest/html/api/org/codehaus/groovy/ast/expr/package-summary.html
+        // http://docs.groovy-lang.org/docs/groovy-latest/html/api/org/codehaus/groovy/ast/stmt/package-summary.html
     }
 }
 
