@@ -40,7 +40,7 @@ public class LockingTransformation implements ASTTransformation {
         // Use ClassHelper.make(java.util.concurrent.locks.ReentrantLock) to get a ClassNode instance for a given class
         // Use a complete class name, such as java.util.concurrent.locks.ReentrantLock when referring to classes from within AstBuilder code
         // Ast nodes return read-only data structures, use x.setY(new Y(new Z())) instead of x.getY().addZ()
-        // buildFromString() returns an array, which holds a BlockStatement for the passed-in code as its first element.
+        // buildFromString() returns an array of Statements constructed by the builder.
         // ClassNode.addField() accepts an expression, which can be obtained from a BlockStatement as blockStatement.statements.expression
         // ClassNode.addMethod() accepts a BlockStatement
     }
