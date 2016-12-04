@@ -48,7 +48,7 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * Grab and install SBT (http://www.scala-sbt.org/)
 * Install Java JDK (if you don't have it installed) from the Java download site
 * Checkout this repository to get all examples
-* Got to lecture1017/exercises-homework and run "sbt compile" to download all necessary packages (Scala and related libraries)
+* Go to lecture1017/exercises-homework and run "sbt compile" to download all necessary packages (Scala and related libraries)
 
 ### Resources
 * Exercises to work with during the lesson and the homework are located in the “lecture1017/exercises-homework” folder
@@ -115,4 +115,16 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * The homework is to be found at “lecture1128/homework”
 * The “lecture1128/slides” holds the slides for the lecture
 
+## Lesson 9 - 5th December 2016
+### Agenda
+
+* Prototype-based languages
+
+### Preparation
+* Download IO interpreter from http://iolanguage.org/binaries.html
+* Checkout this repository to get all examples
+
+### Resources
+* Exercises to work with during the lesson and the homework are located in the “lecture1205/exercises-homework” folder
+* The “lecture1205/slides” holds the slides for the lecture
 
