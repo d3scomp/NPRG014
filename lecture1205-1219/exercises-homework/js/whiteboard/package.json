@@ -1,0 +1,7 @@
+{
+  "name": "js",
+  "version": "1.0.0",
+  "devDependencies": {
+    "socket.io": "^1.7.2"
+  }
+}

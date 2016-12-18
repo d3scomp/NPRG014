@@ -118,7 +118,7 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 ## Lesson 9 - 5th December 2016
 ### Agenda
 
-* Prototype-based languages
+* Prototype-based languages (IO)
 
 ### Preparation
 * Download IO interpreter from http://iolanguage.org/binaries.html
@@ -127,4 +127,19 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 ### Resources
 * Exercises to work with during the lesson and the homework are located in the “lecture1205/exercises-homework” folder
 * The “lecture1205/slides” holds the slides for the lecture
+
+## Lesson 10 - 19th December 2016
+### Agenda
+
+* Prototype-based languages (JavaScript, TypeScript)
+
+### Preparation
+* Checkout this repository to get all examples
+* Download and install Node.JS from https://nodejs.org/en/download/
+* In directories "js/whiteboard" and "typescript" execute "npm install"
+
+### Resources
+* Exercises to work with during the lesson and the homework are located in the “lecture1205-1219/exercises-homework” folder
+* The homework assignment is located in js/whiteboard/index.js
+* The “lecture1205-1219/slides” holds the slides for the lecture
 
