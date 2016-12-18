@@ -126,7 +126,7 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 
 ### Resources
 * Exercises to work with during the lesson and the homework are located in the “lecture1205/exercises-homework” folder
-* The “lecture1205/slides” holds the slides for the lecture
+* The “lecture1205-1219/slides” holds the slides for the lecture
 
 ## Lesson 10 - 19th December 2016
 ### Agenda
