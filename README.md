@@ -26,7 +26,6 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * Intro into Domain Specific Languages
 * Domain specific languages
 * Builders
-* DSL-based frameworks
 
 ### Preparation
 * Grab Groovy 2.4 from the groovy download page (http://groovy-lang.org/download.html)
@@ -41,8 +40,8 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 ## Lesson 3 - 23rd October 2017
 ### Agenda
 
-* Static meta-programming, AST transformations
-* Concurrency primer
+* Static meta-programming
+* AST transformations
 
 ### Preparation
 * Grab Groovy 2.4 from the groovy download page (http://groovy-lang.org/download.html)
