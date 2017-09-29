@@ -11,7 +11,7 @@ class A {
 class B {
     String name = "B"
     def foo() {
-        new A().foo {-> println name}
+        new A().foo {-> println this.name + ":" + owner.name + ":" + delegate.name + ":" + name}
     }
 }
 
