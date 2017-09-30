@@ -1,7 +1,7 @@
 //TASK make the Story class a functor, so that it accepts String -> String functions
 class Story {
     String words
-        
+    
 }
 
 def story = new Story(words: "")

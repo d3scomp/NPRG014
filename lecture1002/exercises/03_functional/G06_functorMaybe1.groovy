@@ -25,13 +25,17 @@ class Some<A> extends Maybe<A> {
         } catch (all) {
             return new None<B>()
         }
-    }    
+    } 
+    
+    public String toString() {"Some with value " + value}   
 }
 
 class None extends Maybe<Object> {
     public <B> Maybe<B> map(Closure<B> f) {
         return new None()
     }
+    
+    public String toString() {"None"}
 }
 
 def a = new Some<Integer>(10)
@@ -39,3 +43,15 @@ def b = a.map {Integer v -> "value: $v"}
 println b
 def c = a.map {Integer v -> if (true) throw new RuntimeException('test'); return ""}
 println c
+
+
+// API may use Maybe as a safe way to report errors in computation
+Maybe<Integer> divide(Integer a, Integer b) {
+    if (b!=0) return new Some(a/b)
+    else return new None()
+}
+
+println divide(10, 5).value
+println divide(10, 5).map {it+1}.map {-1*it}
+println divide(0, 5).map {it+1}.map {-1*it}
+println divide(10, 0).map {it+1}.map {-1*it}
