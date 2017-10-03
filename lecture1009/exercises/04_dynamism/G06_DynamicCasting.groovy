@@ -1,44 +1,51 @@
-class ComputerPerson {
-    String name
-    int age
+class Money {
+    int amount
+    String currency
 
-    String toString() {
-        "Person $name $age"
-    }
+    String toString() {"$amount $currency"}
 
     def asType(Class clazz) {
         switch (clazz) {
-            case Integer: return age
-            case Programmer: return new Programmer(nickName: name + ' the code master')
+            case Integer: return amount
+            case String: return "Money: ${toString()}".toString()
+            case Loan: return new Loan(balance: this, interestRate: 5, startDate: new Date())
         }
     }
 
     def asBoolean() {
-        return false
+        return amount>0
     }
 }
 
-class Programmer {
-    String nickName
+class Loan {
+    Money balance
+    int interestRate
+    Date startDate
 
-    String toString() {
-        "Programmer $nickName"
-    }
-
-    def asBoolean() {
-        return true
-    }
+    String toString() {"Loan with interest rate $interestRate of $balance created on $startDate"}
 }
 
-def a = new ComputerPerson(name: 'Joe', age: 25)
-println a
-assert !a
-println 'Age: ' + (a as Integer)
+m = new Money(amount: 2000, currency: "EUR")
 
-def b = (a as Programmer)
-println b
-assert b
+println(m)
 
+println "============= as Integer ============="
+println(m as Integer)
+println (10 + (m as Integer))
 
+println "============= as String ============="
+println(m as String)
+
+def report(String msg) {println "LOG: $msg"}
+
+if(m) {
+    report(m as String)
+}
+
+println "============= LOAN ============="
+Loan l = m as Loan
+println(l)
+
+report((m as Loan) as String)
 
 println 'ok'
