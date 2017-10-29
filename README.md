@@ -67,7 +67,7 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 
 ### Resources
 * Exercises to work with during the lesson and the homework are located in the “lecture1017/exercises-homework” folder
-* The “lecture1017-1114/slides” holds the slides for the lecture
+* The “lecture1030-1120/slides” holds the slides for the lecture
 
 
 ## Lesson 5 - 6th November 2017
@@ -125,7 +125,8 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * Checkout this repository to get all examples
 
 ### Resources
-* Exercises to work with during the lesson and the homework are located in the “lecture1205/exercises-homework” folder
+* Exercises to work with during the lesson and the homework are located in the “lecture1211-1218/exercises-homework” folder
+* The homework assignment is located in io/ioH.io
 * The “lecture1205-1219/slides” holds the slides for the lecture
 
 ## Lesson 10 - 18th December 2017
@@ -139,7 +140,7 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * In directories "js/whiteboard" and "typescript" execute "npm install"
 
 ### Resources
-* Exercises to work with during the lesson and the homework are located in the “lecture1205-1219/exercises-homework” folder
+* Exercises to work with during the lesson and the homework are located in the “lecture1211-1218/exercises-homework” folder
 * The homework assignment is located in js/whiteboard/index.js
 * The “lecture1205-1219/slides” holds the slides for the lecture
 
