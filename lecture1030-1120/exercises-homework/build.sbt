@@ -1,13 +1,13 @@
 lazy val commonSettings = Seq(
   organization := "com.example",
   version := "0.1.0",
-  scalaVersion := "2.11.8"
+  scalaVersion := "2.11.11"
 )
 
 lazy val macros = (project in file("macros")).
   settings(commonSettings: _*).
   settings(
-    name := "NPRG014 Scala (solved) - macros",
+    name := "NPRG014 Scala - macros",
 
     libraryDependencies += "org.scala-lang" % "scala-reflect" % scalaVersion.value
   )
@@ -15,7 +15,7 @@ lazy val macros = (project in file("macros")).
 lazy val core = (project in file(".")).
   settings(commonSettings: _*).
   settings(
-    name := "NPRG014 Scala (solved)",
+    name := "NPRG014 Scala",
 
     libraryDependencies += "org.scala-lang.modules" %% "scala-xml" % "1.0.6",
 
