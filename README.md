@@ -53,6 +53,47 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * The homework is to be found at “lecture1023/homework”
 * The “lecture1023/slides” holds the slides for the lecture
 
+
+## Lesson 4 - 30th October 2017
+### Agenda
+* Bytecode
+* Statically-typed languages (Scala) - Part I
+
+### Preparation
+* Grab and install SBT (http://www.scala-sbt.org/)
+* Install Java JDK (if you don't have it installed) from the Java download site
+* Checkout this repository to get all examples
+* Go to lecture1017/exercises-homework and run "sbt compile" to download all necessary packages (Scala and related libraries)
+
+### Resources
+* Exercises to work with during the lesson and the homework are located in the “lecture1017/exercises-homework” folder
+* The “lecture1017-1114/slides” holds the slides for the lecture
+
+
+## Lesson 5 - 6th November 2017
+### Agenda
+* Statically-typed languages (Scala) - Part II
+
+### Preparation
+* Same as for Lesson 3
+
+
+## Lesson 6 - 13th November 2017
+### Agenda
+* Statically-typed languages (Scala) - Part III
+
+### Preparation
+* Same as for Lesson 3
+
+
+## Lesson 7 - 20th November 2017
+### Agenda
+* Statically-typed languages (Scala) - Part IV 
+
+### Preparation
+* Same as for Lesson 3
+
+
 ## Lesson 8 - 4th December 2017
 ### Agenda
 
@@ -74,46 +115,7 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * The “lecture1204/slides” holds the slides for the lecture
 
 
-## Lesson TODO
-### Agenda
-* Bytecode
-* Statically-typed languages (Scala) - Part I
-
-### Preparation
-* Grab and install SBT (http://www.scala-sbt.org/)
-* Install Java JDK (if you don't have it installed) from the Java download site
-* Checkout this repository to get all examples
-* Go to lecture1017/exercises-homework and run "sbt compile" to download all necessary packages (Scala and related libraries)
-
-### Resources
-* Exercises to work with during the lesson and the homework are located in the “lecture1017/exercises-homework” folder
-* The “lecture1017-1114/slides” holds the slides for the lecture
-
-
-## Lesson TODO
-### Agenda
-* Statically-typed languages (Scala) - Part II
-
-### Preparation
-* Same as for Lesson 3
-
-
-## Lesson TODO
-### Agenda
-* Statically-typed languages (Scala) - Part III
-
-### Preparation
-* Same as for Lesson 3
-
-
-## Lesson TODO
-### Agenda
-* Statically-typed languages (Scala) - Part IV 
-
-### Preparation
-* Same as for Lesson 3
-
-## Lesson TODO
+## Lesson 9 - 11th December 2017
 ### Agenda
 
 * Prototype-based languages (IO)
@@ -126,7 +128,7 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * Exercises to work with during the lesson and the homework are located in the “lecture1205/exercises-homework” folder
 * The “lecture1205-1219/slides” holds the slides for the lecture
 
-## Lesson TODO
+## Lesson 10 - 18th December 2017
 ### Agenda
 
 * Prototype-based languages (JavaScript, TypeScript)
