@@ -63,7 +63,7 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * Grab and install SBT (http://www.scala-sbt.org/)
 * Install Java JDK (if you don't have it installed) from the Java download site
 * Checkout this repository to get all examples
-* Go to lecture1017/exercises-homework and run "sbt compile" to download all necessary packages (Scala and related libraries)
+* Go to lecture1030-1120/exercises-homework and run "sbt compile" to download all necessary packages (Scala and related libraries)
 
 ### Resources
 * Exercises to work with during the lesson and the homework are located in the “lecture1017/exercises-homework” folder
