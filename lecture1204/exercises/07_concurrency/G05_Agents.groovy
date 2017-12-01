@@ -2,17 +2,17 @@ import groovyx.gpars.agent.Agent
 
 def event = new Agent([])
 Thread.start {
-    event { it << 'Joe' }
-    event { it << 'Dave' }
+    event.send { it << 'Joe' }
+    event.send { it << 'Dave' }
 }
 
-println event.instantVal
+println "Instant peek: " + event.instantVal
 
 Thread.start {
     event { it << 'Alice' }
     event { it << 'Susan' }
 }
 
-println event.instantVal
+println "Another instant peek: " + event.instantVal
 sleep 2000
-println event.val
+println "Final state: " + event.val

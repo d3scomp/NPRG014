@@ -5,13 +5,13 @@ import static groovyx.gpars.dataflow.Dataflow.whenAllBound
 Closure download = { String url ->
     task {
         sleep 3000  //Simulate a web read
-        'web content'
+        return 'web content'
     }
 }
 
 Closure loadFile = { String fileName ->
     task {
-        'file content'  //simulate a local file read
+        return 'file content'  //simulate a local file read
     }
 }
 

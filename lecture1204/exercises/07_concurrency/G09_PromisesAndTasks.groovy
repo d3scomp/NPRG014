@@ -37,7 +37,7 @@ Thread.start {
 //TIP: Dataflow.whenAllBound(){callback code here}
 //TIP: whenAllBound() returns a Promise, Promises have a join() method
 
-boolean ready = [engineCheck, tyrePressure, radarOn].collect {it.val}.every{it}
+boolean ready = [engineCheck, tyrePressure, radarOn].every {it.val}
 if(ready) {
     println 'Taking off'
 } else {

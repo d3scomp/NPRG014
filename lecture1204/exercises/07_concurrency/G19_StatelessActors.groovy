@@ -6,9 +6,9 @@ class MyCounter extends DynamicDispatchActor {
 }
 
 final MyCounter counter = new MyCounter().start()
-counter 10
-counter 20
-counter 'Hello'
+counter << 10
+counter << 20
+counter << 'Hello'
 assert 35 == counter.sendAndWait(new GetRequest())
 
 //TODO Uncomment the following lines to see how mesage handlers can be added dynamically at runtime

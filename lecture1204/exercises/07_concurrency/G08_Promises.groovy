@@ -29,10 +29,10 @@ Thread.start {
     println "Radar ok"
 }
 
-//TASK: Find out what the code does
-//TASK: Radar can only be turned on after electricity is checked. Add an electricity-checking task and wire it so that radar is only turned on after electricity finishes correctly
+//TASK: Radar can only be turned on after electricity is checked. Add an electricity-checking task
+//and wire it so that the radar can only turned on after the electricity check finishes correctly.
 
-boolean ready = [engineCheck, tyrePressure, radarOn].collect {it.val}.every{it}
+boolean ready = [engineCheck, tyrePressure, radarOn].every {it.val}
 if(ready) {
     println 'Taking off'
 } else {
