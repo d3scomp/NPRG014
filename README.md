@@ -127,7 +127,7 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 ### Resources
 * Exercises to work with during the lesson and the homework are located in the “lecture1211-1218/exercises-homework” folder
 * The homework assignment is located in io/ioH.io
-* The “lecture1205-1219/slides” holds the slides for the lecture
+* The “lecture1211-1218/slides” holds the slides for the lecture
 
 ## Lesson 10 - 18th December 2017
 ### Agenda
@@ -142,5 +142,5 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 ### Resources
 * Exercises to work with during the lesson and the homework are located in the “lecture1211-1218/exercises-homework” folder
 * The homework assignment is located in js/whiteboard/index.js
-* The “lecture1205-1219/slides” holds the slides for the lecture
+* The “lecture1211-1218/slides” holds the slides for the lecture
 
