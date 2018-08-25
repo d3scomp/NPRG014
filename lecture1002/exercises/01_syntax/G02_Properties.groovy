@@ -1,29 +1,32 @@
-class ProgrammingLanguage {
+class City {
     String name
-    String version
-    boolean easy = true
+    int size
+    boolean capital = false
     
     //TASK comment out the following line and see what happens
-    public ProgrammingLanguage() {}
+    public City() {}
     
-    public ProgrammingLanguage(String lang) {
+    public City(String lang) {
         this.name = lang
         this.version = "1.0"
     }
     
-    static def create(String n, String v, boolean e = true) {
-        return new ProgrammingLanguage(name: n, version: v, easy: e)
+    static def create(String n, int v, boolean e = true) {
+        return new City(name: n, size: v, capital: e)
     }
 }
 
-println ProgrammingLanguage.create("Ruby", "1.9").dump()
+println City.create("Brno", 400000).dump()
 
 //TASK Use name parameters to create the instance
-ProgrammingLanguage lang = new ProgrammingLanguage(name: 'Groovy', version: '2.4', easy: true)
+City c = new City(name: 'Písek', size: 25000, capital: false)
 
-println lang.dump()
-lang.version = '2.5'
+println c.dump()
+c.size = 25001
+println c.dump()
 
+println c
 //TASK Provide a customized toString() method to print the name and the version
-println lang
-//assert 'A cool programming language: Groovy version 2.5' == lang.toString()
+//assert 'City of Písek, population: 25001' == c.toString()
+//c.capital = true
+//assert 'Capital city of Písek, population: 25001' == c.toString()
