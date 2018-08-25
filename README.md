@@ -3,23 +3,23 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 
 # Lessons
 
-## Lesson 1 - 2nd October 2017
+## Lesson 1 - 1st October 2018
 ### Agenda
 * Language dynamism - typing, casting, object construction, method invocation
 * Functional programming in OO languages
 * Scripting
 
 ### Preparation
-* Grab Groovy 2.4 from the groovy download page (http://groovy-lang.org/download.html)
+* Grab Groovy 2.5 from the groovy download page (http://groovy-lang.org/download.html)
 * Install Java JDK (if you don't have it installed) from the Java download site
 * Checkout this repository to get all examples
 
 ### Resources
-* Exercises to work with during the lesson are located in the “lecture1002/exercises” folder
-* The homework is to be found at “lecture1002/homework”
-* The “lecture1002/slides” holds the slides for the lecture
+* Exercises to work with during the lesson are located in the “lecture1001/exercises” folder
+* The homework is to be found at “lecture1001/homework”
+* The “lecture1001/slides” holds the slides for the lecture
 
-## Lesson 2 - 9th October 2017
+## Lesson 2 - 8th October 2018
 ### Agenda
 
 * Dynamic meta-programming
@@ -28,33 +28,54 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * Builders
 
 ### Preparation
-* Grab Groovy 2.4 from the groovy download page (http://groovy-lang.org/download.html)
+* Grab Groovy 2.5 from the groovy download page (http://groovy-lang.org/download.html)
 * Install Java JDK (if you don't have it installed) from the Java download site
 * Checkout this repository to get all examples
 
 ### Resources
-* Exercises to work with during the lesson are located in the “lecture1009/exercises” folder
-* The homework is to be found at “lecture1009/homework”
-* The “lecture1009/slides” holds the slides for the lecture
+* Exercises to work with during the lesson are located in the “lecture1008/exercises” folder
+* The homework is to be found at “lecture1008/homework”
+* The “lecture1008/slides” holds the slides for the lecture
 
-## Lesson 3 - 23rd October 2017
+## Lesson 3 - 22nd October 2018
 ### Agenda
 
 * Static meta-programming
 * AST transformations
 
 ### Preparation
-* Grab Groovy 2.4 from the groovy download page (http://groovy-lang.org/download.html)
+* Grab Groovy 2.5 from the groovy download page (http://groovy-lang.org/download.html)
 * Install Java JDK (if you don't have it installed) from the Java download site
 * Checkout this repository to get all examples
 
 ### Resources
-* Exercises to work with during the lesson are located in the “lecture1023/exercises” folder
-* The homework is to be found at “lecture1023/homework”
-* The “lecture1023/slides” holds the slides for the lecture
+* Exercises to work with during the lesson are located in the “lecture1022/exercises” folder
+* The homework is to be found at “lecture1022/homework”
+* The “lecture1022/slides” holds the slides for the lecture
 
 
-## Lesson 4 - 30th October 2017
+## Lesson 5 - 5th November 2018
+### Agenda
+
+* Concurrency abstractions in modern languages
+** Dataflow
+** Fork-join
+** Actors
+** Parallel collections
+** Agents
+
+### Preparation
+* Grab Groovy 2.5 from the groovy download page (http://groovy-lang.org/download.html)
+* Install Java JDK (if you don't have it installed) from the Java download site
+* Checkout this repository to get all examples
+
+### Resources
+* Exercises to work with during the lesson are located in the “lecture1105/exercises” folder
+* The homework is to be found at “lecture1105/homework”
+* The “lecture1105/slides” holds the slides for the lecture
+
+
+## Lesson 5 - 30th October 2017
 ### Agenda
 * Bytecode
 * Statically-typed languages (Scala) - Part I
@@ -70,7 +91,7 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * The “lecture1030-1120/slides” holds the slides for the lecture
 
 
-## Lesson 5 - 6th November 2017
+## Lesson 6 - 6th November 2017
 ### Agenda
 * Statically-typed languages (Scala) - Part II
 
@@ -78,7 +99,7 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * Same as for Lesson 3
 
 
-## Lesson 6 - 13th November 2017
+## Lesson 7 - 13th November 2017
 ### Agenda
 * Statically-typed languages (Scala) - Part III
 
@@ -86,34 +107,12 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * Same as for Lesson 3
 
 
-## Lesson 7 - 20th November 2017
+## Lesson 8 - 20th November 2017
 ### Agenda
 * Statically-typed languages (Scala) - Part IV 
 
 ### Preparation
 * Same as for Lesson 3
-
-
-## Lesson 8 - 4th December 2017
-### Agenda
-
-* Concurrency abstractions in modern languages
-** Dataflow
-** Fork-join
-** Actors
-** Parallel collections
-** Agents
-
-### Preparation
-* Grab Groovy 2.4 from the groovy download page (http://groovy-lang.org/download.html)
-* Install Java JDK (if you don't have it installed) from the Java download site
-* Checkout this repository to get all examples
-
-### Resources
-* Exercises to work with during the lesson are located in the “lecture1204/exercises” folder
-* The homework is to be found at “lecture1204/homework”
-* The “lecture1204/slides” holds the slides for the lecture
-
 
 ## Lesson 9 - 11th December 2017
 ### Agenda
