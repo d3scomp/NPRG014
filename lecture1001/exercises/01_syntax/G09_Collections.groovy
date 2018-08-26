@@ -1,3 +1,8 @@
+assert 270 == (10..20).findAll{it%2==0}
+        .collect {3*it}
+        .inject(0){acc, v -> acc + v}
+        
+        
 assert 5050 == (1..100).inject(0) {int acc, int v -> acc + v}
 assert 5050 == (1..100).sum()
 
