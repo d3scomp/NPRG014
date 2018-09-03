@@ -1,20 +1,17 @@
-//All functions are String -> Boolean
-Closure<Boolean> id = {String value -> true}
-Closure<Boolean> empty = {String value -> value==null || value.size()==0 ? true : false}
-Closure<Boolean> shortMsg = {String value -> value==null || value.size()<30 ? true : false}
-Closure<Boolean> interestingMsg = {String value -> value!=null && value.contains('you') ? true : false}
+//TASK Turn this into a monoid for functions String -> Integer
 
-Closure<Closure<Boolean>> andCombine = {Closure <Boolean> f, Closure <Boolean> g ->
-    return {String value -> return f(value) && g(value)}
-}
+//All functions are String -> Integer
+Closure<Integer> id = //Implement
+Closure<Integer> length = {String value -> value==null ? 0 : value.size()}
+Closure<Integer> numOfCapital = {String value -> value.findAll {c -> c != c.toLowerCase()}.size()}
+Closure<Integer> numOfSpaces = {String value -> value.findAll(' ').size()}
 
-def myMsg = andCombine(shortMsg, interestingMsg)
-println myMsg("Hello, how are you!")
-println myMsg("Fine")
+Closure<Closure<Integer>> myCombine = //Implement
+
+def myCalculation = myCombine(length, numOfCapital)
+println myCalculation("Hello, how are you!")
+println myCalculation("Fine")
 
 //Reduction is possible
-def combination = [id, empty, shortMsg, interestingMsg, id, empty, shortMsg].inject(id, andCombine)
-println combination("a")
-
-//TASK Implement a monoidic 'orCombine' function that performs logical or operation. What is the id function?
-//TASK Think about creating a monoid for functions String -> Integer
+def combination = [id, length, numOfCapital, numOfSpaces, id].inject(id, myCombine)
+println combination("Hi there! How are you doing?")

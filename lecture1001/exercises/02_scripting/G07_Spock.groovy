@@ -1,3 +1,5 @@
+@Grab("org.spockframework:spock-core:1.7-groovy-2.5")
+
 class HelloSpock extends spock.lang.Specification {
     def "length of Spock's and his friends' names"() {
         expect:

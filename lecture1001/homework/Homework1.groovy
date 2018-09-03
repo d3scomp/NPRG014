@@ -23,11 +23,11 @@ List<String> filterSitesByUserScript(String userScript, List<String> sites) {
 String userInput = '''
     for(site in allSites) {
         def content = download site
-        unless (talksAboutGroovy(content)) {
+        unless (siteTalksAboutGroovy(content)) {
             remember site
         }
     }
-    return remembered
+    return rememberedSites
 '''
 
 //Calling the filtering method on a list of sites. 
