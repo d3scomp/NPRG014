@@ -39,6 +39,6 @@ assert a + (b + c) == (a + b) + c
 
 println ((stories[0] + stories[1]).words)
 
-def result = stories.inject(Story.id) {acc, v -> acc + v}
+def result = stories.inject(Story.id) {story1, story2 -> story1 + story2}
 println result
 println result.words

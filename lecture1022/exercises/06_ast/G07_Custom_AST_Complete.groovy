@@ -46,14 +46,14 @@ public class RequiresTransformation implements ASTTransformation {
 
     public void visit(ASTNode[] astNodes, SourceUnit source) {
         if (!checkNodes(astNodes, annotationType)) {
-            addError("Internal error on annotation", astNodes[0], sourceUnit);
+            addError("Internal error on annotation", astNodes[0], source);
             return
         }
         MethodNode annotatedMethod = astNodes[1]
         def annotationExpression = astNodes[0].members.value
 
         if (annotationExpression.class != ConstantExpression) {
-            addError("The condition is not a constant expression", astNodes[0], sourceUnit);
+            addError("The condition is not a constant expression", astNodes[0], source);
             return
         }
 

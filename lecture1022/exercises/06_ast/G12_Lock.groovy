@@ -67,6 +67,7 @@ new Calculator()
 (1..500).collect {index ->
     Thread.start {
         calculator.add(index)
+        sleep(3)
         calculator.subtract(index)
     }
 }*.join()

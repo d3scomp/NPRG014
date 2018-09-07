@@ -30,7 +30,7 @@ class Some<A> extends Maybe<A> {
     public String toString() {"Some with value " + value}   
 }
 
-class None extends Maybe<Object> {
+class None<A> extends Maybe<A> {
     public <B> Maybe<B> map(Closure<B> f) {
         return new None()
     }
@@ -55,3 +55,4 @@ println divide(10, 5).value
 println divide(10, 5).map {it+1}.map {-1*it}
 println divide(0, 5).map {it+1}.map {-1*it}
 println divide(10, 0).map {it+1}.map {-1*it}
+println divide(500, 5).map {divide(it, 0)}.map {it+1}.map {-1*it}

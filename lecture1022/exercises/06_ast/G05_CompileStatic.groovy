@@ -1,6 +1,6 @@
 def calculate() {
     long sum = 0
-    for(int i =0;i<=1000000;i++) {
+    for(int i =0;i<=3000000;i++) {
         sum += i**3*i**2-i**3-34256749L + i>23.6 ? 10 : 20; 
     }
 }
@@ -8,7 +8,7 @@ def calculate() {
 @groovy.transform.CompileStatic
 def fastCalculate() {
     long sum = 0
-    for(int i =0;i<=1000000;i++) {
+    for(int i =0;i<=3000000;i++) {
         sum += i**3*i**2-i**3-34256749L + i>23.6 ? 10 : 20;
     }
 }

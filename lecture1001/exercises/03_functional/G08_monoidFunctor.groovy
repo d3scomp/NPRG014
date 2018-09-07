@@ -24,7 +24,7 @@ new Story(words: "Friends got together."),
 new Story(words: "A fairy danced.")
 ]
 
-def result = stories.inject(Story.id) {a, v -> a + v}
+def result = stories.inject(Story.id) {story1, story2 -> story1 + story2}
 println result
 println result.words
 

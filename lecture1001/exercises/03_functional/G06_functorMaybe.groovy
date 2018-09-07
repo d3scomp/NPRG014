@@ -17,7 +17,7 @@ class Some<A> extends Maybe<A> {
     }    
 }
 
-class None extends Maybe<Object> {
+class None<A> extends Maybe<A> {
     public <B> Maybe<B> map(Closure<B> f) {
         return new None()
     }
