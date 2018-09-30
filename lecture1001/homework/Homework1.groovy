@@ -1,7 +1,7 @@
 //TASK Build a processor for user scripts that will be provided in plain text at runtime.
 //On the input the processor receives a list of urls and a user script that performs user-defined filtering of these urls.
 //The processor should return urls of the websites that were returned by the user script.
-//The user scripts must be allowed to use custom commands - 'download', 'unless', talksAboutGroovy', 'remember' and 'remembered'.
+//The user scripts must be allowed to use custom commands - 'download', 'unless', siteTalksAboutGroovy', 'remember' and 'rememberedSites'.
 //The semantics of these commands can be deduced from the 'test user script input', defined at the bottom of this assignment.
 //Use the tricks we learnt about scripting, passing parameters to GroovyShell through binding, properties, 
 //closure delegates, the 'object.with(Closure)' method, etc.
