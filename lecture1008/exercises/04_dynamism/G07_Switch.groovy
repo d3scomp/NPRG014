@@ -4,7 +4,7 @@ enum DAYS {
 
 import static DAYS.*
 
-final currentDay = Tue
+def currentDay = Tue
 
 assert Wed in [Mon, Wed, Fri]
 assert Wed in Mon..Fri

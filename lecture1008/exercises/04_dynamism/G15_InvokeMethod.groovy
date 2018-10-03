@@ -36,7 +36,7 @@ class Company {
             }
         }
 
-        return super.invokeMethod(methodName, o);
+        return [];
     }
 }
 

@@ -10,13 +10,14 @@ interface Calculator {
     def increment(a)
 }
 
-final myCalculator = new Expando()
-myCalculator.add = {a, b -> a + b}
-myCalculator.multiply = {a, b -> a * b}
-myCalculator.increment = {add(it, 1)}
+final expandoCalculator = new Expando()
+expandoCalculator.add = {a, b -> a + b}
+expandoCalculator.multiply = {a, b -> a * b}
+expandoCalculator.increment = {add(it, 1)}
 
-assert 10 == myCalculator.add(3, 7)
-assert 6 == myCalculator.multiply(2, 3)
-assert 6 == myCalculator.increment(5)
+final Calculator calculator = expandoCalculator as Calculator
+assert 10 == calculator.add(3, 7)
+assert 6 == calculator.multiply(2, 3)
+assert 6 == calculator.increment(5)
 
 println 'done'

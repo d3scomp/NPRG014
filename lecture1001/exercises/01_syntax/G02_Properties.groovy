@@ -6,11 +6,6 @@ class City {
     //TASK comment out the following line and see what happens
     public City() {}
     
-    public City(String lang) {
-        this.name = lang
-        this.version = "1.0"
-    }
-    
     static def create(String n, int v, boolean e = true) {
         return new City(name: n, size: v, capital: e)
     }

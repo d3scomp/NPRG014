@@ -14,13 +14,6 @@ create house
 move furniture
 '''
 
-def binding = new Binding()
-binding['slave'] = slave
-new GroovyShell(binding).evaluate("""
-slave.with {
-    $myCode
-}
-""")
 
 class Slave {
     def propertyMissing(String name) {

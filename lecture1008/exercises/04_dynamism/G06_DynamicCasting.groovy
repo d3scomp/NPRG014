@@ -8,7 +8,7 @@ class Money {
         switch (clazz) {
             case Integer: return amount
             case String: return "Money: ${toString()}".toString()
-            case Loan: return new Loan(balance: this, interestRate: 5, startDate: new Date())
+            case Loan: return new Loan(balance: new Money(amount: this.amount, currency: this.currency), interestRate: 5, startDate: new Date())
         }
     }
 
@@ -25,7 +25,7 @@ class Loan {
     String toString() {"Loan with interest rate $interestRate of $balance created on $startDate"}
 }
 
-m = new Money(amount: 2000, currency: "EUR")
+def m = new Money(amount: 2000, currency: "EUR")
 
 println(m)
 

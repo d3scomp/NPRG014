@@ -1,7 +1,5 @@
-//example from www.groovy.cz
-
-zdravim damy, slecny
-zdravim pany
+hello ladies, gentlemen
+hi guys
 
 
 
@@ -12,8 +10,9 @@ zdravim pany
 
 
 def methodMissing(String name, args) {
-    println "$name ${args.join(', ')}"
+    println "$name ${args.join(' and ')}"
+    println "${args.join(' and ')} say $name back"
+    println ""
 }
 
 def propertyMissing(String name) { name }
-
