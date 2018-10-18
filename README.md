@@ -54,7 +54,7 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * The “lecture1022/slides” holds the slides for the lecture
 
 
-## Lesson 5 - 5th November 2018
+## Lesson 5 - 12th November 2018
 ### Agenda
 
 * Concurrency abstractions in modern languages
@@ -70,9 +70,9 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * Checkout this repository to get all examples
 
 ### Resources
-* Exercises to work with during the lesson are located in the “lecture1105/exercises” folder
-* The homework is to be found at “lecture1105/homework”
-* The “lecture1105/slides” holds the slides for the lecture
+* Exercises to work with during the lesson are located in the “lecture1112/exercises” folder
+* The homework is to be found at “lecture1112/homework”
+* The “lecture1112/slides” holds the slides for the lecture
 
 
 ## Lesson 5 - 30th October 2017
