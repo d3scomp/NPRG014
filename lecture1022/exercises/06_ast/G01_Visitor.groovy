@@ -47,5 +47,3 @@ class PrintingVisitor extends Visitor {
     }    
 }
 expr.acceptVisitor(new PrintingVisitor())
-
-//TASK add a visitor that will compute the value of the expression
