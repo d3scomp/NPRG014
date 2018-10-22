@@ -6,7 +6,7 @@ class Calculator {
     public int divide10By(divisor) {
         10 / divisor
     }
-
+7
     @Requires("a > b")
     public int subtract(a, b) {
         a - b

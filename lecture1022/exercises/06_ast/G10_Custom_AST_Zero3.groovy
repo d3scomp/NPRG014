@@ -19,7 +19,6 @@ public @interface Zero3 {}
 
 //TASK Complete the transformation code ASTBuilder.buildFromSpec() at the indicated position so as the test passes
 // Documentation and hints:
-// Documentation and hints:
 // http://docs.groovy-lang.org/docs/groovy-latest/html/api/org/codehaus/groovy/ast/package-summary.html
 // http://docs.groovy-lang.org/docs/groovy-latest/html/api/org/codehaus/groovy/ast/expr/package-summary.html
 // http://docs.groovy-lang.org/docs/groovy-latest/html/api/org/codehaus/groovy/ast/stmt/package-summary.html

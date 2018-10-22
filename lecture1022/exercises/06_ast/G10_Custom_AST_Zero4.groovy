@@ -17,13 +17,13 @@ import static org.codehaus.groovy.control.CompilePhase.SEMANTIC_ANALYSIS
 
 @Retention(RetentionPolicy.SOURCE)
 @Target([ElementType.TYPE])
-@GroovyASTTransformationClass("ZeroTransformation2")
-public @interface Zero2 {}
+@GroovyASTTransformationClass("ZeroTransformation4")
+public @interface Zero4 {}
 
 //TASK Complete the transformation code at the indicated position so as the test passes
 
 @GroovyASTTransformation(phase = SEMANTIC_ANALYSIS)
-public class ZeroTransformation2 implements ASTTransformation {
+public class ZeroTransformation4 implements ASTTransformation {
 
     public void visit(ASTNode[] astNodes, SourceUnit source) {
 
