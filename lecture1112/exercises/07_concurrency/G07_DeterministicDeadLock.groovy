@@ -1,3 +1,6 @@
+import static groovyx.gpars.dataflow.Dataflow.*
+import groovyx.gpars.dataflow.*
+
 /**
  * Demonstrates that deadlocks are deterministic in dataflow concurrency model. The deadlock appears reliably every time
  * the sample is run at exactly the same positions in code irrespective of the machine configuration.

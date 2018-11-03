@@ -15,4 +15,5 @@ Thread.start {
 
 println "Another instant peek: " + event.instantVal
 sleep 2000
+event { it << 'Eve' }
 println "Final state: " + event.val

@@ -21,8 +21,8 @@ Closure compare = { int first, int second ->
     first == second
 }
 
-//TASK: Using the Dataflow.whenAllBound() and Promise.then() (aka pipe "|" or rightShift '>>') methods wire together multiple asynchronous functions
-//      We needs hashes to be calculated on both web content and local file content and those hashes then need to be compared for equality
+//TASK: Using the Dataflow.whenAllBound() and Promise.then() (aka pipe "|") methods wire together multiple asynchronous functions
+//      We need hashes to be calculated on both web content and local file content and those hashes then need to be compared for equality
   
 //TASK Block here until the whole calculation finishes
 println 'Finished'
