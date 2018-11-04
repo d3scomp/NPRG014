@@ -41,7 +41,7 @@ object JsonInterp {
 
 		println()
 
-		println(pretty(render(jo)))
+		println(prettyRender(jo))
 
 		println()
 
@@ -54,7 +54,7 @@ object JsonInterp {
 		}
 
 		val jo2 = jsaq"""{ "name": $name, "age": $age, "married": $married }"""
-		println(pretty(render(jo2)))
+		println(prettyRender(jo2))
 		*/
 	}
 }
