@@ -111,7 +111,7 @@ group.with {
         results
     }.get()
 
-    //Print the results
+    //Print the results to the console
     println "Daily averages:    \t${results['dailyAveragesKey'].join(',\t')}"
     println "Five day averages: \t${results['fiveDayAveragesKey'].join(',\t')}"
 
@@ -120,4 +120,4 @@ group.with {
 }
 
 group.shutdown()
-println 'done'
+println 'well done'
