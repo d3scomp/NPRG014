@@ -39,7 +39,7 @@ trait FourLegged extends HasLegs {
 	}
 }
 
-class Cat extends Furry with FourLegged {
+class Cat extends Animal with Furry with FourLegged {
 	println("Cat initialized")
 
 	override def eat() {

@@ -15,7 +15,7 @@ class MyList[T] private(private val item: T, private val next: MyList[T]) {
 	override def toString(): String = {
 		val result = new StringBuilder
 		
-		var list = this;
+		var list = this
 		while (list != null) {
 			result.append(list.item.toString)
 			
@@ -32,7 +32,7 @@ class MyList[T] private(private val item: T, private val next: MyList[T]) {
 
 object MyList {
 	def apply[T](items: T*): MyList[T] = {
-		var result: MyList[T] = null;
+		var result: MyList[T] = null
 		
 		for (item <- items.reverse) {
 			result = new MyList[T](item, result)
