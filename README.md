@@ -37,7 +37,7 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * The homework is to be found at “lecture1008/homework”
 * The “lecture1008/slides” holds the slides for the lecture
 
-## Lesson 3 - 22nd October 2018
+## Lesson 3 - 15th October 2018
 ### Agenda
 
 * Static meta-programming
@@ -54,7 +54,7 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * The “lecture1022/slides” holds the slides for the lecture
 
 
-## Lesson 4 - 5th November 2018
+## Lesson 4 - 22nd October 2018
 ### Agenda
 * Bytecode
 * Statically-typed languages (Scala) - Part I
@@ -70,7 +70,23 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * The “lecture1105-1203/slides” holds the slides for the lecture
 
 
-## Lesson 5 - 12th November 2018
+## Lesson 5 - 29th October 2018
+### Agenda
+* Statically-typed languages (Scala) - Part II
+
+### Preparation
+* Same as for Lesson 4
+
+
+## Lesson 6 - 5th December 2018
+### Agenda
+* Statically-typed languages (Scala) - Part III
+
+### Preparation
+* Same as for Lesson 4
+
+
+## Lesson 7 - 12th November 2018
 ### Agenda
 
 * Concurrency abstractions in modern languages
@@ -91,30 +107,14 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * The “lecture1112/slides” holds the slides for the lecture
 
 
-## Lesson 6 - 19th November 2018
-### Agenda
-* Statically-typed languages (Scala) - Part II
-
-### Preparation
-* Same as for Lesson 4
-
-
-## Lesson 7 - 26th December 2018
-### Agenda
-* Statically-typed languages (Scala) - Part III
-
-### Preparation
-* Same as for Lesson 4
-
-
-## Lesson 8 - 3rd December 2018
+## Lesson 8 - 19th November 2018
 ### Agenda
 * Statically-typed languages (Scala) - Part IV 
 
 ### Preparation
 * Same as for Lesson 4
 
-## Lesson 9 - 10th December 2018
+## Lesson 9 - 26th November 2018
 ### Agenda
 
 * Prototype-based languages (IO)
@@ -128,7 +128,7 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * The homework assignment is located in io/ioH.io
 * The “lecture1210-1217/slides” holds the slides for the lecture
 
-## Lesson 10 - 17th December 2018
+## Lesson 10 - 3th December 2018
 ### Agenda
 
 * Prototype-based languages (JavaScript, TypeScript)
