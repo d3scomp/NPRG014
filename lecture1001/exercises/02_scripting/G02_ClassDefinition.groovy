@@ -1,4 +1,4 @@
-//These two simulate program input parameters
+//These two simulate the program input parameters
 final properties= ['name': String, 'age': Integer]
 final className = "Person"
 

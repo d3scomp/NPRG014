@@ -6,4 +6,7 @@ assert year == '2012'
 
 println([day, month, year].join('. '))
 
+//TASK Concatenate upper-case variants of these words with "spaces" between them.
+//assert "HELLO GROOVY HOW ARE YOU?" == ["Hello", "Groovy", "how", "are", "you?"]
+
 println 'ok'

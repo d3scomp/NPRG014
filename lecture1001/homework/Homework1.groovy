@@ -36,5 +36,5 @@ def result = filterSitesByUserScript(userInput, sites)
 result.each {
     println 'No groovy mention at ' + it
 }
-assert result.size()>0 && result.size() < sites.size   
+assert result.size()>0 && result.size() <= sites.size   
 println 'ok'

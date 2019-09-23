@@ -1,5 +1,7 @@
 Closure multiply = {a, b -> a * b}
 
+assert "MFF" == "M" + multiply("F", 2)
+
 assert 6 == multiply(2, 3)
 
 //TASK Make increment to use the implicit parameter

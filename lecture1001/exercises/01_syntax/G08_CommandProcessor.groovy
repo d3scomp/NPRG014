@@ -39,13 +39,13 @@ final land = {
     stopEngine()
 }
 
-//TASK Implement the suggested performCommand() method so that the following code passes
+//TASK Implement the suggested performCommand() method to set the delegate so that the following code passes
 final plane = new Plane()
 plane.performCommand('Take off', takeoff)
 println '*** We are in flight now ***'
 plane.performCommand('Land', land)
 
-//TASK Make the following code pass, too.
+//TASK Make the following code pass, too. Use the doCall() method to handle function calls on the Plane objects.
 //plane('Take off', takeoff)
 //println '*** We are in flight now ***'
 //plane('Land', land)

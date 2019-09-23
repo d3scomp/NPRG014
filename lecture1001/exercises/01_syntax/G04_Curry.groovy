@@ -1,15 +1,17 @@
-Closure multiply = {a, b -> a * b}
+Closure computeTax = {rate, amount -> amount + amount * rate / 100}
 
-assert 6 == multiply(2, 3)
+assert 260 == computeTax(30, 200)
 
-//TASK Define triple as a partially applied function of multiply
+//TASK Define vatTax (21%) and incomeTax (19%) as a partially applied functions of computeTax
 
-//def triple = 
-//assert 12 == triple(4)
+//def vatTax = ...
+//assert 48400 == vatTax(40000)
 
+//def incomeTax = ...
+//assert 71162 == incomeTax(59800)
 
-//TASK Define a curried version of multiply
+//TASK Define a curried version of computeTax
 
-//def c = ...
-//assert 15 == c(3)(5)
+//def tax = ...
+//assert 55000 == tax(10)(50000)
 println 'ok'
