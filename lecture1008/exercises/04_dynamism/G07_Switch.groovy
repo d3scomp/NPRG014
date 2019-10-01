@@ -24,11 +24,6 @@ switch (currentDay) {
     default: println 'Sorry, no help here'
 }
 
-class TrainingDays {
-    final days = [Mon, Tue, Fri]
-}
-
-//TASK Make the following pass by implementing the isCase() method on the TrainingDays class
-//assert Fri in new TrainingDays()
+assert Fri in (Wed..Fri)
 
 println 'ok'

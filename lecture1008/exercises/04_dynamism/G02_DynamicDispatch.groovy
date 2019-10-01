@@ -23,10 +23,11 @@ class Receptionist {
 
 final receptionist = new Receptionist()
 
-println receptionist.welcome(new BusinessPerson())
-println receptionist.welcome(new Turist())
-println receptionist.welcome(new Burglar())
-println receptionist.welcome(new Homeless())
+final visitors = [new BusinessPerson(), new Turist(), new Burglar(), new Homeless()]
+final greetings = visitors.collect {
+                    receptionist.welcome(it)
+                  }
+greetings.each {println it}
 
 //TASK Make the following code pass
 //println receptionist(new BusinessPerson())

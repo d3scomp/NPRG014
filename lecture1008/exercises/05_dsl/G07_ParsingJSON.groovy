@@ -18,6 +18,7 @@ def header = json.message.header
 assert header.from == 'mrhaki'
 assert header.to[0] == 'Groovy Users'
 assert header.to[1] == 'Java Users'
-assert json.message.body == "Check out Groovy's gr8 JSON support."
+//TASK read the json message body
+//assert ... == "Check out Groovy's gr8 JSON support."
 
 println 'ok'

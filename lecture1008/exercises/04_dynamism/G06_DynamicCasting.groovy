@@ -43,9 +43,7 @@ if(m) {
 }
 
 println "============= LOAN ============="
-Loan l = m as Loan
-println(l)
-
-report((m as Loan) as String)
+Loan yourNewLoan = new Money(amount: 300, currency: "EUR") as Loan
+report((yourNewLoan) as String)
 
 println 'ok'

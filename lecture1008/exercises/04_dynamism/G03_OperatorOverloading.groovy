@@ -1,34 +1,45 @@
-abstract class Person {
+import groovy.transform.ToString
+
+class Group {
+    final members = [] as Set
+    
+    def leftShift(Person p) {
+        members.add(p)
+        return this
+    }
+
+    def plus(Group g) {
+        members.addAll(g)
+        return this
+    }
+}
+
+@ToString
+class Person {
     String name
+    
+    def plus(Person p) {
+        final g = new Group()
+        g << this
+        g << p
+        return g
+    }    
 }
 
-class Man extends Person {
-    public List marry(Woman partner) {
-        [partner, this]
-    }
-}
+final joe = new Person(name: 'Joe')
+final dave = new Person(name: 'Dave')
+final alice = new Person(name: 'Alice')
+final susan = new Person(name: 'Susan')
 
-class Woman extends Person {
-    public List marry(Man partner) {
-        [this, partner]
-    }
-}
+assert [alice, joe] as Set == (joe + alice).members
+assert [susan, dave] as Set == (susan + dave).members
 
-final joe = new Man(name: 'Joe')
-final dave = new Man(name: 'Dave')
-final alice = new Woman(name: 'Alice')
-final susan = new Woman(name: 'Susan')
+final closeFriends = dave + susan
+closeFriends << alice
+closeFriends << joe
+assert [susan, dave, joe, alice] as Set == (closeFriends).members
 
-assert [alice, joe] == joe.marry(alice)
-assert [alice, joe] == alice.marry(joe)
-assert [susan, dave] == susan.marry(dave)
-assert [susan, dave] == dave.marry(susan)
+assert [alice, dave, susan, joe] as Set == ((alice + joe) << dave << susan).members
 
-//TASK check out the exception that gets thrown after uncommenting the following line
-//assert [joe, dave] == joe.marry(dave)
-
-//TASK override the + operator to marry people
-//assert [alice, joe] == joe + alice
-//assert [susan, dave] == susan + dave
 
 println 'done'
