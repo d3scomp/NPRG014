@@ -19,14 +19,14 @@ import static org.codehaus.groovy.ast.tools.GeneralUtils.*
 
 @Retention(RetentionPolicy.SOURCE)
 @Target([ElementType.TYPE])
-@GroovyASTTransformationClass("CreatedAtTransformation")
+@GroovyASTTransformationClass("CreatedAtTransform")
 public @interface CreatedAt {
     String name() default "";
 }
 
 
 @GroovyASTTransformation(phase = SEMANTIC_ANALYSIS)
-public class CreatedAtTransformation implements ASTTransformation {
+public class CreatedAtTransform implements ASTTransformation {
 
     public void visit(ASTNode[] astNodes, SourceUnit source) {
 

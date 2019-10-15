@@ -98,4 +98,4 @@ new Calculator()
 ''')
 
 println calculator.divide10By(5)
-println calculator.divide10By(0)
+//println calculator.divide10By(0)
