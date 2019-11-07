@@ -5,8 +5,8 @@ import groovyx.gpars.group.*
 
 final DataflowQueue numbers = new DataflowQueue()
 task {
-    10.times {
-        numbers << it+1
+    (1..11).each {
+        numbers << it
     }
 }
 final DataflowQueue loopback = new DataflowQueue()

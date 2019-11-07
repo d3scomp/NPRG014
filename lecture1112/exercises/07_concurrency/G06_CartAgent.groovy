@@ -9,7 +9,7 @@ interface Cart {
     List getContents()
 }
 
-//TODO Correct the implementation using Agents so that it is thread-safe and correct in concurrent execution
+//TODO Correct the implementation of the CartImpl class using Agents so that it is thread-safe and correct in concurrent execution
 
 class CartImpl implements Cart {
     private contents = []
@@ -26,6 +26,8 @@ class CartImpl implements Cart {
     }
 }
 
+
+//User code, do not modify below this line
 Cart cart = new CartImpl()
 50.times {
     Thread.start {

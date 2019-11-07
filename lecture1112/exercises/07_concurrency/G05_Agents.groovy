@@ -8,6 +8,7 @@ Thread.start {
 
 println "Instant peek: " + event.instantVal
 
+//Notice syntax sugar here allowing you to omit "send"
 Thread.start {
     event { it << 'Alice' }
     event { it << 'Susan' }
