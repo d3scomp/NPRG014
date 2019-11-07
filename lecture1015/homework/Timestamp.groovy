@@ -31,7 +31,7 @@ public class CreatedAtTransform implements ASTTransformation {
     public void visit(ASTNode[] astNodes, SourceUnit source) {
 
         //...
-        // TASK Ensure the annotated class has a private final long field holding the time of instantiation of the object.
+        // TASK Ensure the annotated class has a private long field holding the time of instantiation of the object.
         // Also, generate a public final method returning the value stored in the field. The name of the method should be configurable through 
         // the annotation 'name' parameter.
         // Additionally, all methods of the class should be enhanced so that they reset the time stored in the field to the current time,
@@ -79,12 +79,15 @@ def oldTimeStamp = calculator.timestamp()
 
 sleep(1000)
 calculator.add(10)
+assert calculator.sum == 10
+
 assert oldTimeStamp < calculator.timestamp()
 assert calculator.timestamp() == calculator.timestamp()
 oldTimeStamp = calculator.timestamp()
 
 sleep(1000)
 calculator.subtract(1)
+assert calculator.sum == 9
 assert oldTimeStamp < calculator.timestamp()
 assert calculator.timestamp() == calculator.timestamp()
 
