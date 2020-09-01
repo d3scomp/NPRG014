@@ -4,6 +4,7 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 # Lessons
 
 ## Lesson 1 - 5th October 2020
+
 ### Agenda
 * Language dynamism - typing, casting, object construction, method invocation
 * Functional programming in OO languages
@@ -21,6 +22,7 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * The “lecture10005/slides” holds the slides for the lecture
 
 ## Lesson 2 - 12th October 2020
+
 ### Agenda
 
 * Dynamic meta-programming
@@ -38,6 +40,7 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * The “lecture1012/slides” holds the slides for the lecture
 
 ## Lesson 3 - 19th October 2020
+
 ### Agenda
 
 * Static meta-programming
@@ -72,6 +75,7 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * The “lecture1026/slides” holds the slides for the lecture
 
 ## Lesson 5 - ? 2020
+
 ### Agenda
 * Bytecode
 * Statically-typed languages (Scala) - Part I
@@ -88,22 +92,23 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 
 
 ## Lesson 6 - ? 2020
+
 ### Agenda
 * Statically-typed languages (Scala) - Part II
 
 ### Preparation
 * Same as for Lesson 4
 
-
 ## Lesson 7 - ? 2020
+
 ### Agenda
 * Statically-typed languages (Scala) - Part III
 
 ### Preparation
 * Same as for Lesson 4
 
-
 ## Lesson 8 - ? 2020
+
 ### Agenda
 * Statically-typed languages (Scala) - Part IV 
 
@@ -111,6 +116,7 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * Same as for Lesson 4
 
 ## Lesson 9 - ? 2020
+
 ### Agenda
 
 * Prototype-based languages (IO)
@@ -125,6 +131,7 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * The “lecture1210-1217/slides” holds the slides for the lecture
 
 ## Lesson 10 - ? 2020
+
 ### Agenda
 
 * Prototype-based languages (JavaScript, TypeScript)
