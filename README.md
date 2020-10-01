@@ -55,7 +55,7 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * The homework is to be found at “lecture1019/homework”
 * The “lecture1019/slides” holds the slides for the lecture
 
-## Lesson 4 - 26th November 2020
+## Lesson 4 - 26th October 2020
 ### Agenda
 
 * Concurrency abstractions in modern languages
@@ -74,7 +74,7 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * The homework is to be found at “lecture1026/homework”
 * The “lecture1026/slides” holds the slides for the lecture
 
-## Lesson 5 - ? 2020
+## Lesson 5 - 2nd November 2020
 
 ### Agenda
 * Bytecode
@@ -91,7 +91,7 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * The “lecture1105-1203/slides” holds the slides for the lecture
 
 
-## Lesson 6 - ? 2020
+## Lesson 6 - 9th November 2020
 
 ### Agenda
 * Statically-typed languages (Scala) - Part II
@@ -99,7 +99,7 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 ### Preparation
 * Same as for Lesson 4
 
-## Lesson 7 - ? 2020
+## Lesson 7 - 16th November 2020
 
 ### Agenda
 * Statically-typed languages (Scala) - Part III
@@ -107,7 +107,7 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 ### Preparation
 * Same as for Lesson 4
 
-## Lesson 8 - ? 2020
+## Lesson 8 - 23rd November 2020
 
 ### Agenda
 * Statically-typed languages (Scala) - Part IV 
@@ -115,7 +115,7 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 ### Preparation
 * Same as for Lesson 4
 
-## Lesson 9 - ? 2020
+## Lesson 9 - 30th November 2020
 
 ### Agenda
 
@@ -130,7 +130,7 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * The homework assignment is located in io/ioH.io
 * The “lecture1210-1217/slides” holds the slides for the lecture
 
-## Lesson 10 - ? 2020
+## Lesson 10 - 7th December 2020
 
 ### Agenda
 
