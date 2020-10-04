@@ -6,6 +6,6 @@ fib = {
 //TASK Use the memoizeAtMost() method instead and find the minimum number of remembered elements for the algorithm to run in linear space and time
 
 long b = System.currentTimeMillis()
-fib(900G)
+fib(90G)
 long a = System.currentTimeMillis()
 println((a - b) / 1000 + ' seconds') // about 0.002 seconds on my machine

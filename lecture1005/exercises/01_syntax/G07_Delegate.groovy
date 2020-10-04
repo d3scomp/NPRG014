@@ -2,8 +2,8 @@ class UniversityContext {
     String leader = "Ms. Smith"
     
     def runInContext(code) {
-//       code.delegate = this    
-//        f.resolveStrategy = Closure...
+       code.delegate = this    
+       code.resolveStrategy = Closure.DELEGATE_FIRST
        code.call()
     }
 }
@@ -16,19 +16,27 @@ class FacultyContext {
     }
 }
 
-class StudentGroup {
-    String leader = "Ms. Novak"
-    def request = {println """This leader: ${this.leader}
-Owner leader: ${owner.leader}
-Delegate leader: ${delegate.leader}
-Just leader: ${leader}
-        """}
+class CabinetContext {
+    String leader = "Ms. Gray"
+    def request = {println """\
+                      This leader: ${this.leader}
+                      Owner leader: ${owner.leader}
+                      Delegate leader: ${delegate.leader}
+                      Just leader: -> ${leader} <-
+                           """}
+
+    def runInContext(code) {
+       code.delegate = this
+       code.call()
+    }                       
     
-    def initiateDiscussion() {
-        new FacultyContext().runInContext request
-        new UniversityContext().runInContext request        
+    def runRequest() {
+        runInContext(request)
+        new FacultyContext().runInContext(request)
+        new UniversityContext().runInContext(request)        
     }
 }
 
-new StudentGroup().initiateDiscussion()
+new CabinetContext().runRequest()
+
 //TASK Experiment with different resolution strategies
