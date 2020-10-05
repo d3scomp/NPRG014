@@ -31,7 +31,7 @@ String userInput = '''
 '''
 
 //Calling the filtering method on a list of sites. 
-sites = ["http://groovy.cz", "http://idnes.cz", "http://groovy-lang.org/", "http://infoq.com", "http://oracle.com", "http://ibm.com"]
+sites = ["http://idnes.cz", "http://groovy-lang.org/", "http://infoq.com", "http://oracle.com", "http://ibm.com"]
 def result = filterSitesByUserScript(userInput, sites)
 result.each {
     println 'No groovy mention at ' + it
