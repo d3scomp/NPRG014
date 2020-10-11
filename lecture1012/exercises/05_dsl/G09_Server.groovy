@@ -27,5 +27,4 @@ final doc = builder.html {
 
 "success"
 
-//TASK run from command line using the "groovy -l port script_name" command and open the page in the browser
-//TASK Add a link to the page pointing to "http://groovy.cz" and reload so as you can see it in the browser
+//TASK Add a link to the page pointing to "https://groovy-lang.org/" and reload so as you can see it in the browser
