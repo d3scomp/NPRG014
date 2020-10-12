@@ -13,8 +13,10 @@ def fastCalculate() {
     }
 }
 
+println "Running dynamically compiled code"
 println time {calculate()}
 println time {calculate()}
+println "Running statically compiled code"
 println time {fastCalculate()}
 println time {fastCalculate()}
 println 'done'
