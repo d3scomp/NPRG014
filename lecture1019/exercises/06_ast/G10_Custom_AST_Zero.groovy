@@ -20,7 +20,7 @@ import static org.codehaus.groovy.control.CompilePhase.SEMANTIC_ANALYSIS
 @GroovyASTTransformationClass("ZeroTransformation")
 public @interface Zero {}
 
-//TASK Complete the transformation code using direct API manipulation at the indicated position so as the test passes
+//TASK Complete the transformation code using direct API manipulation at the indicated position so the the test passes
 // Documentation and hints:
 // http://docs.groovy-lang.org/docs/groovy-latest/html/api/org/codehaus/groovy/ast/package-summary.html
 // http://docs.groovy-lang.org/docs/groovy-latest/html/api/org/codehaus/groovy/ast/expr/package-summary.html

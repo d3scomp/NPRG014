@@ -9,6 +9,7 @@ import org.codehaus.groovy.control.SourceUnit
 import org.codehaus.groovy.transform.ASTTransformation
 import org.codehaus.groovy.transform.GroovyASTTransformation
 import org.codehaus.groovy.transform.GroovyASTTransformationClass
+import org.codehaus.groovy.syntax.*
 import groovyjarjarasm.asm.Opcodes
 import static org.codehaus.groovy.control.CompilePhase.SEMANTIC_ANALYSIS
 
@@ -46,6 +47,22 @@ public class NumberConversionTransformation3 implements ASTTransformation {
             }
         }
         annotatedClass.addMethod(res[0])
+        
+        /* the add(a, b) method */
+        List<ASTNode> exprStmt = ab.buildFromSpec {
+            method('add', Opcodes.ACC_PUBLIC, Integer) {
+                parameters {
+                    parameter 'a': Integer.class
+                    parameter 'b': Integer.class                    
+                }
+                exceptions { }
+                block {
+                }
+                annotations {}
+            }
+        }
+        annotatedClass.addMethod(exprStmt[0])
+                
     }
 }
 
@@ -57,3 +74,6 @@ new Calculator()
 ''')
 
 println calculator.convertToNumber("20")
+//TASK: Enable the add(a, b) method that sums a and b
+//TIP: Seach AstSpecificationCompiler for the available builder methods
+//println calculator.add(3, 5)

@@ -33,6 +33,13 @@ public class NumberConversionTransformation1 implements ASTTransformation {
 
         def param = new Parameter(ClassHelper.STRING_TYPE, "valueToConvert")
         annotatedClass.addMethod("convertToNumber", Opcodes.ACC_PUBLIC, ClassHelper.Integer_TYPE, [param] as Parameter[], [] as ClassNode[], res[0])
+        
+
+        /* the add(a, b) method */
+        List<ASTNode> exprstmt = ab.buildFromString('''
+              //empty
+            ''')
+        annotatedClass.addMethod("add", Opcodes.ACC_PUBLIC, ClassHelper.Integer_TYPE, [] as Parameter[], [] as ClassNode[], exprstmt[0])
     }
 }
 
@@ -44,3 +51,5 @@ new Calculator()
 ''')
 
 println calculator.convertToNumber("20")
+//TASK: Enable the add(a, b) method that sums a and b
+//println calculator.add(3, 5)

@@ -16,6 +16,7 @@ import org.codehaus.groovy.control.messages.SyntaxErrorMessage
 import groovyjarjarasm.asm.Opcodes
 import org.codehaus.groovy.ast.ClassHelper
 import static org.codehaus.groovy.ast.tools.GeneralUtils.*
+import org.codehaus.groovy.control.CompilePhase
 
 @Retention(RetentionPolicy.SOURCE)
 @Target([ElementType.TYPE])
@@ -32,6 +33,8 @@ public class CreatedAtTransform implements ASTTransformation {
 
         //...
         // TASK Ensure the annotated class has a private long field holding the time of instantiation of the object.
+        // IMPORTANT: The code that initializes the field must be defined using the 'macro {}' construct.
+        
         // Also, generate a public final method returning the value stored in the field. The name of the method should be configurable through 
         // the annotation 'name' parameter.
         // Additionally, all methods of the class should be enhanced so that they reset the time stored in the field to the current time,
