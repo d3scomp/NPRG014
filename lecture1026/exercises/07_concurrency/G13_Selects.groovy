@@ -62,7 +62,7 @@ group.task {
     }
 }.join()
 
-
+//TASK Merge the two consumer process into a single one
 
 
 
