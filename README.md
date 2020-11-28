@@ -3,23 +3,24 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 
 # Lessons
 
-## Lesson 1 - 1st October 2019
+## Lesson 1 - 5th October 2020
 ### Agenda
 * Language dynamism - typing, casting, object construction, method invocation
 * Functional programming in OO languages
 * Scripting
 
 ### Preparation
-* Grab Groovy 2.5 from the groovy download page (http://groovy-lang.org/download.html)
-* Install Java JDK (if you don't have it installed) from the Java download site
-* Checkout this repository to get all examples
+* Bring your laptop to the lecture with the listed software pre-installed
+* Grab Groovy 3.0.x from the groovy download page (http://groovy-lang.org/download.html)
+* Install Java JDK 11 or higher (if you don't have it installed) from the Java download site
+* Checkout this repository to get the source code of the examples and homework assignment that will be used during the lecture
 
 ### Resources
-* Exercises to work with during the lesson are located in the “lecture1001/exercises” folder
-* The homework is to be found at “lecture1001/homework”
-* The “lecture1001/slides” holds the slides for the lecture
+* Exercises to work with during the lesson are located in the “lecture10005/exercises” folder
+* The homework is to be found at “lecture10005/homework”
+* The “lecture10005/slides” holds the slides for the lecture
 
-## Lesson 2 - 8th October 2019
+## Lesson 2 - 12th October 2020
 ### Agenda
 
 * Dynamic meta-programming
@@ -28,65 +29,30 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * Builders
 
 ### Preparation
-* Grab Groovy 2.5 from the groovy download page (http://groovy-lang.org/download.html)
-* Install Java JDK (if you don't have it installed) from the Java download site
-* Checkout this repository to get all examples
+* Same as for Lesson 1
+* Do a fresh checkout of this repository to get updated source code for examples and homework assignments
 
 ### Resources
-* Exercises to work with during the lesson are located in the “lecture1008/exercises” folder
-* The homework is to be found at “lecture1008/homework”
-* The “lecture1008/slides” holds the slides for the lecture
+* Exercises to work with during the lesson are located in the “lecture1012/exercises” folder
+* The homework is to be found at “lecture1012/homework”
+* The “lecture1012/slides” holds the slides for the lecture
 
-## Lesson 3 - 15th October 2019
+## Lesson 3 - 19th October 2020
 ### Agenda
 
 * Static meta-programming
 * AST transformations
 
 ### Preparation
-* Grab Groovy 2.5 from the groovy download page (http://groovy-lang.org/download.html)
-* Install Java JDK (if you don't have it installed) from the Java download site
-* Checkout this repository to get all examples
+* Same as for Lesson 1
+* Do a fresh checkout of this repository to get updated source code for examples and homework assignments
 
 ### Resources
-* Exercises to work with during the lesson are located in the “lecture1022/exercises” folder
-* The homework is to be found at “lecture1022/homework”
-* The “lecture1022/slides” holds the slides for the lecture
+* Exercises to work with during the lesson are located in the “lecture1019/exercises” folder
+* The homework is to be found at “lecture1019/homework”
+* The “lecture1019/slides” holds the slides for the lecture
 
-
-## Lesson 4 - 22nd October 2019
-### Agenda
-* Bytecode
-* Statically-typed languages (Scala) - Part I
-
-### Preparation
-* Grab and install SBT (http://www.scala-sbt.org/)
-* Install Java JDK (if you don't have it installed) from the Java download site
-* Checkout this repository to get all examples
-* Go to lecture1105-1203/exercises-homework and run "sbt compile" to download all necessary packages (Scala and related libraries)
-
-### Resources
-* Exercises to work with during the lesson and the homework are located in the “lecture1105-1203/exercises-homework” folder
-* The “lecture1105-1203/slides” holds the slides for the lecture
-
-
-## Lesson 5 - 29th October 2019
-### Agenda
-* Statically-typed languages (Scala) - Part II
-
-### Preparation
-* Same as for Lesson 4
-
-
-## Lesson 6 - 5th November 2019
-### Agenda
-* Statically-typed languages (Scala) - Part III
-
-### Preparation
-* Same as for Lesson 4
-
-
-## Lesson 7 - 12th November 2019
+## Lesson 4 - 26th October 2020
 ### Agenda
 
 * Concurrency abstractions in modern languages
@@ -97,24 +63,53 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 ** Agents
 
 ### Preparation
-* Grab Groovy 2.5 from the groovy download page (http://groovy-lang.org/download.html)
-* Install Java JDK (if you don't have it installed) from the Java download site
-* Checkout this repository to get all examples
+* Same as for Lesson 1
+* Do a fresh checkout of this repository to get updated source code for examples and homework assignments
 
 ### Resources
-* Exercises to work with during the lesson are located in the “lecture1112/exercises” folder
-* The homework is to be found at “lecture1112/homework”
-* The “lecture1112/slides” holds the slides for the lecture
+* Exercises to work with during the lesson are located in the “lecture1026/exercises” folder
+* The homework is to be found at “lecture1026/homework”
+* The “lecture1026/slides” holds the slides for the lecture
 
-
-## Lesson 8 - 19th November 2019
+## Lesson 5 - 2nd November 2020
 ### Agenda
-* Statically-typed languages (Scala) - Part IV 
+* Bytecode
+* Statically-typed languages (Scala) - Part I
 
 ### Preparation
-* Same as for Lesson 4
+* Grab and install SBT (http://www.scala-sbt.org/)
+* Install Java JDK (if you don't have it installed) from the Java download site
+* Checkout this repository to get all examples
+* Go to lecture1102-1123/exercises-homework and run "sbt compile" to download all necessary packages (Scala and related libraries)
 
-## Lesson 9 - 26th November 2019
+### Resources
+* Exercises to work with during the lesson and the homework are located in the lecture1102-1123/exercises-homework” folder
+* The “lecture1102-1123/slides” holds the slides for the lecture
+
+
+## Lesson 6 - 9th November 2020
+### Agenda
+* Statically-typed languages (Scala) - Part II
+
+### Preparation
+* Same as for Lesson 5
+
+## Lesson 7 - 16th November 2020
+### Agenda
+* Statically-typed languages (Scala) - Part III
+
+### Preparation
+* Same as for Lesson 5
+
+## Lesson 8 - 23rd November 2020
+### Agenda
+* Statically-typed languages (Scala) - Part IV
+
+### Preparation
+* Same as for Lesson 5
+
+
+## Lesson 9 - 30th November 2020
 ### Agenda
 
 * Prototype-based languages (IO)
@@ -124,11 +119,11 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * Checkout this repository to get all examples
 
 ### Resources
-* Exercises to work with during the lesson and the homework are located in the “lecture1210-1217/exercises-homework” folder
+* Exercises to work with during the lesson and the homework are located in the “lecture1130-1207/exercises-homework” folder
 * The homework assignment is located in io/ioH.io
-* The “lecture1210-1217/slides” holds the slides for the lecture
+* The “lecture1130-1207/slides” holds the slides for the lecture
 
-## Lesson 10 - 3th December 2019
+## Lesson 10 - 7th December 2020
 ### Agenda
 
 * Prototype-based languages (JavaScript, TypeScript)
@@ -139,7 +134,7 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * In directories "js/whiteboard" and "typescript" execute "npm install"
 
 ### Resources
-* Exercises to work with during the lesson and the homework are located in the “lecture1210-1217/exercises-homework” folder
+* Exercises to work with during the lesson and the homework are located in the “lecture1130-1207/exercises-homework” folder
 * The homework assignment is located in js/whiteboard/index.js
-* The “lecture1210-1217/slides” holds the slides for the lecture
+* The “lecture1130-1207/slides” holds the slides for the lecture
 
