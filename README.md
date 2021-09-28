@@ -3,7 +3,7 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 
 # Lessons
 
-## Lesson 1 - 5th October 2020
+## Lesson 1 - 4th October 2021
 ### Agenda
 * Language dynamism - typing, casting, object construction, method invocation
 * Functional programming in OO languages
@@ -16,11 +16,11 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * Checkout this repository to get the source code of the examples and homework assignment that will be used during the lecture
 
 ### Resources
-* Exercises to work with during the lesson are located in the “lecture10005/exercises” folder
-* The homework is to be found at “lecture10005/homework”
-* The “lecture10005/slides” holds the slides for the lecture
+* Exercises to work with during the lesson are located in the “lecture1004/exercises” folder
+* The homework is to be found at “lecture10004/homework”
+* The “lecture10004/slides” holds the slides for the lecture
 
-## Lesson 2 - 12th October 2020
+## Lesson 2 - 18th October 2021
 ### Agenda
 
 * Dynamic meta-programming
@@ -33,11 +33,11 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * Do a fresh checkout of this repository to get updated source code for examples and homework assignments
 
 ### Resources
-* Exercises to work with during the lesson are located in the “lecture1012/exercises” folder
-* The homework is to be found at “lecture1012/homework”
-* The “lecture1012/slides” holds the slides for the lecture
+* Exercises to work with during the lesson are located in the “lecture1018/exercises” folder
+* The homework is to be found at “lecture1018/homework”
+* The “lecture1018/slides” holds the slides for the lecture
 
-## Lesson 3 - 19th October 2020
+## Lesson 3 - 25th October 2021
 ### Agenda
 
 * Static meta-programming
@@ -48,11 +48,11 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * Do a fresh checkout of this repository to get updated source code for examples and homework assignments
 
 ### Resources
-* Exercises to work with during the lesson are located in the “lecture1019/exercises” folder
-* The homework is to be found at “lecture1019/homework”
-* The “lecture1019/slides” holds the slides for the lecture
+* Exercises to work with during the lesson are located in the “lecture1025/exercises” folder
+* The homework is to be found at “lecture1025/homework”
+* The “lecture1025/slides” holds the slides for the lecture
 
-## Lesson 4 - 26th October 2020
+## Lesson 4 - 1st November 2021
 ### Agenda
 
 * Concurrency abstractions in modern languages
@@ -67,9 +67,9 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * Do a fresh checkout of this repository to get updated source code for examples and homework assignments
 
 ### Resources
-* Exercises to work with during the lesson are located in the “lecture1026/exercises” folder
-* The homework is to be found at “lecture1026/homework”
-* The “lecture1026/slides” holds the slides for the lecture
+* Exercises to work with during the lesson are located in the “lecture1101/exercises” folder
+* The homework is to be found at “lecture1101/homework”
+* The “lecture1101/slides” holds the slides for the lecture
 
 ## Lesson 5 - 2nd November 2020
 ### Agenda
