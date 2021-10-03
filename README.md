@@ -11,7 +11,7 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 
 ### Preparation
 * Bring your laptop to the lecture with the listed software pre-installed
-* Grab Groovy 3.0.x from the groovy download page (http://groovy-lang.org/download.html)
+* Grab Groovy 3.0.x from the groovy download page (http://groovy-lang.org/download.html). Make sure the "groovyConsole" command-line tool can be started.
 * Install Java JDK 11 or higher (if you don't have it installed) from the Java download site
 * Checkout this repository to get the source code of the examples and homework assignment that will be used during the lecture
 
