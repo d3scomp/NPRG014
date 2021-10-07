@@ -1,30 +1,39 @@
 class HtmlMethods {
-    public static String html(StringBuilder self, Closure code) {
+    private static int indent = 0
+    private static String indent() {
+        ' '*(indent*4)
+    }
+    
+    private static process(StringBuilder self, Closure code, String tag) {
         code.delegate = self
-        self.append("<html>\n")
+        self.append("\n${indent()}<$tag>\n")
+        indent++
+        self.append(indent())
         self.append(code.call())
-        self.append("</html>\n")
+        indent--                
+        self.append("\n${indent()}</$tag>\n")
         return self.toString()
     }
+    
+    public static String html(StringBuilder self, Closure code) {
+        process(self, code, 'html')
+    }
     public static String body(StringBuilder self, Closure code) {
-        code.delegate = self    
-        self.append("<body>\n")
-        self.append(code.call())
-        self.append("</body>\n")
-        return ""        
+        process(self, code, 'body')    
+        return ""
     }
     public static String div(StringBuilder self, Closure code) {
-        code.delegate = self    
-        self.append("<div>\n")
-        self.append(code.call())
-        self.append("</div>\n")
+        process(self, code, 'div')
         return ""
     }
     public static String p(StringBuilder self, Closure code) {
         code.delegate = self    
-        self.append("<p>\n")
+        self.append("\n${indent()}<p>\n")
+        indent++        
+        self.append(indent())        
         self.append(code.call())
-        self.append("</p>\n")
+        indent--        
+        self.append("\n${indent()}</p>\n")
         return ""
     }
 }

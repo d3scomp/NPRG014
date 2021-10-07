@@ -26,4 +26,18 @@ switch (currentDay) {
 
 assert Fri in (Wed..Fri)
 
-println 'ok'
+
+class Month {
+    String name
+    
+    public boolean isCase(final o) {
+        this.name.startsWith(o.toString())
+    }
+}
+
+switch("Feb") {
+    case new Month(name: "January"): println "January detected";break;
+    case new Month(name: "February"): println "February detected";break;
+    case new Month(name: "March"): println "March detected";break;        
+    default: println "Failure to match"
+}

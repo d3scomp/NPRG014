@@ -1,5 +1,5 @@
 def calculate(String value) {
-    value.size()
+    value * 10
 }
 
 def calculate(Integer value) {

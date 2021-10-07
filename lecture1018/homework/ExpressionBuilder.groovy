@@ -31,7 +31,7 @@ def build(builder, String specification) {
 //Custom expression to display. It should be eventually pretty-printed as 1 + x * (2 - 3) / 4
 String description = '''
 builder.'+' {
-    number(value: 1)
+    number(value: 10)
     '*' {
         variable(value: 'x')
         '/' {
@@ -52,4 +52,4 @@ println xml.toString()
 //NumericExpressionBuilder displaying the expression
 def expression = build(new NumericExpressionBuilder(), description)
 println (expression.toString())
-assert '1 + x * (2 - 3) / 4' == expression.toString()
+assert '10 + x * (2 - 3) / 4' == expression.toString()
