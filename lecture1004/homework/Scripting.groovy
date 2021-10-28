@@ -7,7 +7,7 @@
 // These operations correspond to Groovy's 'findAll()' and 'collect()', respectively.
 
 // The operations are provided in its source (aka textual) form, so they must be compiled with 'GroovyShell' before they can be run.
-// Some of the operations refer to a 'LENGTH' value, which represents the actual size of the provided collection of numbers.
+// Some of the operations refer to a 'LENGTH' value, which represents the ORIGINAL size of the provided collection of numbers.
 // The processNumbers() method must ensure that the 'LENGTH' identifier refers to the right value.
 
 // Use the tricks we learnt about scripting, passing parameters to GroovyShell through binding, properties, 

@@ -6,37 +6,36 @@ import groovyx.gpars.dataflow.DataflowBroadcast
 import groovyx.gpars.group.NonDaemonPGroup
 import groovyx.gpars.group.PGroup
 
-def engineCheck = new DataflowVariable()
-def tyrePressure = new DataflowVariable()
 def radarOn = new DataflowVariable()
 
-task {
+def checkEngine() {
     println "Checking the engine"
     sleep 3000
-    engineCheck << true
-    println "Engine ok"
+    return true
 }
 
-task {
+def checkTyres() {
     println "Preparing the tyres"
     sleep 4000
-    tyrePressure << true
-    println "Tyres ok"
+    return true
 }
+
+def engineCheck = task { checkEngine() }
+def tyrePressure = task { checkTyres() }
 
 task {
     println "Turning radar on"
     sleep 1000
     def result = System.currentTimeMillis() % 2 == 0 ? true : false
     radarOn << result
-    println "Radar ${result ? 'ok' : 'failed'}"
 }
 
-//TASK: Change the 'xxx ok' messages so that they are registerred as callbacks on the appropriate promises
-//TASK: Include the actual true/false ('ok'/'failed') status of the check
-//TASK: Use whenAllBound() to register a callback that prints the final 'Taking off'/'Staying on the ground today' message
-//TIP: Dataflow.whenAllBound(){callback code here}
-//TIP: whenAllBound() returns a Promise, Promises have a join() method
+engineCheck.then {println "Engine ok"}
+tyrePressure.then {println "Tyres ok"}
+radarOn.then {println "Radar ${it ? 'ok' : 'failed'}"}
+
+//TASK: Finish the transition of the code from using explicitly declared dataflow variables
+//      to using Promise-returning functions by implementing a function for radar check.
 
 boolean ready = [engineCheck, tyrePressure, radarOn].every {it.val}
 if(ready) {

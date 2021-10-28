@@ -1,6 +1,3 @@
-import javax.swing.*
-import java.awt.*
-
 //TASK The MarkupBuilder in Groovy can transform a hierarchy of method calls and nested closures into a valid XML document.
 //Create a NumericExpressionBuilder builder that will read a user-specified hierarchy of simple math expressions and build a tree representation of it.
 //It will feature a toString() method that will pretty-print the expression tree into a string with the same semantics, as verified by the assert on the last line.
