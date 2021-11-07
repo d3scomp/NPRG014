@@ -4,19 +4,17 @@
 
 installed packages in following versions:
 
-* jdk-11.0.5_windows-x64_bin.exe
+* JDK 17
+  * https://www.oracle.com/java/technologies/downloads/
   
-  * https://www.softpedia.com/get/Programming/SDK-DDK/Sun-Java-JDK.shtml
-* sbt-1.3.3.msi
+* SBT
+  * https://www.scala-sbt.org/download.html
   
-* https://sbt-downloads.cdnedge.bluemix.net/releases/v1.3.3/sbt-1.3.3.msi
+* Scala
+  * https://www.scala-lang.org/download/
   
-* scala-2.13.1.msi
-  
-* https://downloads.lightbend.com/scala/2.13.1/scala-2.13.1.msi
-  
-* IDEA 2019 2.3
-  * https://download-cf.jetbrains.com/idea/ideaIU-2019.2.3.exe
+* IntelliJ IDEA
+  * https://www.jetbrains.com/idea/download/
 
 
 
@@ -27,7 +25,7 @@ installed packages in following versions:
 * On the left panel, select Scala. On the right panel, select IDEA.
 * Name the project e.g. ToDelete
 * To the right of the Scala SDK field, click the Create button.
-  Select the highest version number (e.g. 2.13.1) and click Download. This might take a few minutes but subsequent projects can use the same SDK.
+  Select the highest version number and click Download. This might take a few minutes but subsequent projects can use the same SDK.
   Once the SDK is created and you’re back to the “New Project” window click Finish or discard whole project.
 
 
@@ -38,7 +36,7 @@ installed packages in following versions:
 
 * Select File > New > Project from existing sources
 
-* Locate folder "exercises-homework":  under NPRG014\lecture1105-1203\exercises-homework
+* Locate folder "exercises-homework":  under NPRG014\lecture-scala\exercises-homework
 
 * Select Import project from external model
   * and select "sbt"
@@ -63,15 +61,9 @@ If that works, your IDEA is configured properly.
 
 ## dump project structure fails with null pointer exception
 
-Edit file "./projects/build.properties" to contain "sbt.version = 0.13.18" (or current latest version this is mainly for future reference since the file has already been changed to contain this version)
+Edit file "./project/build.properties" to contain "sbt.version = 1.5.5" (or current latest version this is mainly for future reference since the file has already been changed to contain this version)
 
 ![Error msg](./images_for_readme/null-pointer.png)
-
-## Not found types
-
-In case of not found types (e.g.: exercises-homework\src\main\scala\e09\JsonInterp.scala:12: not found: type JValue) during compilation go to the Module settings (File > Project Structure or through right click name of the project in the project tree and select open module settings F4)
-
-Select project SDK 11.0.5 in the settings for Project, Modules and SDK. The global Libraries should contain scala-sdk-2.13.1
 
 ## Many missing classes
 
