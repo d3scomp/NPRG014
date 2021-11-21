@@ -1,14 +1,10 @@
-package e10
-import scala.language.implicitConversions
+package e07
 
 /* Features:
- * - conversions
+ * - extensions
  */
 
-object R
-
 class Rational(n: Int, d: Int):
-
 	require(d != 0)
 
 	private val g = gcd(n.abs, d.abs)
@@ -19,30 +15,44 @@ class Rational(n: Int, d: Int):
 	def this(n: Int) = this(n, 1)
 
 	def + (that: Rational) = Rational(numer * that.denom + that.numer * denom, denom * that.denom)
+	def + (i: Int) = Rational(numer + i * denom, denom)
 	def - (that: Rational) = Rational(numer * that.denom - that.numer * denom, denom * that.denom)
+	def - (i: Int) = Rational(numer - i * denom, denom)
 	def * (that: Rational) = Rational(numer * that.numer, denom * that.denom)
+	def * (i: Int) = Rational(numer * i, denom)
+	def / (i: Int) = Rational(numer, denom * i)
 	def / (that: Rational) = Rational(numer * that.denom, denom * that.numer)
-	def unary_- = new Rational(-numer, denom)
+	def unary_- = Rational(-numer, denom)
 
 	override def toString = s"${numer}/${denom}"
 	private def gcd(a: Int, b: Int): Int = if (b == 0) a else gcd(b, a % b)
 
 
-object Rational:
-	given Conversion[Int, Rational] = new Rational(_)
+object RationalOps:
+	object R:
+		def ~(i: Int) = Rational(i)
+
+	extension (lhs: Int)
+		def ~ (dummy: R.type) = Rational(lhs)
 
 
-object RationalWithConversionTest:
+object RationalWithExtensionTest:
 	def main(args: Array[String]): Unit =
-		import Rational.given
+		import RationalOps.*
 
-		val c = 1 + Rational(1, 2)
+		val a = Rational(3, 5)
+		val b = Rational(6, 7)
+
+		val c = -a + b
 		println(c)
-		
-		/* ASSIGNMENT
-		 * Introduce necessary definitions in order to make the statement 
-		 * below possible. It should print out "3/2"
-		 * 
-		 * println(2/3 ~ R + 5/6 ~ R)
-		 */
 
+		println(R ~ 5/3)
+
+		println(2 ~ R)
+
+		/* ASSIGNMENT
+		 * Introduce necessary definitions in order to make the statement
+		 * below possible. It should print out "1/2"
+		 *
+		 * println(1/2 ~ R)
+		 */

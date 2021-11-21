@@ -3,7 +3,7 @@
  * - relative imports
  */
 
-package e06:
+package e10:
   package printmenu:
     import fruits.Fruits
     import fruits.showFruit

@@ -19,8 +19,9 @@ object StaticTypingMain:
 		printValue(value)
 
 		val valueI = 5
+
 		printValue(valueI)
 
 		value = 3
-		printValue(value.asInstanceOf[Int])
+		printValue(value)
 

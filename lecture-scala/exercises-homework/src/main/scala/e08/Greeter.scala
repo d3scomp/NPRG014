@@ -1,4 +1,4 @@
-package e09
+package e08
 
 /* Features:
  * - given and using
@@ -36,7 +36,7 @@ object GreeterTest:
     // Note that import JillsPrefs.* does not automatically import givens they have to be imported by one of these:
     import JillsPrefs.given
     // import JillsPrefs.{prompt, drink}
-    //import JillsPrefs.{given PreferredPrompt, given PreferredDrink}
+    // import JillsPrefs.{given PreferredPrompt, given PreferredDrink}
 
     /* ASSIGNMENT 1
     * Change the declarations in this method to use the prompt from JoesPrefs. The drink should be water and it should

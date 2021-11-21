@@ -5,7 +5,7 @@
  * - string interpolation
  */
 
-package e06:
+package e10:
   package fruits:
 
     abstract class Fruit(

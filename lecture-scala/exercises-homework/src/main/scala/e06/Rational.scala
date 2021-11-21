@@ -1,4 +1,4 @@
-package e07
+package e06
 
 /* Features:
  * - arbitrary operators
