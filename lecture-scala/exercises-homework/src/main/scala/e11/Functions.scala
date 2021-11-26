@@ -29,7 +29,7 @@ object Functions:
 
 		println(increase(10))
 
-		
+
 		val someNumbers = -10 to 5
 		println(someNumbers.filter(x => x > 0))
 
