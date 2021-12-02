@@ -13,7 +13,7 @@ object Expressions:
 
 		case UnOp("-", e) => simplify(e) match
 			case Number(eNum) => Number(-eNum)
-			case eSimpl => eSimpl
+			case eSimpl => UnOp("-", eSimpl)
 
 		case BinOp("+", e, f) => (simplify(e), simplify(f)) match
 			case (Number(0), fSimpl) => fSimpl   // Adding zero
