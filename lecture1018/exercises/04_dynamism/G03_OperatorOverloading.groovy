@@ -37,7 +37,7 @@ assert [susan, dave] as Set == (susan + dave).members
 final closeFriends = dave + susan
 closeFriends << alice
 closeFriends << joe
-assert [susan, dave, joe, alice] as Set == (closeFriends).members
+assert [susan, dave, joe, alice] as Set == closeFriends.members
 
 assert [alice, dave, susan, joe] as Set == ((alice + joe) << dave << susan).members
 

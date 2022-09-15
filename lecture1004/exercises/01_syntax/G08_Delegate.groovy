@@ -1,49 +1,32 @@
-class UniversityContext {
-    String leader = "Ms. Smith (the university leader)"
-    
-    def runInContext(code) {
-       code.delegate = this    
-       code.resolveStrategy = Closure.DELEGATE_FIRST
-       code.call()
-    }
+def joe = [name : 'Joe', age : 83]
+def jeff = [name : 'Jeff', age : 38]
+def jess = [name : 'Jess', age : 33]
+
+def process(person, code) {
+//    code.delegate = person    
+//    code.resolveStrategy = Closure.DELEGATE_FIRST
+    code.call()
+//    person.with(code)
 }
 
-class FacultyContext {
-    String leader = "Mr. Brown (the faculty leader)"
+class FamilyManager {
+    String name = "Nobody"
+    int age = 0
     
-    def runInContext(code) {
-       code.delegate = this
-       code.call()
-    }
+    def greet = {println "Greeting $name"}
+    
+    def celebrate = {
+            println "Celebrating birthday of " + name
+            age+=1
+        }
 }
 
-class CabinetContext {
-    String leader = "Ms. Gray (the cabinet leader)"
-    
-    def runInContext(code) {
-       code.delegate = this
-       code.call()
-    }                       
-    
-    def request = {println """\
-                      This leader: ${this.leader}
-                      Owner leader: ${owner.leader}
-                      Delegate leader: ${delegate.leader}
-                      Plain leader: -> ${leader} <-
-                           """}
-    
-    def runRequest() {
-        println 'Run in the cabinet context'
-        runInContext(request)
-        
-        println 'Run in the faculty context'        
-        new FacultyContext().runInContext(request)
-        
-        println 'Run in the university context'        
-        new UniversityContext().runInContext(request)        
-    }
-}
+def fm = new FamilyManager()
+process(joe, fm.greet)
+process(jeff, fm.greet)
+process(jess, fm.greet)
 
-new CabinetContext().runRequest()
+process(jess, fm.celebrate)
+assert 34 == jess.age
 
-//TASK Experiment with different resolution strategies
+//TASK Experiment with owner, delegate as well as with different resolution strategies

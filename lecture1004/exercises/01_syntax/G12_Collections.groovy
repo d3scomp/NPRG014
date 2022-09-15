@@ -6,6 +6,9 @@ assert 270 == (10..20).findAll{it%2==0}
 assert 5050 == (1..100).inject(0) {int acc, int v -> acc + v}
 assert 5050 == (1..100).sum()
 
+//TASK make all words uppercase
+//assert ['GROOVY', 'JAVA', 'SCALA', 'KOTLIN'] == ['Groovy', 'Java', 'scala', 'kotlin']...
+
 //TASK concatenate all characters between 'a' and 'z'
 //assert 'abcdefghijklmnopqrstuvwxyz' == 
 
