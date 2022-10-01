@@ -1,5 +1,5 @@
 // 2022/2023
-// TASK Implement the processNumbers() method scatched bellow.
+// TASK Implement the processNumbers() method sketched bellow.
 // The user provides a list of operations and a collection of numbers that are supposed to be filtered and transformed 
 // using the operations. The operations are of two kinds - filter and transform. They must be processed in the same order
 // in which they are provided in the list.
