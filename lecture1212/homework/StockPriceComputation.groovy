@@ -1,6 +1,4 @@
-import groovyx.gpars.dataflow.DataflowQueue
-import groovyx.gpars.group.DefaultPGroup
-
+//2022/2023
 //Four channels deliver daily prices of a particular stock traded at four locations - Paris, Vienna, Frankfurt and Chicago.
 //The prices are in EUR for Paris, Vienna and Frankfurt, and in USD for Chicago.
 //The prices in Paris may contain a value '0' indicating that no price is available for that day. The latest recorded non-zero price in Paris
@@ -33,6 +31,9 @@ import groovyx.gpars.group.DefaultPGroup
     }
 
 */
+
+import groovyx.gpars.dataflow.DataflowQueue
+import groovyx.gpars.group.DefaultPGroup
 
 //Dummy price and exchange rate data
 final prices1 = [10, 11, 12, 10, 9, 8, 7, 9, 6, 7,

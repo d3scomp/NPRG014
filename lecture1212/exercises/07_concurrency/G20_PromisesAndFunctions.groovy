@@ -6,8 +6,6 @@ import groovyx.gpars.dataflow.DataflowBroadcast
 import groovyx.gpars.group.NonDaemonPGroup
 import groovyx.gpars.group.PGroup
 
-def radarOn = new DataflowVariable()
-
 def checkEngine() {
     println "Checking the engine"
     sleep 3000
@@ -20,22 +18,33 @@ def checkTyres() {
     return true
 }
 
-def engineCheck = task { checkEngine() }
-def tyrePressure = task { checkTyres() }
+def checkElectricity() {
+    println "Checking electricity"
+    sleep 3000
+    return System.currentTimeMillis() % 3 == 0 ? true : false
+}
 
-task {
+def checkRadar() {
+    def elTest = task { checkElectricity() }
     println "Turning radar on"
     sleep 1000
-    def result = System.currentTimeMillis() % 2 == 0 ? true : false
-    radarOn << result
+    if (elTest.get()) {
+        println "Electricity ok, continue with the radar"
+        sleep 500
+        return System.currentTimeMillis() % 2 == 0 ? true : false
+    } else {
+        println "Electricity failed, do not continue with radar"    
+        return false
+    }
 }
+
+def engineCheck = task { checkEngine() }
+def tyrePressure = task { checkTyres() }
+def radarOn = task { checkRadar() }
 
 engineCheck.then {println "Engine ok"}
 tyrePressure.then {println "Tyres ok"}
 radarOn.then {println "Radar ${it ? 'ok' : 'failed'}"}
-
-//TASK: Finish the transition of the code from using explicitly declared dataflow variables
-//      to using Promise-returning functions by implementing a function for radar check.
 
 boolean ready = [engineCheck, tyrePressure, radarOn].every {it.val}
 if(ready) {

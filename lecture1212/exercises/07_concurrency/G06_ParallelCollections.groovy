@@ -11,7 +11,7 @@ println product1
 //TODO Calculate the product of all the numbers in parallel so that the script passes
 def product2 = 1
 withPool {
-
+    product2 = numbers.parallel.reduce(1) {a, b -> a * b}
 }
 
 println product2
