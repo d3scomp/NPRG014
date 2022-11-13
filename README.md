@@ -65,8 +65,8 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * Go to lecture1102-1123/exercises-homework and run "sbt compile" to download all necessary packages (Scala and related libraries)
 
 ### Resources
-* Exercises to work with during the lesson and the homework are located in the lecture1102-1123/exercises-homework” folder
-* The “lecture1102-1123/slides” holds the slides for the lecture
+* Exercises to work with during the lesson and the homework are located in the lecture-scala/exercises-homework” folder
+* The “lecture-scala/slides” holds the slides for the lecture
 
 
 ## Lesson 5 - 7th November 2022

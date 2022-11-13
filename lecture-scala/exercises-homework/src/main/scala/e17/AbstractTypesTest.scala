@@ -7,7 +7,8 @@ package e17
 
 class Food
 class Fish extends Food
-class Grass extends Food
+class Plants extends Food
+class Grass extends Plants
 
 abstract class Animal:
 	outer =>
@@ -18,12 +19,17 @@ abstract class Animal:
 	def amountOfFoodPerDay: Double
 
 
-class Cow(val amountOfFoodPerDay: Double) extends Animal:
-	type SuitableFood = Grass
-
-
-class Shark(val amountOfFoodPerDay: Double) extends Animal:
+class Shark(val amountOfFoodPerDay: Double) extends Animal :
 	type SuitableFood = Fish
+
+
+abstract class Herbivore extends Animal :
+	// A subclass can restrict the abstract type to only a subtype. This is useful if it requires the abstract type
+	// to have certain properties
+	type SuitableFood <: Plants
+
+class Cow(val amountOfFoodPerDay: Double) extends Herbivore :
+	type SuitableFood = Grass
 
 
 object Pasture:
