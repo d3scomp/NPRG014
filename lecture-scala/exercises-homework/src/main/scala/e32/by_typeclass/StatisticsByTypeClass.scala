@@ -54,11 +54,7 @@ object Duration:
   def apply(totalSeconds: Double) = new Duration(totalSeconds)
   def apply(min: Int, sec: Double) = new Duration(min, sec)
 
-  import StatisticsByTypeClass.NumberLike
-  given NumberLike[Duration] with
-    def plus(x: Duration, y: Duration) =  Duration(x.totalSeconds + y.totalSeconds)
-    def minus(x: Duration, y: Duration) = Duration(x.totalSeconds - y.totalSeconds)
-    def divideByInt(x: Duration, y: Int) = Duration(x.totalSeconds / y)
+
 
 
 object StatisticsByTypeClassTest:
@@ -74,5 +70,4 @@ object StatisticsByTypeClassTest:
     import StaticsByTypeClassDurationImplicits._
     println(mean(Vector(Duration(1, 0), Duration(1, 30), Duration(2,0))))
      */
-    println(mean(Array(Duration(1, 0), Duration(1, 30), Duration(2,0))))
 

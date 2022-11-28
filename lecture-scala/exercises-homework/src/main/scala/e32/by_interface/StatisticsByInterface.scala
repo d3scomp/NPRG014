@@ -32,6 +32,7 @@ class IntWithNumberLike(val x: Int) extends NumberLike[IntWithNumberLike]:
   def -(y: NumberLike[IntWithNumberLike]) = IntWithNumberLike(x - y.get.x)
   def +(y: NumberLike[IntWithNumberLike]) = IntWithNumberLike(x + y.get.x)
   def /(y: Int) = IntWithNumberLike(x / y)
+  override def toString: String = x.toString
 
 
 object StatisticsByInterface:
@@ -54,4 +55,5 @@ object StatisticsByInterfaceTest:
   def main(args: Array[String]): Unit =
     import StatisticsByInterface.*
 
+    println(mean(Array(IntWithNumberLike(5), IntWithNumberLike(10), IntWithNumberLike(15))))
     println(mean(Array(Duration(0, 15), Duration(1, 30), Duration(2, 0))))
