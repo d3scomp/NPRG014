@@ -62,7 +62,7 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * Grab and install SBT (http://www.scala-sbt.org/)
 * Install Java JDK (if you don't have it installed) from the Java download site
 * Checkout this repository to get all examples
-* Go to lecture1102-1123/exercises-homework and run "sbt compile" to download all necessary packages (Scala and related libraries)
+* Go to lecture-scala/exercises-homework and run "sbt compile" to download all necessary packages (Scala and related libraries)
 
 ### Resources
 * Exercises to work with during the lesson and the homework are located in the lecture-scala/exercises-homework” folder
@@ -93,7 +93,14 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 
 ## Lesson 8 - 28th November 2022
 ### Agenda
+* Statically-typed languages (Scala) - Part V
+* Introduction to prototype-based languages
 
+### Preparation
+* Same as for Lesson 5
+
+## Lesson 9 - 5th December 2022
+### Agenda
 * Prototype-based languages (IO)
 
 ### Preparation
@@ -101,24 +108,10 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * Checkout this repository to get all examples
 
 ### Resources
-* Exercises to work with during the lesson and the homework are located in the “lecture1130-1207/exercises-homework” folder
-* The homework assignment is located in io/ioH.io
-* The “lecture1130-1207/slides” holds the slides for the lecture
+* Exercises to work with during the lesson and the homework are located in the “lecture-proto/exercises-homework” folder
+* The homework assignment is located in ioH.io
+* The “lecture-proto/slides” holds the slides for the lecture
 
-## Lesson 9 - 5th December 2022
-### Agenda
-
-* Prototype-based languages (JavaScript, TypeScript)
-
-### Preparation
-* Checkout this repository to get all examples
-* Download and install Node.JS from https://nodejs.org/en/download/
-* In directories "js/whiteboard" and "typescript" execute "npm install"
-
-### Resources
-* Exercises to work with during the lesson and the homework are located in the “lecture1130-1207/exercises-homework” folder
-* The homework assignment is located in js/whiteboard/index.js
-* The “lecture1130-1207/slides” holds the slides for the lecture
 
 
 ## Lesson 10 - 12th December 2022
