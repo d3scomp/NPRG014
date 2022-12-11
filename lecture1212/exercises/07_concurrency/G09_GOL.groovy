@@ -101,7 +101,7 @@ class SwingLifeGameWithDataflowOperators {
                 }
                 inputChannels.add(heartbeats.createReadChannel())
 
-                final Closure code = new SwingLifeClosure(this, inputChannels.size)
+                final Closure code = new SwingLifeClosure(this, inputChannels.size())
                 operatorRow[columnIndex] = group.operator(inputs: inputChannels, outputs: [channelGrid[rowIndex][columnIndex]], code)
             }
             operatorGrid.add(operatorRow)
