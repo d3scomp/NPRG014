@@ -3,7 +3,7 @@ import groovyx.gpars.activeobject.*
 import org.codehaus.groovy.runtime.NullObject
 
 @ActiveObject
-class MyCounter extends DynamicDispatchActor {
+class MyCounter {
     private int counter = 0
 
     @ActiveMethod

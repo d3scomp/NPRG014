@@ -3,7 +3,7 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 
 # Lessons
 
-## Lesson 1 - 3th October 2022
+## Lesson 1 - 2th October 2023
 ### Agenda
 * Language dynamism - typing, casting, object construction, method invocation
 * Functional programming in OO languages
@@ -16,11 +16,11 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * Checkout this repository to get the source code of the examples and homework assignment that will be used during the lecture
 
 ### Resources
-* Exercises to work with during the lesson are located in the “lecture1003/exercises” folder
-* The homework is to be found at “lecture10003/homework”
-* The “lecture10003/slides” holds the slides for the lecture
+* Exercises to work with during the lesson are located in the “lecture1002/exercises” folder
+* The homework is to be found at “lecture10002/homework”
+* The “lecture10002/slides” holds the slides for the lecture
 
-## Lesson 2 - 10th October 2022
+## Lesson 2 - 9th October 2023
 ### Agenda
 
 * Dynamic meta-programming
@@ -33,11 +33,11 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * Do a fresh checkout of this repository to get updated source code for examples and homework assignments
 
 ### Resources
-* Exercises to work with during the lesson are located in the “lecture1010/exercises” folder
-* The homework is to be found at “lecture1010/homework”
-* The “lecture1010/slides” holds the slides for the lecture
+* Exercises to work with during the lesson are located in the “lecture1009/exercises” folder
+* The homework is to be found at “lecture1009/homework”
+* The “lecture1009/slides” holds the slides for the lecture
 
-## Lesson 3 - 17th October 2021
+## Lesson 3 - 16th October 2023
 ### Agenda
 
 * Static meta-programming
@@ -48,12 +48,32 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * Do a fresh checkout of this repository to get updated source code for examples and homework assignments
 
 ### Resources
-* Exercises to work with during the lesson are located in the “lecture1017/exercises” folder
-* The homework is to be found at “lecture1017/homework”
-* The “lecture1017/slides” holds the slides for the lecture
+* Exercises to work with during the lesson are located in the “lecture1016/exercises” folder
+* The homework is to be found at “lecture1016/homework”
+* The “lecture1016/slides” holds the slides for the lecture
 
 
-## Lesson 4 - 31st September 2022
+## Lesson 4 - 23rd December 2023
+### Agenda
+
+* Concurrency abstractions in modern languages
+** Dataflow
+** Fork-join
+** Actors
+** Parallel collections
+** Agents
+
+### Preparation
+* Same as for Lesson 1 (Groovy, JDK)
+* Do a fresh checkout of this repository to get updated source code for examples and homework assignments
+
+### Resources
+* Exercises to work with during the lesson are located in the “lecture1023/exercises” folder
+* The homework is to be found at “lecture1023/homework”
+* The “lecture1023/slides” holds the slides for the lecture
+
+
+## Lesson 5 - 6th November 2023
 ### Agenda
 * Bytecode
 * Statically-typed languages (Scala) - Part I
@@ -69,21 +89,23 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * The “lecture-scala/slides” holds the slides for the lecture
 
 
-## Lesson 5 - 7th November 2022
+## Lesson 6 - 13th November 2023
 ### Agenda
 * Statically-typed languages (Scala) - Part II
 
 ### Preparation
 * Same as for Lesson 5
 
-## Lesson 6 - 14th November 2022
+
+## Lesson 7 - 20th November 2023
 ### Agenda
 * Statically-typed languages (Scala) - Part III
 
 ### Preparation
 * Same as for Lesson 5
 
-## Lesson 7 - 21st November 2022
+
+## Lesson 8 - 27th November 2023
 ### Agenda
 * Statically-typed languages (Scala) - Part IV
 
@@ -91,17 +113,20 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * Same as for Lesson 5
 
 
-## Lesson 8 - 28th November 2022
+## Lesson 9 - 4th December 2023
 ### Agenda
 * Statically-typed languages (Scala) - Part V
-* Introduction to prototype-based languages
+* Introduction to prototype-based languages (IO)
 
 ### Preparation
 * Same as for Lesson 5
+* Download IO interpreter from http://iolanguage.org/binaries.html
+* Checkout this repository to get all examples
 
-## Lesson 9 - 5th December 2022
+
+## Lesson 10 - 11th December 2023
 ### Agenda
-* Prototype-based languages (IO)
+* Prototype-based languages (IO, JavaScript, TypeScript)
 
 ### Preparation
 * Download IO interpreter from http://iolanguage.org/binaries.html
@@ -114,24 +139,5 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 
 
 
-## Lesson 10 - 12th December 2022
-### Agenda
-
-* Concurrency abstractions in modern languages
-** Dataflow
-** Fork-join
-** Actors
-** Parallel collections
-** Agents
-
-### Preparation
-* Same as for Lesson 1 (Groovy, JDK)
-* IntelliJ IDEA Community or Ultimate Edition
-* Do a fresh checkout of this repository to get updated source code for examples and homework assignments
-
-### Resources
-* Exercises to work with during the lesson are located in the “lecture1212/exercises” folder
-* The homework is to be found at “lecture1212/homework”
-* The “lecture1212/slides” holds the slides for the lecture
 
 
