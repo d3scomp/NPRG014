@@ -105,15 +105,7 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * Same as for Lesson 5
 
 
-## Lesson 8 - 27th November 2023
-### Agenda
-* Statically-typed languages (Scala) - Part IV
-
-### Preparation
-* Same as for Lesson 5
-
-
-## Lesson 9 - 4th December 2023
+## Lesson 8 - 4th December 2023
 ### Agenda
 * Statically-typed languages (Scala) - Part V
 * Introduction to prototype-based languages (IO)
@@ -124,18 +116,22 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * Checkout this repository to get all examples
 
 
-## Lesson 10 - 11th December 2023
+## Lesson 9 - 11th December 2023
 ### Agenda
-* Prototype-based languages (IO, JavaScript, TypeScript)
+* Typescript (Tomas Petricek – guest lecture)
 
 ### Preparation
-* Download IO interpreter from http://iolanguage.org/binaries.html
-* Checkout this repository to get all examples
 
 ### Resources
-* Exercises to work with during the lesson and the homework are located in the “lecture-proto/exercises-homework” folder
-* The homework assignment is located in ioH.io
-* The “lecture-proto/slides” holds the slides for the lecture
+
+
+## Lesson 10 - 18th December 2023
+### Agenda
+* Backup/Typescript (Tomas Petricek – guest lecture)
+
+### Preparation
+
+### Resources
 
 
 

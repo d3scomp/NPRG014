@@ -1,9 +1,9 @@
-// 2022/2023
+// 2023/2024
 // TASK Implement the processNumbers() method sketched bellow.
 // The user provides a list of operations and a collection of numbers that are supposed to be filtered and transformed 
 // using the operations. The operations are of two kinds - filter and transform. They must be processed in the same order
 // in which they are provided in the list.
-// The filter operations provide a logical value indicating whether a number should be preserved.
+// The filter operations calculate a logical value indicating whether a number should be preserved.
 // The transformation operations compute a value that should replace the number out of which it was calculated.
 // These operations correspond to Groovy's 'findAll()' and 'collect()', respectively.
 

@@ -9,27 +9,18 @@ def process(person, code) {
 //    person.with(code)
 }
 
-class FamilyManager {
-    String name = "Nobody"
-    int age = 0
-    
-    def greet = {println "Greeting $name"}
-    
-    def celebrate = {
-            println "Celebrating birthday of " + name
-            age+=1
-        }
+name = "Noname"
+process(joe, {println name})
+//process(jeff, {println age})
+
+
+/*
+class Person {
+    final name = "Whatever"
+    final greet = {println name}
 }
+process(joe, new Person().greet)
+*/
 
-def fm = new FamilyManager()
-process(joe, fm.greet)
-process(jeff, fm.greet)
-process(jess, fm.greet)
-
-process(jess, fm.celebrate)
-assert 34 == jess.age
-
-//fm.greet.call()
-//fm.celebrate()
 
 //TASK Experiment with owner, delegate as well as with different resolution strategies
