@@ -9,7 +9,8 @@ class City {
 }
 
 println City.create("Brno", 400000).dump()
-println City.create("Praha", 1300000, true).dump()
+def praha = City.create("Praha", 1300000, true).dump()
+println praha
 
 City pisek = new City(name: 'Písek', size: 25000, capital: false)
 City tabor = new City(size: 35000, capital: false, name: 'Tábor')
