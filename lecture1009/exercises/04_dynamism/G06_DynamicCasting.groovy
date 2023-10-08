@@ -36,8 +36,8 @@ println (10 + (m as Integer))
 println "============= as String ============="
 println(m as String)
 
+println "============= as Boolean ============="
 def report(String msg) {println "LOG: $msg"}
-
 if(m) {
     report(m as String)
 }

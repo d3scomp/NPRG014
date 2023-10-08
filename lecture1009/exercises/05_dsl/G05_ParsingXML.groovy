@@ -15,7 +15,7 @@ final CAR_RECORDS = '''
     </records>
   '''
 
-def records = new XmlSlurper().parseText(CAR_RECORDS)
+def records = new groovy.xml.XmlSlurper().parseText(CAR_RECORDS)
 def allRecords = records.car
 assert 3 == allRecords.size()
 def allNodes = records.depthFirst().collect { it }

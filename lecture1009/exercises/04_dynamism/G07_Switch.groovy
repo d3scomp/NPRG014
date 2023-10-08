@@ -4,6 +4,7 @@ enum DAYS {
 
 import static DAYS.*
 
+// ================ Magic with enums
 def currentDay = Tue
 
 assert Wed in [Mon, Wed, Fri]
@@ -26,6 +27,7 @@ switch (currentDay) {
 
 assert Fri in (Wed..Fri)
 
+// ================= Switch customization
 
 class Month {
     String name
