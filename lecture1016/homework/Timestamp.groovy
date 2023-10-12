@@ -1,4 +1,4 @@
-// 2022/2023
+// 2023/2024
 import java.lang.annotation.ElementType
 import java.lang.annotation.Retention
 import java.lang.annotation.RetentionPolicy
@@ -40,7 +40,9 @@ public class CreatedAtTransformation implements ASTTransformation {
         // Also, generate a public final method returning the value stored in the field. The name of the method should be configurable through 
         // the annotation 'name' parameter.
         // Additionally, all existing methods of the class should be enhanced so that they reset the time stored in the field to the current time,
-        // whenever they are called, but ONLY if more than 1 second has elapsed since the last update to the time stored in the field.
+        // whenever they are called, but ONLY if more than 1 second has elapsed since the latest update to the time stored in the field.
+        // A new method, named "clearTimestamp()" must be added to the class. This method sets the time stored in the field to "0".
+                
         // Fill in the missing AST generation code to make the script pass
         // You can take inspiration from exercises
         // Documentation and hints:
@@ -106,5 +108,8 @@ assert calculator.sum == 8
 //The timestamp should not have been updated since the pause was shorter than 1s
 assert oldTimeStamp == calculator.timestamp()
 assert calculator.timestamp() == calculator.timestamp()
+
+calculator.clearTimestamp()
+assert calculator.timestamp() == 0
 
 println 'well done'

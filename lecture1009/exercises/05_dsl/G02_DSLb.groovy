@@ -47,11 +47,12 @@ abstract class Food {
         order.address = address
         order
     }
+    
 
     abstract String description();
 
     String toString() {
-        "pizza with ${ingredients.join(' and ')}"
+        "${description()} with ${ingredients.join(' and ')}"
     }
 }
 
