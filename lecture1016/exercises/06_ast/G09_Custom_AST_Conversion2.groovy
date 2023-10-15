@@ -38,8 +38,11 @@ public class NumberConversionTransformation implements ASTTransformation {
         
         
         /* the add(a, b) method */        
-        ASTNode exprstmt = null   
-        def param1 = new Parameter(ClassHelper.int_TYPE, "a")       
+        ASTNode left = varX('a')
+//        ASTNode right
+//        ASTNode plus
+        ASTNode exprstmt = returnS(left)        
+        def param1 = new Parameter(ClassHelper.int_TYPE, "a")
         annotatedClass.addMethod("add", Opcodes.ACC_PUBLIC, ClassHelper.Integer_TYPE, [param1] as Parameter[], [] as ClassNode[], exprstmt)        
     }
 }
