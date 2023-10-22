@@ -52,3 +52,7 @@ if(ready) {
 } else {
     println 'Staying on the ground today'
 }
+// TASK Currently, checkElectricity() is local to the checkRadar() function. Modify the code is a way
+// that allows both checkRadar() and checkEngine() to first have the electricity checked and only after
+// a successful result of electrivity check the radar or engine can be turned on, respectively.
+// Make sure that electricity is checked only once.

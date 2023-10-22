@@ -66,13 +66,14 @@ policeDirector << new UseKey(key: "1144")
 prezident << new UseKey(key: "1122")
 primeMinister << new UseKey(key: "invalid")
 
+sleep(2000)
 
     println 'Attempt 2: ' + box.sendAndWait(new OpenBoxRequest())
 
 
 primeMinister << new UseKey(key: "1133")
 
-Thread.sleep(5000)
+sleep(5000)
 
 def t = Thread.start {
     println box.sendAndWait(new OpenBoxRequest())

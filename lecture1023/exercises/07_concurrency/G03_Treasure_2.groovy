@@ -1,4 +1,5 @@
 // TASK Reimplement the TreasureBox class without synchronization. Pick a proper locking class - Barrier, Semaphore, CountDownLatch, etc.
+import java.util.concurrent.*
 
 class TreasureBox {
     
