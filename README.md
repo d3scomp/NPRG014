@@ -53,7 +53,7 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * The “lecture1016/slides” holds the slides for the lecture
 
 
-## Lesson 4 - 23rd December 2023
+## Lesson 4 - to be specified
 ### Agenda
 
 * Concurrency abstractions in modern languages
@@ -73,7 +73,7 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * The “lecture1023/slides” holds the slides for the lecture
 
 
-## Lesson 5 - 6th November 2023
+## Lesson 5 - 30th October 2023
 ### Agenda
 * Bytecode
 * Statically-typed languages (Scala) - Part I
@@ -89,7 +89,7 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * The “lecture-scala/slides” holds the slides for the lecture
 
 
-## Lesson 6 - 13th November 2023
+## Lesson 6 - 6th November 2023
 ### Agenda
 * Statically-typed languages (Scala) - Part II
 
@@ -97,7 +97,7 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * Same as for Lesson 5
 
 
-## Lesson 7 - 20th November 2023
+## Lesson 7 - 13th November 2023
 ### Agenda
 * Statically-typed languages (Scala) - Part III
 
@@ -105,9 +105,8 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * Same as for Lesson 5
 
 
-## Lesson 8 - 4th December 2023
+## Lesson 8 - 20th November 2023
 ### Agenda
-* Statically-typed languages (Scala) - Part V
 * Introduction to prototype-based languages (IO)
 
 ### Preparation
