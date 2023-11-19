@@ -94,18 +94,25 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * Statically-typed languages (Scala) - Part II
 
 ### Preparation
-* Same as for Lesson 5
+* Same as for Lesson 4
 
 
-## Lesson 7 - 13th November 2023
+## Lesson 7 - 20th November 2023
 ### Agenda
 * Statically-typed languages (Scala) - Part III
 
 ### Preparation
-* Same as for Lesson 5
+* Same as for Lesson 4
+
+## Lesson 8 - 27th November 2023
+### Agenda
+* Statically-typed languages (Scala) - Part IV
+
+### Preparation
+* Same as for Lesson 4
 
 
-## Lesson 8 - 20th November 2023
+## Lesson 9 - 4th December 2023
 ### Agenda
 * Introduction to prototype-based languages (IO)
 
@@ -115,7 +122,7 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * Checkout this repository to get all examples
 
 
-## Lesson 9 - 11th December 2023
+## Lesson 10 - 11th December 2023
 ### Agenda
 * Typescript (Tomas Petricek – guest lecture)
 
@@ -124,7 +131,7 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 ### Resources
 
 
-## Lesson 10 - 18th December 2023
+## Lesson 11 - 18th December 2023
 ### Agenda
 * Backup/Typescript (Tomas Petricek – guest lecture)
 
