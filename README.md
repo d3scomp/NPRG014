@@ -122,24 +122,14 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * Checkout this repository to get all examples
 
 
-## Lesson 10 - 11th December 2023
+## Lesson 10 - 18th December 2023
 ### Agenda
-* Typescript (Tomas Petricek – guest lecture)
+* Advanced types in TypeScript (Tomas Petricek – guest lecture)
 
 ### Preparation
+* If you do not have Node.js installed, get the LTS version from https://nodejs.org (but any reasonably recent version should work)
+* We will use Vite.js framework, which is installed via npm (Node package manager). To test if things work for you, run `npm create vite@latest` as explained in https://vitejs.dev/guide/
+* Enter project name, select Vanilla, TypeScript and follow printed instructions to run the project.
+* You will need an editor that does checking in background. Visual Studio Code is a good choice, but anything will do. 
 
 ### Resources
-
-
-## Lesson 11 - 18th December 2023
-### Agenda
-* Backup/Typescript (Tomas Petricek – guest lecture)
-
-### Preparation
-
-### Resources
-
-
-
-
-
