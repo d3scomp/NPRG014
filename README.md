@@ -1,9 +1,9 @@
-# NPRG014
+	# NPRG014
 Supplementary materials for the course of "Concepts of Modern Programming Languages" (NPRG014).
 
 # Lessons
 
-## Lesson 1 - 2th October 2023
+## Lesson 1 - 30th September 2024
 ### Agenda
 * Language dynamism - typing, casting, object construction, method invocation
 * Functional programming in OO languages
@@ -16,11 +16,11 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * Checkout this repository to get the source code of the examples and homework assignment that will be used during the lecture
 
 ### Resources
-* Exercises to work with during the lesson are located in the “lecture1002/exercises” folder
-* The homework is to be found at “lecture10002/homework”
-* The “lecture10002/slides” holds the slides for the lecture
+* Exercises to work with during the lesson are located in the “lecture0930/exercises” folder
+* The homework is to be found at “lecture0930/homework”
+* The “lecture0930/slides” holds the slides for the lecture
 
-## Lesson 2 - 9th October 2023
+## Lesson 2 - 7th October 2024
 ### Agenda
 
 * Dynamic meta-programming
@@ -33,11 +33,11 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * Do a fresh checkout of this repository to get updated source code for examples and homework assignments
 
 ### Resources
-* Exercises to work with during the lesson are located in the “lecture1009/exercises” folder
-* The homework is to be found at “lecture1009/homework”
-* The “lecture1009/slides” holds the slides for the lecture
+* Exercises to work with during the lesson are located in the “lecture1007/exercises” folder
+* The homework is to be found at “lecture1007/homework”
+* The “lecture1007/slides” holds the slides for the lecture
 
-## Lesson 3 - 16th October 2023
+## Lesson 3 - 14th October 2024
 ### Agenda
 
 * Static meta-programming
@@ -48,12 +48,30 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * Do a fresh checkout of this repository to get updated source code for examples and homework assignments
 
 ### Resources
-* Exercises to work with during the lesson are located in the “lecture1016/exercises” folder
-* The homework is to be found at “lecture1016/homework”
-* The “lecture1016/slides” holds the slides for the lecture
+* Exercises to work with during the lesson are located in the “lecture1014/exercises” folder
+* The homework is to be found at “lecture1014/homework”
+* The “lecture1014/slides” holds the slides for the lecture
 
+## Lesson 4 - 21st October 2024
+### Agenda
 
-## Lesson 4 - 30th October 2023
+* Concurrency abstractions in modern languages
+** Dataflow
+** Fork-join
+** Actors
+** Parallel collections
+** Agents
+
+### Preparation
+* Same as for Lesson 1 (Groovy, JDK)
+* Do a fresh checkout of this repository to get updated source code for examples and homework assignments
+
+### Resources
+* Exercises to work with during the lesson are located in the “lecture1021/exercises” folder
+* The homework is to be found at “lecture1021/homework”
+* The “lecture1021/slides” holds the slides for the lecture
+
+## Lesson 5 - 4th November 2023
 ### Agenda
 * Bytecode
 * Statically-typed languages (Scala) - Part I
@@ -69,27 +87,7 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * The “lecture-scala/slides” holds the slides for the lecture
 
 
-## Lesson 5 - 6th November 2023
-### Agenda
-
-* Concurrency abstractions in modern languages
-** Dataflow
-** Fork-join
-** Actors
-** Parallel collections
-** Agents
-
-### Preparation
-* Same as for Lesson 1 (Groovy, JDK)
-* Do a fresh checkout of this repository to get updated source code for examples and homework assignments
-
-### Resources
-* Exercises to work with during the lesson are located in the “lecture1023/exercises” folder
-* The homework is to be found at “lecture1023/homework”
-* The “lecture1023/slides” holds the slides for the lecture
-
-
-## Lesson 6 - 13th November 2023
+## Lesson 6 - 11th November 2023
 ### Agenda
 * Statically-typed languages (Scala) - Part II
 
@@ -97,14 +95,14 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * Same as for Lesson 4
 
 
-## Lesson 7 - 20th November 2023
+## Lesson 7 - 10th November 2023
 ### Agenda
 * Statically-typed languages (Scala) - Part III
 
 ### Preparation
 * Same as for Lesson 4
 
-## Lesson 8 - 27th November 2023
+## Lesson 8 - 25th November 2023
 ### Agenda
 * Statically-typed languages (Scala) - Part IV
 
@@ -112,7 +110,7 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * Same as for Lesson 4
 
 
-## Lesson 9 - 4th December 2023
+## Lesson 9 - 2nd December 2023
 ### Agenda
 * Introduction to prototype-based languages (IO)
 
@@ -122,7 +120,7 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * Checkout this repository to get all examples
 
 
-## Lesson 10 - 18th December 2023
+## Lesson 10 - 9th December 2023
 ### Agenda
 * Advanced types in TypeScript (Tomas Petricek – guest lecture)
 
