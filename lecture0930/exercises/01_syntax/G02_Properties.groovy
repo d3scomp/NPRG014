@@ -20,6 +20,6 @@ pisek.size = 25001
 println pisek.dump()
 
 println tabor
-//TASK Provide a customized toString() method to print the name and the population
+//TASK Provide a customized toString() method overriding Object::toString() that prints the name and the population
 //assert 'City of Písek, population: 25001' == pisek.toString()
 //assert 'Capital city of Praha, population: 1300000' == praha.toString()

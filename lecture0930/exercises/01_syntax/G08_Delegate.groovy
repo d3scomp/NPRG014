@@ -14,13 +14,4 @@ process(joe, {println name})
 //process(jeff, {println age})
 
 
-/*
-class Person {
-    final name = "Whatever"
-    final greet = {println name}
-}
-process(joe, new Person().greet)
-*/
-
-
 //TASK Experiment with owner, delegate as well as with different resolution strategies

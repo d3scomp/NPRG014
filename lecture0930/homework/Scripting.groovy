@@ -1,4 +1,4 @@
-// 2023/2024
+// 2024/2025
 // TASK Implement the processNumbers() method sketched bellow.
 // The user provides a list of operations and a collection of numbers that are supposed to be filtered and transformed 
 // using the operations. The operations are of two kinds - filter and transform. They must be processed in the same order
@@ -11,8 +11,8 @@
 // Some of the operations refer to a 'LENGTH' value, which represents the ORIGINAL size of the provided collection of numbers.
 // The processNumbers() method must ensure that the 'LENGTH' identifier refers to the right value.
 
-// Use the tricks we learnt about scripting, passing parameters to GroovyShell through binding, properties, 
-// closure delegates, the 'object.with(Closure)' method, etc.
+// Use some of the tricks we've learnt about scripting, like passing parameters to GroovyShell through binding,
+// properties, closure delegates, the 'object.with(Closure)' method, etc.
 
 
 List<String> processNumbers(List<Operation> userInput, List<String> numbers) {

@@ -4,7 +4,7 @@ person.age = 300
 
 person.sprint = {println "I am $age years old and I am running in ${Thread.currentThread().name}"}
 person.sprint.delegate = person
-person.run = {delegate.sprint()}
+person.run = {sprint()}
 person.run.delegate = person
 
 println('Main thread: ' + Thread.currentThread().name)

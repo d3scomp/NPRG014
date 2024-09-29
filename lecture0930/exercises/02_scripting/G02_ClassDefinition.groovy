@@ -12,8 +12,9 @@ properties.each {entry ->
 }
 code += "}\n\n"
 code += "return new $className()"
+println "===== String to evaluate =====\n"
 println code
-
+println "===== end ====="
 
 def object = shell.evaluate(code)
 object.name = "Joe"
