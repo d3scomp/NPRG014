@@ -1,6 +1,6 @@
 class BusinessPerson {}
 class Turist {}
-class Homeless {}
+class Visitor {}
 class Burglar {}
 
 class Receptionist {
@@ -23,7 +23,7 @@ class Receptionist {
 
 final receptionist = new Receptionist()
 
-final visitors = [new BusinessPerson(), new Turist(), new Burglar(), new Homeless()]
+final visitors = [new BusinessPerson(), new Turist(), new Burglar(), new Visitor()]
 final greetings = visitors.collect {
                     receptionist.welcome(it)
                   }

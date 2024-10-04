@@ -41,6 +41,7 @@ def report(String msg) {println "LOG: $msg"}
 if(m) {
     report(m as String)
 }
+println(m?:"Empty")
 
 println "============= LOAN ============="
 Loan yourNewLoan = new Money(amount: 300, currency: "EUR") as Loan
