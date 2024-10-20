@@ -1,7 +1,6 @@
 import groovy.transform.Immutable
 import groovyx.gpars.actor.DynamicDispatchActor
 
-//TODO Implement the actor class so that the script passes
 class MyCounter extends DynamicDispatchActor {
     private int counter = 0
 

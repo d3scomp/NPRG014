@@ -4,7 +4,7 @@ import static groovyx.gpars.dataflow.Dataflow.whenAllBound
 
 Closure download = { String url ->
     sleep 3000  //Simulate a web read
-    return 'web content'
+    return 'file content'
 }
 
 Closure loadFile = { String fileName ->
@@ -21,8 +21,8 @@ Closure compare = { int first, int second ->
 println compare(hash(download("")), hash(loadFile("")))
 
 // Asynchronous and blocking
-def h1 = task {hash(download(""))}
-def h2 = task {hash(loadFile(""))}
+def h1 = task {hash(task {download("")}.get())}
+def h2 = task {hash(task {loadFile("")}.get())}
 def p1 = task {compare(h1.get(), h2.get())}
 println p1.get()
 

@@ -2,37 +2,35 @@ import groovyx.gpars.dataflow.Dataflow
 import static groovyx.gpars.dataflow.Dataflow.*
 import groovyx.gpars.dataflow.DataflowVariable
 
-def engineCheck = new DataflowVariable()
-def tyrePressure = new DataflowVariable()
-def radarOn = new DataflowVariable()
+def x = new DataflowVariable()
+def y = new DataflowVariable()
+def add = new DataflowVariable()
+def mul = new DataflowVariable()
 
 task {
-    println "Checking the engine"
+    add << x.get() + y.get()
+    println "Add: " + add.get()
+}
+
+task {
+    mul << x.get() * y.get()
+    println "Multiply: " + mul.get()
+}
+
+task {
+    println "Pretty printing"
+    println "${x.get()} + ${y.get()} = ${add.get()}"
+    println "${x.get()} * ${y.get()} = ${mul.get()}"
+}
+
+task {
     sleep 3000
-    engineCheck << true
-    println "Engine ok"
+    x << 10
 }
-
 task {
-    println "Preparing the tyres"
-    sleep 4000
-    tyrePressure << true
-    println "Tyres ok"
+    sleep 2000
+    y<<4
 }
 
-task {
-    println "Turning radar on"
-    sleep 1000
-    radarOn << true
-    println "Radar ok"
-}
-
-//TASK: Radar can only be turned on after electricity is checked. Add an electricity-checking task
-//and wire it so that the radar can only turned on after the electricity check finishes correctly.
-
-boolean ready = [engineCheck, tyrePressure, radarOn].every {it.val}
-if(ready) {
-    println 'Taking off'
-} else {
-    println 'Staying on the ground today'
-}
+[add, mul]*.join()
+sleep 1000

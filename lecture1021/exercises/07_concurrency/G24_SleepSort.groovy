@@ -11,7 +11,7 @@ final startSignal = new DataflowVariable()
 
 final threads = numbers.collect { num ->
     task {
-        final coef = startSignal.val
+        final coef = startSignal.get()
         sleep num * coef
         println num
     }
@@ -20,5 +20,3 @@ final threads = numbers.collect { num ->
 startSignal << 50
 threads*.join()
 println "Done"
-
-//TASK Use a DataflowQueue to output the sorted numbers instead of printing them out directly

@@ -1,4 +1,4 @@
-//2023/2024
+//2024/2025
 //Four channels deliver daily prices of a particular stock traded at four locations - Paris, Vienna, Frankfurt and Chicago.
 //The prices are in EUR for Paris, Vienna and Frankfurt, and in USD for Chicago.
 //The prices in Paris may contain a value '0' indicating that no price is available for that day. The latest recorded non-zero price in Paris
