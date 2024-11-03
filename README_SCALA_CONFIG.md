@@ -4,7 +4,7 @@
 
 installed packages in following versions:
 
-* JDK 17
+* JDK 21
   * https://www.oracle.com/java/technologies/downloads/
   
 * SBT
@@ -61,7 +61,7 @@ If that works, your IDEA is configured properly.
 
 ## dump project structure fails with null pointer exception
 
-Edit file "./project/build.properties" to contain "sbt.version = 1.5.5" (or current latest version this is mainly for future reference since the file has already been changed to contain this version)
+Edit file "./project/build.properties" to contain "sbt.version = 1.10.0" (or current latest version this is mainly for future reference since the file has already been changed to contain this version)
 
 ![Error msg](./images_for_readme/null-pointer.png)
 

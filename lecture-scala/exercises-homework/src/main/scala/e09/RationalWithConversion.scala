@@ -36,7 +36,8 @@ object RationalWithConversionTest:
 	def main(args: Array[String]): Unit =
 		import Rational.given
 
-		val c = 1 + Rational(1, 2)
+		val c = 1 + Rational(1, 2) + 3
+
 		println(c)
 		
 		/* ASSIGNMENT
@@ -45,4 +46,3 @@ object RationalWithConversionTest:
 		 * 
 		 * println(2/3 ~ R + 5/6 ~ R)
 		 */
-

@@ -81,6 +81,6 @@ object ExplicitStateTest:
     println(joe)
 
     // The line below must not compile. It should complain about an incompatible type.
-    // box.restoreTo(prevState)
+    // box.restoreTo(johnsPrevState)
 
 */

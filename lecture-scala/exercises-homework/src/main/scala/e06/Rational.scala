@@ -32,7 +32,7 @@ class Rational(n: Int, d: Int):
 
 	// In future versions of Scala, methods with non-symbolic names will only be allowed as
 	// operators if they are declared with the infix modifier.
-	infix def withDenom(i: Int) = Rational(numer, denom)
+	infix def withDenom(i: Int) = Rational(numer, i)
 
 	override def toString = s"${numer}/${denom}"
 	private def gcd(a: Int, b: Int): Int = if b == 0 then a else gcd(b, a % b)
@@ -44,6 +44,8 @@ object RationalTest:
 		val b = Rational(6, 7)
 
 		val c = -a + b
+
+		val d = a + 5
 
 		println(c)
 

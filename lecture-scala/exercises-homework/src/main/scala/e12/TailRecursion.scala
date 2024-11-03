@@ -17,7 +17,6 @@ object TailRecursion:
       case _ :: rest => 1 + length(rest)
       case Nil => 0
 
-
   def main(args: Array[String]): Unit =
     val list = List("aa", "bb", "cc", "dd")
     println(contains(list, "bb"))

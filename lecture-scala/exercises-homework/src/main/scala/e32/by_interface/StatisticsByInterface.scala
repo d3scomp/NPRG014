@@ -32,7 +32,6 @@ class IntWithNumberLike(val x: Int) extends NumberLike[IntWithNumberLike]:
   def -(y: NumberLike[IntWithNumberLike]) = IntWithNumberLike(x - y.get.x)
   def +(y: NumberLike[IntWithNumberLike]) = IntWithNumberLike(x + y.get.x)
   def /(y: Int) = IntWithNumberLike(x / y)
-  override def toString: String = x.toString
 
 
 object StatisticsByInterface:

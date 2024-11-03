@@ -41,5 +41,5 @@ object ExtractorTest:
     validateEmail(EMail("doe", "xyz.natur.cuni.cz"))
     validateEmail("XXX")
 
-    val name `@` DomainRev(dc1, dc2, _*) = "bures@d3s.mff.cuni.cz"
+    val name @ DomainRev(dc1, dc2, _*) = "bures@d3s.mff.cuni.cz"
     println(s"$name @ ... . $dc2 . $dc1")

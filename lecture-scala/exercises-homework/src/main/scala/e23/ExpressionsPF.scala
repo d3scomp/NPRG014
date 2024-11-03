@@ -24,7 +24,7 @@ object ExpressionsPF:
 			case BinOp("+", Number(0), e) => e
 			case BinOp("+", e, Number(0)) => e
 			case BinOp("*", Number(1), e) => e
-			case BinOp("*", e, Number(1)) => e			
+			case BinOp("*", e, Number(1)) => e
 		}
 		
 		println(expr)

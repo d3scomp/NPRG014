@@ -71,7 +71,7 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * The homework is to be found at “lecture1021/homework”
 * The “lecture1021/slides” holds the slides for the lecture
 
-## Lesson 5 - 4th November 2023
+## Lesson 5 - 4th November 2024
 ### Agenda
 * Bytecode
 * Statically-typed languages (Scala) - Part I
@@ -87,7 +87,7 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * The “lecture-scala/slides” holds the slides for the lecture
 
 
-## Lesson 6 - 11th November 2023
+## Lesson 6 - 11th November 2024
 ### Agenda
 * Statically-typed languages (Scala) - Part II
 
@@ -95,14 +95,14 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * Same as for Lesson 4
 
 
-## Lesson 7 - 10th November 2023
+## Lesson 7 - 18th November 2024
 ### Agenda
 * Statically-typed languages (Scala) - Part III
 
 ### Preparation
 * Same as for Lesson 4
 
-## Lesson 8 - 25th November 2023
+## Lesson 8 - 25th November 2024
 ### Agenda
 * Statically-typed languages (Scala) - Part IV
 
@@ -110,7 +110,7 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * Same as for Lesson 4
 
 
-## Lesson 9 - 2nd December 2023
+## Lesson 9 - 2nd December 2024
 ### Agenda
 * Introduction to prototype-based languages (IO)
 
@@ -120,9 +120,9 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * Checkout this repository to get all examples
 
 
-## Lesson 10 - 9th December 2023
+## Lesson 10 - 9th December 2024
 ### Agenda
-* Advanced types in TypeScript (Tomas Petricek – guest lecture)
+* Advanced types in TypeScript
 
 ### Preparation
 * If you do not have Node.js installed, get the LTS version from https://nodejs.org (but any reasonably recent version should work)

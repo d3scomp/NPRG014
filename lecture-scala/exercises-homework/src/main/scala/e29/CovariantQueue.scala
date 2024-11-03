@@ -4,9 +4,12 @@ package e29
  * - covariance with internal state
  */
 
+object CovariantQueue:
+	def apply() = new CovariantQueue(Nil, Nil)
+
 class CovariantQueue[+T] private (
-		private var leading: List[T],
-		private var trailing: List[T]
+		private[this] var leading: List[T],
+		private[this] var trailing: List[T]
 	):
 
 	private def mirror(): Unit =
