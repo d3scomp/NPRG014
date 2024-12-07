@@ -125,9 +125,9 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 * Advanced types in TypeScript
 
 ### Preparation
-* If you do not have Node.js installed, get the LTS version from https://nodejs.org (but any reasonably recent version should work)
-* We will use Vite.js framework, which is installed via npm (Node package manager). To test if things work for you, run `npm create vite@latest` as explained in https://vitejs.dev/guide/
-* Enter project name, select Vanilla, TypeScript and follow printed instructions to run the project.
-* You will need an editor that does checking in background. Visual Studio Code is a good choice, but anything will do. 
+* If you do not have Node.js installed, get the LTS version from https://nodejs.org (but any reasonably recent version should work) and 
+  check the README.md in the lecture materials for more details.
+* You will need an editor that does type checking in background. WebStorm (from JetBrains) or VSCode are good choices, but anything will do.
+  
 
 ### Resources
