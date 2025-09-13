@@ -63,6 +63,6 @@ private def evaluateScript(codePane, frame, slider, label, customPanel) {
 
 //    codePane.text = "$result"
 }
-
+// try addButton('Press me') {def v = mySlider.value;mySlider.value = 0;addButton('Undo', {mySlider.value = v})}addButton('Press me') {def v = mySlider.value;mySlider.value = 0;addButton('Undo', {mySlider.value = v})}
 frame.pack()
 frame.show()
