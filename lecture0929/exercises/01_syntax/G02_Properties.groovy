@@ -8,16 +8,16 @@ class City {
     }
 }
 
-println City.create("Brno", 400000).dump()
-def praha = City.create("Praha", 1300000, true).dump()
+println City.create("Brno", 400000)
+def praha = City.create("Praha", 1300000, true)
 println praha
 
 City pisek = new City(name: 'Písek', size: 25000, capital: false)
 City tabor = new City(size: 35000, capital: false, name: 'Tábor')
 
-println pisek.dump()
+println pisek
 pisek.size = 25001
-println pisek.dump()
+println pisek
 
 println tabor
 //TASK Provide a customized toString() method overriding Object::toString() that prints the name and the population

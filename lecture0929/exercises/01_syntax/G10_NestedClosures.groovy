@@ -1,4 +1,3 @@
-def global = {
 final a = {
     final b = {
         final c = {magicNumber + 10}
@@ -8,10 +7,7 @@ final a = {
 }
 
 //TASK Set the delegates so that to code passes and uses the value below
+final data = [magicNumber: 20]
 
 println a()
 assert 30 == a()
-}
-final data = [magicNumber: 20]
-global.delegate = data
-global()

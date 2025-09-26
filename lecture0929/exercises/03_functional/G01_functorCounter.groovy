@@ -6,7 +6,7 @@ class Counter {
         //TASK Implement map
     }
 }
-def increment = {it + 1}
+def increment = {int a -> a + 1}
 
 def c = new Counter(value: 0)
 def r1 = c.map(increment)

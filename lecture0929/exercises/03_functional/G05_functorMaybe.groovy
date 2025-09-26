@@ -32,17 +32,17 @@ class Some<A> extends Maybe<A> {
 
 class None<A> extends Maybe<A> {
     public <B> Maybe<B> map(Closure<B> f) {
-        return new None()
+        return new None<B>()
     }
     
     public String toString() {"None"}
 }
 
 def a = new Some<Integer>(10)
-def b = a.map {Integer v -> "value: $v"}
+def b = a.map {Integer v -> "====>: $v"}
 println b
 def c = a.map {Integer v -> if (true) throw new RuntimeException('test'); return ""}
-println c
+println 'After an exception was thrown: ' + c
 
 
 // API may use Maybe as a safe way to report errors in computation

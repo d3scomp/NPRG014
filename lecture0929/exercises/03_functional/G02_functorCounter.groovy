@@ -6,7 +6,7 @@ class Counter<A> {
         new Counter<B>(value: f(this.value))
     }
 }
-def increment = {it + 1}
+def increment = {Integer a -> a + 1}
 
 def c = new Counter<Integer>(value: 0)
 def r1 = c.map(increment)

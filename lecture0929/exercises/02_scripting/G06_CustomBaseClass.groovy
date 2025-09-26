@@ -2,16 +2,16 @@
 import groovy.transform.BaseScript
 
 abstract class MyBaseClass extends Script {
-    String name
+    String myName
     void greet() {
-        println "Hello $name"
+        println "Hello $myName"
     }
     void say(String word) {
         println "I am saying $word"
     }
 }
 
-name = 'Ingrid'
+myName = 'Ingrid'
 greet()
 say 'Hi'
 say 'Bye'

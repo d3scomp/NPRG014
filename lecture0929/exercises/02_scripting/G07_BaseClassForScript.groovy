@@ -1,9 +1,9 @@
 import org.codehaus.groovy.control.CompilerConfiguration
 
 abstract class MyBaseClass extends Script {
-    String name
+    String myName
     void greet() {
-        println "Hello $name"
+        println "Hello $myName"
     }
     void say(String word) {
         println "I am saying $word"
@@ -15,10 +15,12 @@ config.scriptBaseClass = 'MyBaseClass'
 GroovyShell shell = new GroovyShell(this.class.classLoader, config)
 
 final code = '''
-name = 'Ingrid'
+myName = 'Ingrid'
 greet()
 say 'Hi'
 say 'Bye'
+
+return myName
 '''
 
 println 'Result: ' + shell.evaluate(code)

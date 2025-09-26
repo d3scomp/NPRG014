@@ -1,4 +1,4 @@
-// 2024/2025
+// 2025/2026
 // TASK Implement the processNumbers() method sketched bellow.
 // The user provides a list of operations and a collection of numbers that are supposed to be filtered and transformed 
 // using the operations. The operations are of two kinds - filter and transform. They must be processed in the same order
@@ -15,7 +15,7 @@
 // properties, closure delegates, the 'object.with(Closure)' method, etc.
 
 
-List<String> processNumbers(List<Operation> userInput, List<String> numbers) {
+List<String> processNumbers(List<Operation> userInput, List<Integer> numbers) {
     //Function that runs the provided operations on the provided collection of numbers. Needs to be implemented.
     // ...
 }
