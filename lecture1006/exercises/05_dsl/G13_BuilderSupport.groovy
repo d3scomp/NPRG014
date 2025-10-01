@@ -50,10 +50,7 @@ println(builder.html {
         div {
             h1 'hello'
         }
-        p(align: "Center", color: "Magenta") {
-            text "This is my document"
-        }
-    }
+        p(align: "Center", color: "Magenta", "This is my document")    }
 })
 
 //TASK Add support for html attributes, as used above in p(align: "Center", color: "Magenta")

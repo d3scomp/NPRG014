@@ -1,6 +1,6 @@
 class MyIndentingBuilder {
 
-    def indent = 1
+    def indent = 0
     def indentSize = 1
 
     def invokeMethod(String methodName, args) {

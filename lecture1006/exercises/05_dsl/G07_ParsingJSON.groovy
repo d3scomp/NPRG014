@@ -19,6 +19,6 @@ assert header.from == 'mrhaki'
 assert header.to[0] == 'Groovy Users'
 assert header.to[1] == 'Java Users'
 //TASK read the json message body
-//assert ... == "Check out Groovy's gr8 JSON support."
+//assert "Check out Groovy's gr8 JSON support." == ...
 
 println 'ok'
