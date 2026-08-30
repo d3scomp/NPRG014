@@ -12,4 +12,7 @@ a + b + 9
 '''
 
 println 'Result: ' + shell.evaluate(code)
-//TASK Read and print the 'debugNote' bound by the script
+println 'Debug note: ' + binding.debugNote
+
+//TASK Read and print the value of 'a' after the computation
+//println 'Value of a: '...

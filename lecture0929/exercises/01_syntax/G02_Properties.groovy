@@ -8,10 +8,12 @@ class City {
     }
 }
 
+// Demonstrates default parameters
 println City.create("Brno", 400000)
 def praha = City.create("Praha", 1300000, true)
 println praha
 
+// Demonstrates named parameters
 City pisek = new City(name: 'Písek', size: 25000, capital: false)
 City tabor = new City(size: 35000, capital: false, name: 'Tábor')
 

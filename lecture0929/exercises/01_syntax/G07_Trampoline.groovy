@@ -1,3 +1,10 @@
+// Trampoline is a technique from functional programming that prevents stack overflow
+// in deeply recursive functions.  Instead of calling itself directly (which adds a
+// new frame to the call stack on every step), a trampolined function returns a
+// "thunk" — a zero-argument closure that represents the next recursive step.
+// A driver loop then repeatedly invokes the thunk until a final value is produced.
+// Because each recursive call is replaced by a return-value cycle, the call stack
+// never grows beyond a constant depth, even for millions of iterations.
 def factorial
 factorial = { int n, def accu = 1G ->
     if (n < 2) return accu

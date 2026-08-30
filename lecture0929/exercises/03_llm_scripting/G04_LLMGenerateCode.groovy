@@ -1,5 +1,5 @@
 #!/usr/bin/env groovy
-import groovy.json.JsonSlurper
+import helpers.LLMGenerateConnector
 
 // Prompt for the model
 def prompt = """
@@ -8,29 +8,13 @@ prints it, sorts it using bubble sort while printing the state of the array afte
 and finally prints the resulting sorted array.
 """
 
-// Build request JSON
-def requestBody = [
-    model: "gemma3:4b",
-    prompt: prompt,
-    stream: false
-]
-
-// Open HTTP connection
-def url = new URL("http://localhost:11434/api/generate")
-def conn = url.openConnection()
-conn.setRequestMethod("POST")
-conn.doOutput = true
-conn.setRequestProperty("Content-Type", "application/json")
-
-// Send JSON body
-conn.outputStream.withWriter("UTF-8") { writer ->
-    writer << groovy.json.JsonOutput.toJson(requestBody)
-}
-
-// Read response
-def responseText = conn.inputStream.getText("UTF-8")
-def parsed = new JsonSlurper().parseText(responseText)
-def rawOutput = parsed.response as String
+// Use the LLMGenerateConnector helper to generate the response
+//def connector = new LLMGenerateConnector(debug: true)
+//def connector = new LLMGenerateConnector(model: 'gemma4', debug: true)
+//def connector = new LLMGenerateConnector(model: 'gemma4:12b', debug: true)
+//def connector = new LLMGenerateConnector(model: 'gemma4:31b', debug: true)
+def connector = new LLMGenerateConnector(model: 'qwen3.6', debug: true)
+def rawOutput = connector.ask(prompt)
 
 println "=== Raw model output ==="
 println rawOutput

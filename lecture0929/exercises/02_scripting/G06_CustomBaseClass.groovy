@@ -1,3 +1,7 @@
+// Demonstrates using the @BaseScript annotation to define a custom base class (MyBaseClass) 
+// for the script, allowing the script body below to directly access custom properties 
+// and methods (like myName, greet, and say) as if they were built-in.
+
 @BaseScript(MyBaseClass)
 import groovy.transform.BaseScript
 

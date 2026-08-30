@@ -25,6 +25,25 @@ class Plane {
     }
     
     void performCommand(desc, @DelegatesTo(Plane) command) {
+        // rehydrate(owner, thisObject, delegate) creates a copy of this closure with
+        // new values for owner, thisObject ("it"), and delegate.
+        //
+        // Why do we need it?
+        // When a closure is defined outside a class, its delegate defaults to the
+        // script or class in which it was created (i.e., not "this" Plane).
+        // Without rehydrate, calls like startEngine() or adjustThrust() inside the
+        // closure would look up the wrong delegate and fail.
+        //
+        // By rehydrating with "this" as delegate, we tell the closure:
+        //   - delegate  = this Plane instance  → method calls like startEngine()
+        //                                     resolve against this Plane.
+        //   - owner     = this Plane instance  → keeps the closure "inside" the
+        //                                     Plane's scope.
+        //   - thisObject= this Plane instance  → "it" inside the closure refers to
+        //                                     this Plane.
+        //
+        // In short: rehydrate reparents the closure so that all its method calls
+        // land on the current Plane instance instead of on "main".
         def code = command.rehydrate(this, this, this)
         code.call()
     }
