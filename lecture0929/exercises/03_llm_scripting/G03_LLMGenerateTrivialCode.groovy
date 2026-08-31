@@ -3,13 +3,13 @@ import helpers.LLMGenerateConnector
 
 // Prompt for the model
 def prompt = """
-Write a simple groovy script that prints out the current date and time formatted using the CZ locale.
+Write a simple groovy script that prints out the current date and time.
 """
 
 // Use the LLMGenerateConnector helper to generate the response
-//def connector = new LLMGenerateConnector(debug: true)
+def connector = new LLMGenerateConnector(debug: true)
 //def connector = new LLMGenerateConnector(model: 'gemma4', debug: true)
-def connector = new LLMGenerateConnector(model: 'gemma4:12b', debug: true)
+//def connector = new LLMGenerateConnector(model: 'gemma4:12b', debug: true)
 //def connector = new LLMGenerateConnector(model: 'gemma4:31b', debug: true)
 //def connector = new LLMGenerateConnector(model: 'qwen3.6', debug: true)
 def rawOutput = connector.ask(prompt)
