@@ -3,7 +3,7 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 
 # Lessons
 
-## Lesson 1 - 29th September 2024
+## Lesson 1 - 5th October 2026
 ### Agenda
 * Language dynamism - typing, casting, object construction, method invocation
 * Scripting
@@ -55,11 +55,11 @@ ollama pull gemma4:12b
 ollama pull qwen3.6
 ```
 ### Resources
-* Exercises to work with during the lesson are located in the “lecture0929/exercises” folder
-* The homework is to be found at “lecture0929/homework”
-* The “lecture0929/slides” holds the slides for the lecture
+* Exercises to work with during the lesson are located in the “lecture-groovy1/exercises” folder
+* The homework is to be found at “lecture-groovy1/homework”
+* The “lecture-groovy1/slides” holds the slides for the lecture
 
-## Lesson 2 - 6th October 2024
+## Lesson 2 - 12th October 2026
 ### Agenda
 
 * Dynamic meta-programming
@@ -72,11 +72,11 @@ ollama pull qwen3.6
 * Do a fresh checkout of this repository to get updated source code for examples and homework assignments
 
 ### Resources
-* Exercises to work with during the lesson are located in the “lecture1006/exercises” folder
-* The homework is to be found at “lecture1006/homework”
-* The “lecture1006/slides” holds the slides for the lecture
+* Exercises to work with during the lesson are located in the “lecture-groovy2/exercises” folder
+* The homework is to be found at “lecture-groovy2/homework”
+* The “lecture-groovy2/slides” holds the slides for the lecture
 
-## Lesson 3 - 13th October 2024
+## Lesson 3 - 19th October 2026
 ### Agenda
 
 * Static meta-programming
@@ -87,11 +87,11 @@ ollama pull qwen3.6
 * Do a fresh checkout of this repository to get updated source code for examples and homework assignments
 
 ### Resources
-* Exercises to work with during the lesson are located in the “lecture1013/exercises” folder
-* The homework is to be found at “lecture1013/homework”
-* The “lecture1013/slides” holds the slides for the lecture
+* Exercises to work with during the lesson are located in the “lecture-groovy3/exercises” folder
+* The homework is to be found at “lecture-groovy3/homework”
+* The “lecture-groovy3/slides” holds the slides for the lecture
 
-## Lesson 4 - 20th October 2024
+## Lesson 4 - 2nd November 2026
 ### Agenda
 * Bytecode
 * Statically-typed languages (Scala) - Part I
@@ -107,7 +107,7 @@ ollama pull qwen3.6
 * The “lecture-scala/slides” holds the slides for the lecture
 
 
-## Lesson 5 - 27th October 2024
+## Lesson 5 - 9th November 2026
 ### Agenda
 * Statically-typed languages (Scala) - Part II
 
@@ -115,21 +115,21 @@ ollama pull qwen3.6
 * Same as for Lesson 4
 
 
-## Lesson 6 - 3rd November 2024
+## Lesson 6 - 16th November 2026
 ### Agenda
 * Statically-typed languages (Scala) - Part III
 
 ### Preparation
 * Same as for Lesson 4
 
-## Lesson 7 - 10th November 2024
+## Lesson 7 - 23rd November 2026
 ### Agenda
 * Statically-typed languages (Scala) - Part IV
 
 ### Preparation
 * Same as for Lesson 4
 
-## Lesson 8 - 24th November 2024
+## Lesson 8 - 30th November 2026
 ### Agenda
 
 * Concurrency abstractions in modern languages
@@ -144,11 +144,11 @@ ollama pull qwen3.6
 * Do a fresh checkout of this repository to get updated source code for examples and homework assignments
 
 ### Resources
-* Exercises to work with during the lesson are located in the “lecture1124/exercises” folder
-* The homework is to be found at “lecture1124/homework”
-* The “lecture1124/slides” holds the slides for the lecture
+* Exercises to work with during the lesson are located in the “lecture-groovy4/exercises” folder
+* The homework is to be found at “lecture-groovy4/homework”
+* The “lecture-groovy4/slides” holds the slides for the lecture
 
-## Lesson 9 - 1st December 2024
+## Lesson 9 - 7th December 2026
 ### Agenda
 * Introduction to prototype-based languages (IO)
 
@@ -157,7 +157,7 @@ ollama pull qwen3.6
 * Checkout this repository to get all examples
 
 
-## Lesson 10 - 8th December 2024
+## Lesson 10 - 14th December 2026
 ### Agenda
 * Advanced types in TypeScript
 
