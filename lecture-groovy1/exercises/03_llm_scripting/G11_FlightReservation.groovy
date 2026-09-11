@@ -1,6 +1,11 @@
 #!/usr/bin/env groovy
 import helpers.*
 
+/*
+ Task: The validator currently only checks whether the generated code is valid Groovy.
+ Make the validator aware of the user request and ask it to also check that the user request was correctly translated into the code.
+*/
+
 enum TravelClass {
     economy, business, firstClass
 }
@@ -25,7 +30,9 @@ All your responses must be valid idiomatic Groovy code. More specifically, you a
 and you write code that initializes the object by setting some or all of its properties. E.g. `flightRequest.travelerFirstName = 'Joe'`.
 
 You analyze the context provided by the user and extract information that is deducible from it to build the code.
-IMPORTANT: You must not invent and assign values that cannot be derived from the provided context! Leave those properties unassigned.
+
+IMPORTANT: As far as `dateRangeStart` annd `dateRangeEnd`, do your best to fill them with values. Try to extract or second-guess the info even if not explicitly mentioned by the user.
+IMPORTANT: Other than dates, you must not invent and assign values that cannot be derived from the provided context! Leave those properties unassigned.
 
 As a final statement in the Groovy script code that you create always include one of:
 - `return 'success'` if all properties of flightRequest could be determined and set
@@ -69,22 +76,40 @@ def request = '''
 // I'd like to travel.
 //'''
 
-def answer = connector.ask(request)
+def currentRequest = request
+def counter = 0
+final MAX_COUNT = 3
+String codeToRun = ''
+do {
+    def answer = connector.ask(currentRequest)
 
-// EXTRACT CODE FROM MARKDOWN
-String codeToRun = answer
-def matcher = answer =~ /(?s)```(?:groovy)?\s*(.*?)```/
-if (matcher.find()) {
-    codeToRun = matcher.group(1).trim()
-}
+    // EXTRACT CODE FROM MARKDOWN
+    codeToRun = answer
+    def matcher = answer =~ /(?s)```(?:groovy)?\s*(.*?)```/
+    if (matcher.find()) {
+        codeToRun = matcher.group(1).trim()
+    }
 
-println "$request : $codeToRun"
+    println "$request : $codeToRun"
 
-if (!isValid(codeToRun)) {
+    println 'Validating --------------------------------'
+    def validationAnswer = validate(codeToRun)
+    println "Validation: $validationAnswer"
+
+    if (validationAnswer.startsWith('INVALID')) {
+        currentRequest = "Please correct the code. Validation failed. Result: $validationAnswer"
+        counter++
+    } else {
+        break
+    }
+
+} while (counter < MAX_COUNT)
+
+if (counter >= MAX_COUNT) {
     throw new IllegalArgumentException("The supplied code is not valid: $codeToRun")
 }
 
-
+println('Running the script ------------------------------') 
 def binding = new Binding()
 binding.flightRequest = new FlightRequest()
 def shell = new GroovyShell(this.class.getClassLoader(), binding)
@@ -93,9 +118,10 @@ println result
 println binding.flightRequest
 
 
-boolean isValid(String code) {
-    def validator = new LLMChatConnector(debug: false, model: 'qwen3.6', systemPrompt: '''
+String validate(String code) {
+    def validator = new LLMChatConnector(debug: false, model: 'qwen3.6', systemPrompt: """
 You validate whether the provided code is valid Groovy script code.
+
 The code sets properties on a flightRequest object:
 
 enum TravelClass {
@@ -117,8 +143,7 @@ class FlightRequest {
 Several, one or even none of the properties on flightRequest may be set in the script.
 The script code ends with a `return 'some text'` statement, where "some text" can be an arbitrary string value.
 You must respond with text starting with either 'CORRECT' or 'INVALID'. An detailed explanation of your decision should follow only if the code is INVALID.
-    ''')
+    """)
     String answer = validator.ask(code)
-    println "Validation: $answer"
-    return answer.toUpperCase().startsWith('CORRECT')
+    return answer
 }

@@ -38,7 +38,7 @@ userInput.each {userRequest ->
         }
     
         println "$userRequest : $codeToRun"
-        println "Validating"
+        println "Validating -------------------------------"
         
         def validation = isValid(codeToRun)
         println validation
@@ -56,12 +56,13 @@ userInput.each {userRequest ->
         throw new IllegalArgumentException("The supplied code is not valid: $codeToRun")
     }
     
-
+    println 'Running --------------------------------'
     def binding = new Binding()
     binding.numbers = currentNumbers
     def shell = new GroovyShell(binding)
     currentNumbers = shell.evaluate(codeToRun)
     println currentNumbers
+    println ''
 }
 
 String isValid(String code) {

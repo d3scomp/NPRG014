@@ -45,4 +45,5 @@ userInput.each {
     def shell = new GroovyShell(binding)
     currentNumbers = shell.evaluate(codeToRun)
     println currentNumbers
+    println
 }
