@@ -16,26 +16,43 @@ List<String> userInput = [
 // Use the LLMChatConnector helper for a conversation
 def connector = new LLMChatConnector(debug: false, systemPrompt: '''
 You are a coding assistant specialized in querying Groovy collections using the Groovy collections API - e.g. collect, findAll, inject, each, etc.
-All your responses must be valid idiomatic Groovy code. More specifically, you always return code that represents a single operation on the `numbers` List that is implicitly available as a local variable.
+All your responses must be valid idiomatic Groovy code.
+More specifically, you always return code that represents a single operation on the `numbers` List of integers that is implicitly available as a local variable.
 For example, `numbers.findAll {it > 5}` is a possible output for a request 'Must be bugger than 5'.
-The context contains a variable named `numbers`, which is a List of integers.
 ''')
 
-
 def currentNumbers = numbers.clone()
-userInput.each {
-    def answer = connector.ask(it)
-
-    // EXTRACT CODE FROM MARKDOWN
-    String codeToRun = answer
-    def matcher = answer =~ /(?s)```(?:groovy)?\s*(.*?)```/
-    if (matcher.find()) {
-        codeToRun = matcher.group(1).trim()
-    }
-
-    println "$it : $codeToRun"
+userInput.each {userRequest ->
+    def counter = 0
+    final MAX_COUNT = 3
+    def codeToRun = ''
+    def question = userRequest
+    do {
+        def answer = connector.ask(question)
     
-    if (!isValid(codeToRun)) {
+        // EXTRACT CODE FROM MARKDOWN
+        codeToRun = answer
+        def matcher = answer =~ /(?s)```(?:groovy)?\s*(.*?)```/
+        if (matcher.find()) {
+            codeToRun = matcher.group(1).trim()
+        }
+    
+        println "$userRequest : $codeToRun"
+        println "Validating"
+        
+        def validation = isValid(codeToRun)
+        println validation
+        
+        if (validation.startsWith('INVALID')) {
+            question = "Please correct the code. Validation failed. Result: $validation"
+            counter++
+        } else {
+            break
+        }
+
+    } while (counter < MAX_COUNT)
+
+    if (counter >= MAX_COUNT) {
         throw new IllegalArgumentException("The supplied code is not valid: $codeToRun")
     }
     
@@ -47,15 +64,15 @@ userInput.each {
     println currentNumbers
 }
 
-boolean isValid(String code) {
+String isValid(String code) {
     def validator = new LLMChatConnector(debug: false, model: 'qwen3.6', systemPrompt: '''
-    You validate whether the provided code is valid Groovy code.
+    You validate whether the provided code is valid Groovy method call on the `numbers` receiver object.
     More specifically, you ensure that the provided code snippet represent a single operation on the `numbers` List that is implicitly available as a local variable.
     For example, `numbers.findAll {it > 5}` is a correct code.
+    No variables must be defined in the code. No println is allowed. Just a single dot operation calling a method on `numbers`.
     Cases, when the `collect` method unlike `findAll` is used on a boolean predicate, e.g. in `numbers.collect { it > 12 || it < 5 }`, must be rejected.
     You must respond with text starting with either 'CORRECT' or 'INVALID'. An detailed explanation of your decision should follow only if the code is INVALID.
     ''')
     String answer = validator.ask(code)
-    println "Validation: $answer"
-    return answer.toUpperCase().startsWith('CORRECT')
+    return answer
 }

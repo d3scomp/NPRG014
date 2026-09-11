@@ -14,7 +14,7 @@ import java.awt.Color
 import java.awt.FlowLayout
 import java.awt.Font
 
-def connector = new LLMChatConnector(debug: false, systemPrompt: 'You only use upper-case letters in your replies.')
+def connector = new LLMChatConnector(debug: true, systemPrompt: 'You only use upper-case letters in your replies.')
 def swing = new SwingBuilder()
 
 swing.edt {
