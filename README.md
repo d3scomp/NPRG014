@@ -55,9 +55,9 @@ ollama pull gemma4:12b
 ollama pull qwen3.6
 ```
 ### Resources
-* Exercises to work with during the lesson are located in the “lecture-groovy1/exercises” folder
-* The homework is to be found at “lecture-groovy1/homework”
-* The “lecture-groovy1/slides” holds the slides for the lecture
+* Exercises to work with during the lesson are located in the “lecture-groovy/exercises” folder
+* The homework is to be found at “lecture-groovy/homework/homework_1005”
+* The “lecture-groovy/slides” holds the slides for the lecture
 
 ## Lesson 2 - 12th October 2026
 ### Agenda
@@ -72,9 +72,9 @@ ollama pull qwen3.6
 * Do a fresh checkout of this repository to get updated source code for examples and homework assignments
 
 ### Resources
-* Exercises to work with during the lesson are located in the “lecture-groovy2/exercises” folder
-* The homework is to be found at “lecture-groovy2/homework”
-* The “lecture-groovy2/slides” holds the slides for the lecture
+* Exercises to work with during the lesson are located in the “lecture-groovy/exercises” folder
+* The homework is to be found at “lecture-groovy/homework/homework_1012”
+* The “lecture-groovy/slides” holds the slides for the lecture
 
 ## Lesson 3 - 19th October 2026
 ### Agenda
@@ -87,9 +87,9 @@ ollama pull qwen3.6
 * Do a fresh checkout of this repository to get updated source code for examples and homework assignments
 
 ### Resources
-* Exercises to work with during the lesson are located in the “lecture-groovy3/exercises” folder
-* The homework is to be found at “lecture-groovy3/homework”
-* The “lecture-groovy3/slides” holds the slides for the lecture
+* Exercises to work with during the lesson are located in the “lecture-groovy/exercises” folder
+* The homework is to be found at “lecture-groovy/homework/homework_1019”
+* The “lecture-groovy/slides” holds the slides for the lecture
 
 ## Lesson 4 - 2nd November 2026
 ### Agenda
@@ -144,9 +144,9 @@ ollama pull qwen3.6
 * Do a fresh checkout of this repository to get updated source code for examples and homework assignments
 
 ### Resources
-* Exercises to work with during the lesson are located in the “lecture-groovy4/exercises” folder
-* The homework is to be found at “lecture-groovy4/homework”
-* The “lecture-groovy4/slides” holds the slides for the lecture
+* Exercises to work with during the lesson are located in the “lecture-groovy/exercises” folder
+* The homework is to be found at “lecture-groovy/homework/homework_1130”
+* The “lecture-groovy/slides” holds the slides for the lecture
 
 ## Lesson 9 - 7th December 2026
 ### Agenda
