@@ -1,3 +1,19 @@
 # Learnt User Information
 
 - User prefers cheese on Sundays.
+- Enjoys cheese on Sundays (has a Sunday cheese tradition)
+- Prefers fresh, balanced meals
+- Follows a vegetarian, plant-based diet.
+- Prefers light, fresh meals.
+- Has a Sunday tradition of enjoying cheese.
+- Interested in technology, travel, and programming in Groovy.
+- Prefers conversations to be friendly, concise, and helpful.
+- Expects communication in English.
+- Has a tradition of enjoying cheese on Sundays
+- Main interests are technology, travel, and programming in Groovy
+- Prefers to communicate in English
+- Prefers a friendly, concise, and helpful communication tone
+- User follows a plant-forward diet/preference
+- User has a weekly tradition of eating cheese on Sundays
+- User frequently travels on Saturdays and Sundays.
+- User requires travel-friendly food/snack options for their trips.
