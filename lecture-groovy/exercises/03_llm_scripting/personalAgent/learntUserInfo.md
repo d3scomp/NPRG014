@@ -17,3 +17,7 @@
 - User has a weekly tradition of eating cheese on Sundays
 - User frequently travels on Saturdays and Sundays.
 - User requires travel-friendly food/snack options for their trips.
+- User's local computer username is Vaclav.
+- User is working with or studying a course or project labeled NPRG014 at an institution abbreviated as "mff".
+- User's system username is Vaclav.
+- User is enrolled in or participating in course NPRG014 at MFF.

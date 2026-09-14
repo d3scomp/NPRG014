@@ -60,7 +60,6 @@
  *   │          MAIN LLM                   │
  *   │                                     │
  *   │  Generates the actual answer.       │
- *   │  (Automatically handles MCP tools)  │
  *   └─────────────────┬───────────────────┘
  *                     │
  *                     │ proposed answer
@@ -74,13 +73,13 @@
  *   │  context.                           │
  *   └─────────────────┬───────────────────┘
  *                     │
- *               ┌──────┴──────┐
- *               │             │
- *           CORRECT         INVALID
- *               │             │
- *               │             └──────> ask main LLM again
- *               │                      (maximum 3 attempts)
- *               ▼
+ *              ┌──────┴──────┐
+ *              │             │
+ *          CORRECT         INVALID
+ *              │             │
+ *              │             └──────> ask main LLM again
+ *              │                       (maximum 3 attempts)
+ *              ▼
  *   ┌─────────────────────────────────────┐
  *   │          DISPLAY ANSWER             │
  *   │             IN GUI                  │
@@ -97,7 +96,7 @@
  *                     │ new facts
  *                     ▼
  *   ┌─────────────────────────────────────┐
- *   │        learntUserInfo.md            │
+ *   │       learntUserInfo.md             │
  *   │                                     │
  *   │  Facts are persisted for use by     │
  *   │  future requests.                   │
@@ -229,21 +228,13 @@ Rules:
 )
 
 if (!preferencesFile.exists()) {
-
-    preferencesFile = new File(
-            new File(
-                    getClass().protectionDomain.codeSource.location.path
-            ).parentFile,
-            'personalAgent/preferences.md'
-    )
+    preferencesFile = new File(new File('./lecture-groovy/exercises/03_llm_scripting'), 'personalAgent/preferences.md')
 }
-
 
 @Field String preferences =
         preferencesFile.exists()
                 ? preferencesFile.text.trim()
                 : ''
-
 
 @Field File learntInfoFile = new File(
         'personalAgent/learntUserInfo.md'
@@ -252,12 +243,7 @@ if (!preferencesFile.exists()) {
 if (!learntInfoFile.exists() &&
         !learntInfoFile.parentFile.exists()) {
 
-    learntInfoFile = new File(
-            new File(
-                    getClass().protectionDomain.codeSource.location.path
-            ).parentFile,
-            'personalAgent/learntUserInfo.md'
-    )
+    learntInfoFile = new File(new File('./lecture-groovy/exercises/03_llm_scripting'), 'personalAgent/learntUserInfo.md')
 }
 
 
@@ -272,34 +258,11 @@ if (!learntInfoFile.exists() &&
  * Generates the actual answer to the user's request.
  */
 @Field def connector =
-        new LLMChatConnectorWithTools(
-                debug: true,
+        new LLMChatConnector(
+                debug: false,
                 model: 'qwen3.6',
                 systemPrompt: PROMPT_MAIN_AGENT
         )
-
-/*
- * REGISTER MCP TOOLS
- *
- * Registering the tool on the connector. The enhanced LLMChatConnector will 
- * handle the execution of this closure automatically during its internal loop.
- */
-connector.registerTool(
-        "fetchWebPageContent",
-        "Fetches the HTML content of a given web page URL.",
-        [
-                type: "object",
-                properties: [
-                        urlAddress: [
-                                type: "string",
-                                description: "The URL of the web page to fetch"
-                        ]
-                ],
-                required: ["urlAddress"]
-        ]
-) { args ->
-    return fetchWebPageContent(args.urlAddress as String)
-}
 
 
 /*
@@ -604,11 +567,7 @@ $currentRelevantInfo
                     'Asking main LLM -------------------------------'
             )
 
-            /*
-             * The new LLMChatConnector internally orchestrates the 
-             * agent loop, intercepts tool execution requests, calls the
-             * registered groovy closure, and sends the results back to the LLM.
-             */
+
             String answer =
                     connector.ask(currentRequest)
 
@@ -1081,14 +1040,13 @@ is INVALID.
 }
 
 String fetchWebPageContent(String urlAddress) {
-    if (1 < 5) return "This is a dummy content of the web page $urlAddress. Words: USA, Canada, EU"
     try {
         HttpURLConnection connection = new URL(urlAddress).openConnection() as HttpURLConnection
         
         // Basic configuration to prevent hanging threads
         connection.requestMethod = 'GET'
-        connection.connectTimeout = 120000
-        connection.readTimeout = 120000
+        connection.connectTimeout = 5000
+        connection.readTimeout = 5000
 
         int responseCode = connection.responseCode
 

@@ -16,9 +16,10 @@ import java.awt.Font
 
 File preferencesFile = new File('personalAgent/preferences.md')
 if (!preferencesFile.exists()) {
-    preferencesFile = new File(new File(getClass().protectionDomain.codeSource.location.path).parentFile, 'personalAgent/preferences.md')
+    preferencesFile = new File(new File('./lecture-groovy/exercises/03_llm_scripting'), 'personalAgent/preferences.md')
 }
 preferences = preferencesFile.exists() ? preferencesFile.text.trim() : ''
+
 
 def connector = new LLMChatConnector(debug: false, model: 'qwen3.6', systemPrompt: 'You are a helpful personal agent.')
 def swing = new SwingBuilder()
