@@ -124,13 +124,6 @@ ollama pull qwen3.6
 
 ## Lesson 7 - 23rd November 2026
 ### Agenda
-* Statically-typed languages (Scala) - Part IV
-
-### Preparation
-* Same as for Lesson 4
-
-## Lesson 8 - 30th November 2026
-### Agenda
 
 * Concurrency abstractions in modern languages
   ** Dataflow
@@ -147,6 +140,13 @@ ollama pull qwen3.6
 * Exercises to work with during the lesson are located in the “lecture-groovy/exercises” folder
 * The homework is to be found at “lecture-groovy/homework/homework_1130”
 * The “lecture-groovy/slides” holds the slides for the lecture
+
+## Lesson 8 - 30th November 2026
+### Agenda
+* Statically-typed languages (Scala) - Part IV
+
+### Preparation
+* Same as for Lesson 4
 
 ## Lesson 9 - 7th December 2026
 ### Agenda
