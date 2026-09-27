@@ -6,15 +6,14 @@ def binding = new Binding()
 
 GroovyShell shell = new GroovyShell(binding)
 
-String code = "class $className {\n"
-properties.each {entry ->
-    code += "\t${entry.value.name} ${entry.key}\n"
+String code = """
+class Person {
+    String name
+    int age
 }
-code += "}\n\n"
-code += "return ${className}.class"
-println "===== String to evaluate =====\n"
-println code
-println "===== end ====="
+
+return Person.class
+"""
 
 def cls = shell.evaluate(code)
 
@@ -25,5 +24,3 @@ println 'Call the object: ' + object.name + " age " + object['age']
 
 def object2 = cls.newInstance()
 println 'Same class for both objects? =====> ' + (object.class == object2.class) + ' <====='
-//TASK Explain the result on the line above
-//TASK modify so that a class definition is returned from the "code" and the new instance is created in the main script

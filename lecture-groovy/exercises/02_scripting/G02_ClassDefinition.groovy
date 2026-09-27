@@ -6,15 +6,14 @@ def binding = new Binding()
 
 GroovyShell shell = new GroovyShell(binding)
 
-String code = "class $className {\n"
-properties.each {entry ->
-    code += "\t${entry.value.name} ${entry.key}\n"
+String code = """
+class Person {
+    String name
+    int age
 }
-code += "}\n\n"
-code += "return new $className()"
-println "===== String to evaluate =====\n"
-println code
-println "===== end ====="
+
+return new Person()
+"""
 
 def object = shell.evaluate(code)
 
