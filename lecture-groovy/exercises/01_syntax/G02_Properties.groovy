@@ -3,6 +3,11 @@ class City {
     int size
     boolean capital = false
     
+    @Override
+    String toString() {
+        return "C${capital ? 'apital c' : ''}ity of $name, population: $size"
+    }
+    
     static def create(String n, int v, boolean e = false) {
         return new City(name: n, size: v, capital: e)
     }
@@ -22,6 +27,5 @@ pisek.size = 25001
 println pisek
 
 println tabor
-//TASK Provide a customized toString() method overriding Object::toString() that prints the name and the population
-//assert 'City of Písek, population: 25001' == pisek.toString()
-//assert 'Capital city of Praha, population: 1300000' == praha.toString()
+assert 'City of Písek, population: 25001' == pisek.toString()
+assert 'Capital city of Praha, population: 1300000' == praha.toString()
