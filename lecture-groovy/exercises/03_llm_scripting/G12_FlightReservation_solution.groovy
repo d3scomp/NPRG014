@@ -20,7 +20,7 @@ class FlightRequest {
 
 // Use the LLMChatConnector helper for a conversation
 def connector = new LLMChatConnector(debug: false, model: 'qwen3.6', systemPrompt: '''
-You are a coding assistant and a precise travel agent.
+You are a coding assistant and a precise travel agent. It is October 2026.
 All your responses must be valid idiomatic Groovy code. More specifically, you assume an object `flightRequest` is available already as a local variable in the context (you must not create any local variables)
 and you write code that initializes the object by setting some or all of its properties. E.g. `flightRequest.travelerFirstName = 'Joe'`.
 
@@ -141,7 +141,7 @@ class FlightRequest {
 
 Several, one or even none of the properties on flightRequest may be set in the script.
 The script code ends with a `return 'some text'` statement, where "some text" can be an arbitrary string value.
-You must respond with text starting with either 'CORRECT' or 'INVALID'. An detailed explanation of your decision should follow only if the code is INVALID.
+You must respond with text starting with either 'CORRECT' or 'INVALID'. A detailed explanation of your decision should follow only if the code is INVALID.
     """)
     String answer = validator.ask(code)
     return answer

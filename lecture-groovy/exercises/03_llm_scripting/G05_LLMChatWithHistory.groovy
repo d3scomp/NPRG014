@@ -38,7 +38,7 @@ import helpers.*
 
 // Use the LLMChatConnector helper for a conversation
 //def connector = new LLMGenerateConnector(debug: false)
-def connector = new LLMChatConnector(debug: false)
+def connector = new LLMChatConnector(debug: false, systemPrompt: 'You are a helpful assistant.')
 
 // First question
 def answer1 = connector.ask("What is the capital of France?")
