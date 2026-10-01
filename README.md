@@ -5,7 +5,7 @@ Supplementary materials for the course of "Concepts of Modern Programming Langua
 
 ## Lesson 1 - 5th October 2026
 ### Agenda
-* Language dynamism - typing, casting, object construction, method invocation
+* Groovy specifics - closures
 * Scripting
 * LLM generation and chat API use in Groovy
 
@@ -63,9 +63,9 @@ ollama pull qwen3.6
 ### Agenda
 
 * Dynamic meta-programming
-* Intro into Domain Specific Languages
 * Domain specific languages
 * Builders
+* LLM-backed semantic primitives
 
 ### Preparation
 * Same as for Lesson 1
@@ -80,7 +80,7 @@ ollama pull qwen3.6
 ### Agenda
 
 * Static meta-programming
-* AST transformations
+* AST compile-time transformations
 
 ### Preparation
 * Same as for Lesson 1
@@ -129,8 +129,7 @@ ollama pull qwen3.6
   ** Dataflow
   ** Fork-join
   ** Actors
-  ** Parallel collections
-  ** Agents
+  ** Intro into AI Agentic systems
 
 ### Preparation
 * Same as for Lesson 1 (Groovy, JDK, Ollama)
