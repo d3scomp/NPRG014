@@ -2,7 +2,7 @@
 import helpers.*
 
 def connector = new LLMChatConnector(debug: false, model: 'gemma3:4b', systemPrompt: '''
-You are a helpful assistant.
+You are a helpful assistant. Keep consistent style.
 ''')
 
 //TASK Compare the answer with the one obtained when the following lines are uncommented
