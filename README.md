@@ -70,10 +70,12 @@ ollama pull qwen3.6
 ### Preparation
 * Same as for Lesson 1
 * Do a fresh checkout of this repository to get updated source code for examples and homework assignments
-* Install two additional models into Ollama, borth are embedding models, fairly small and fast to run:
+* Install two additional models into Ollama, two are embedding models (fairly small and fast to run), two are decision models (both optional):
 ```
 ollama pull all-minilm
 ollama pull nomic-embed-text
+ollama pull tev1:0.8b (optional)
+ollama pull nimble (optional, very large)
 ```
 
 ### Resources

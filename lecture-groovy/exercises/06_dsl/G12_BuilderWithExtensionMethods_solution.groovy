@@ -4,11 +4,8 @@ class HtmlMethods {
         ' '*(indent*4)
     }
     
-    // TASK The builder almost works. It misses one important detail, though. 
-    // A single line short fix will make it build the intended HTML code.
-    // Analyze the exception thronw and figure out, how to fix the code.
-    
     private static process(StringBuilder self, Closure code, String tag) {
+        code.delegate = self
         self.append("\n${indent()}<$tag>\n")
         indent++
         self.append(indent())
@@ -30,6 +27,7 @@ class HtmlMethods {
         return ""
     }
     public static String p(StringBuilder self, Closure code) {
+        code.delegate = self    
         self.append("\n${indent()}<p>\n")
         indent++        
         self.append(indent())        

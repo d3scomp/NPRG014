@@ -25,14 +25,22 @@ class SwingDslBuilder extends BuilderSupport {
         createNode(name, attrs, null)
     }
 
-// TASK Complete the builder. It must be able to handle all requested swing components - JButton, JTextField and JTextArea
-// Extract the desired component's properties from `attrs`
     protected Object createNode(Object name, Map attrs, Object value) {
         switch(name) {
             case "panel":
                 return new JPanel(new FlowLayout())
             case "label":
                 return new JLabel(attrs.text ?: value ?: "")
+            case "textField":
+                return new JTextField(attrs.text ?: value ?: "", attrs.columns ?: 10)
+            case "textArea":
+                return new JTextArea(attrs.text ?: value ?: "", attrs.rows ?: 5, attrs.columns ?: 20)
+            case "button":
+                JButton b = new JButton(attrs.text ?: value ?: "")
+                if (attrs.action instanceof Closure) {
+                    b.addActionListener { attrs.action.call() }
+                }
+                return b
             default:
                 throw new IllegalArgumentException("Unknown node: $name")
         }

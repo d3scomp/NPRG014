@@ -1,6 +1,5 @@
 import org.codehaus.groovy.control.CompilerConfiguration
 
-//TASK use scripting to supply custom commands provided at run-time
 String myCode = '''
 create house
 move furniture
