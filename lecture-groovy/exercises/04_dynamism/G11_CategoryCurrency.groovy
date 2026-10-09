@@ -13,7 +13,7 @@ class Money {
 }
 
 class MoneyCategory {
-//TASK Define methods of the MoneyCategory class so that the code below passes
+//TASK Define methods of the MoneyCategory class so that the code below passes, x.eur defined as a property getter - x.getEur()
 }
 
 use(MoneyCategory) {

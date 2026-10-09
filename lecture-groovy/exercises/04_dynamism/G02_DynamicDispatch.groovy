@@ -33,4 +33,3 @@ greetings.each {println it}
 //println receptionist(new BusinessPerson())
 //println receptionist(new Turist())
 //println receptionist(new Burglar())
-//println receptionist(new Homeless())

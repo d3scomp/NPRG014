@@ -70,6 +70,11 @@ ollama pull qwen3.6
 ### Preparation
 * Same as for Lesson 1
 * Do a fresh checkout of this repository to get updated source code for examples and homework assignments
+* Install two additional models into Ollama, borth are embedding models, fairly small and fast to run:
+```
+ollama pull all-minilm
+ollama pull nomic-embed-text
+```
 
 ### Resources
 * Exercises to work with during the lesson are located in the “lecture-groovy/exercises” folder
