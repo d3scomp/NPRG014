@@ -17,3 +17,5 @@ similarity = embeddings.similarity(
 
 println "Similarity: ${similarity}"
 
+// TASK Try similarity of identical sentences
+// TASK Try similarity of opposing sentences
