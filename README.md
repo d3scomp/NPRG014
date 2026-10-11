@@ -54,6 +54,12 @@ ollama pull gemma4
 ollama pull gemma4:12b
 ollama pull qwen3.6
 ```
+#### Managing ollama models
+```bash
+ollama list //Get installed models
+ollama rm <model name>  //Remove an installed model
+ollama ps //See which models are loaded in memory 
+```
 ### Resources
 * Exercises to work with during the lesson are located in the “lecture-groovy/exercises” folder
 * The homework is to be found at “lecture-groovy/homework/homework_1005”
