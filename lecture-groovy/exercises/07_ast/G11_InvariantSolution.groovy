@@ -31,6 +31,34 @@ public @interface Invariant {
 @GroovyASTTransformation(phase = SEMANTIC_ANALYSIS)
 public class InvariantTransformation implements ASTTransformation {
 
+    /**
+     * AST Transformation: Inserts invariant assertions after each statement in annotated methods.
+     *
+     * <p>Purpose: This {@link ASTTransformation} visits every method annotated with {@code @Invariant}
+     * and inserts an assert statement after each existing statement in the method body. The invariant
+     * expression is specified in the annotation value, e.g., {@code @Invariant('sum == 0')}.</p>
+     *
+     * <p>Expected behavior: When the test code at the bottom of this file runs successfully,
+     * the {@code change} and {@code adjust} methods should execute without assertion errors,
+     * because the invariants hold after each statement.</p>
+     *
+     * <p>Desired state: After transformation, each statement in an annotated method is immediately
+     * followed by an assert statement checking the invariant condition. If the invariant is violated
+     * at any point, an {@link AssertionError} will be thrown.</p>
+     *
+     * <p>Hints:</p>
+     * <ul>
+     *   <li>{@code astNodes[0]} is the annotation node; {@code astNodes[1]} is the annotated {@link MethodNode}.</li>
+     *   <li>The invariant expression is in {@code astNodes[0].members.value} as a {@link ConstantExpression}.</li>
+     *   <li>Use {@code new AstBuilder().buildFromString(SEMANTIC_ANALYSIS, 'assert ' + annotationValueString)}</li>
+     *   <li>to create the assert statement from the invariant expression.</li>
+     *   <li>Get the method body with {@code annotatedMethod.getCode()} which returns a {@link BlockStatement}.</li>
+     *   <li>Use {@code body.statements} to access the list of statements, and {@code body.addStatement(stmt)} to insert.</li>
+     *   <li>Be careful: iterating and modifying the same list simultaneously can cause issues.
+     *   Consider copying statements to a separate list first, clearing the body, and then re-adding.</li>
+     *   <li>Use {@code assertStmt.setLineNumber(-1)} to avoid confusing line numbers in error messages.</li>
+     * </ul>
+     */
     public void visit(ASTNode[] astNodes, SourceUnit source) {
         MethodNode annotatedMethod = astNodes[1]
         def annotationExpression = astNodes[0].members.value

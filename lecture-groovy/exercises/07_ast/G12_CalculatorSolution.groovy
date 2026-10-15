@@ -23,6 +23,39 @@ public @interface Unsupported {}
 @GroovyASTTransformation(phase = SEMANTIC_ANALYSIS)
 public class UnsupportedTransformation implements ASTTransformation {
 
+    /**
+     * AST Transformation: Makes annotated methods throw UnsupportedOperationException and validates empty body.
+     *
+     * <p>Purpose: This {@link ASTTransformation} visits every method annotated with {@code @Unsupported}
+     * and replaces its body with a throw statement that creates an {@link UnsupportedOperationException}
+     * with a message like "The {methodName} operation is not supported". Additionally, it reports a
+     * compilation error if the annotated method has a non-empty body.</p>
+     *
+     * <p>Expected compilation error when running the test code at the bottom of this file:</p>
+     * <pre>
+     * Unsupported operations must be empty
+     *  at line: 13, column: 5
+     * </pre>
+     * <p>(The {@code multiply} method has a non-empty body {@code a * b}, which should trigger this error.)</p>
+     *
+     * <p>Expected runtime behavior: Calling {@code minus} or {@code divide} (which have empty bodies)
+     * should throw {@link UnsupportedOperationException} with the message "The minus operation is not supported"
+     * or "The divide operation is not supported" respectively.</p>
+     *
+     * <p>Desired state: After transformation, methods with empty bodies throw the exception at runtime,
+     * and methods with non-empty bodies trigger a compilation error.</p>
+     *
+     * <p>Hints:</p>
+     * <ul>
+     *   <li>{@code astNodes[1]} is the annotated {@link MethodNode}.</li>
+     *   <li>Check if the method body is empty with {@code annotatedMethod.code.statements.empty}.</li>
+     *   <li>If not empty, use the existing {@link #addError(String, ASTNode, SourceUnit)} helper to report an error.</li>
+     *   <li>Use {@code new AstBuilder().buildFromString("throw new UnsupportedOperationException('The ${name} operation is not supported')")}</li>
+     *   <li>to create the throw statement, where {@code name} is the method name from {@code annotatedMethod.name}.</li>
+     *   <li>Insert the throw statement at the beginning of the method body using {@code methodStatements.add(0, block)}.</li>
+     *   <li>The AstBuilder returns a list of {@link BlockStatement}s; extract the first one.</li>
+     * </ul>
+     */
     public void visit(ASTNode[] astNodes, SourceUnit source) {
         MethodNode annotatedMethod = astNodes[1]
         String name = annotatedMethod.name

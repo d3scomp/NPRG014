@@ -27,6 +27,38 @@ public @interface Locking {}
 @GroovyASTTransformation(phase = SEMANTIC_ANALYSIS)
 public class LockingTransformation implements ASTTransformation {
 
+    /**
+     * AST Transformation: Adds a ReentrantLock field and wraps all methods with lock/unlock.
+     *
+     * <p>Purpose: This {@link ASTTransformation} visits the class annotated with {@code @Locking}
+     * and adds a private {@code ReentrantLock} field. It then wraps every method body with
+     * lock/unlock logic to ensure thread-safe execution. The transformation uses the pattern:
+     * {@code lock.lock(); try { originalBody } finally { lock.unlock() }}.</p>
+     *
+     * <p>Expected behavior: When the test code at the bottom of this file runs with 500 concurrent
+     * threads calling {@code add} and {@code subtract}, the final sum should be 0 because the lock
+     * ensures atomic operations.</p>
+     *
+     * <p>Desired state: After transformation, the annotated class has a private {@code myLock} field
+     * of type {@code ReentrantLock}, and every method is wrapped in lock/unlock statements.</p>
+     *
+     * <p>Hints:</p>
+     * <ul>
+     *   <li>{@code astNodes[1]} is the annotated {@link ClassNode}.</li>
+     *   <li>Use {@code ClassHelper.make(java.util.concurrent.locks.ReentrantLock)} to get the ClassNode for ReentrantLock.</li>
+     *   <li>Use {@code new AstBuilder().buildFromString('new java.util.concurrent.locks.ReentrantLock()')}</li>
+     *   <li>to create the field initializer expression.</li>
+     *   <li>Use {@code clazz.addField('myLock', Opcodes.ACC_PRIVATE, classNode, initializerExpression)}</li>
+     *   <li>to add the private lock field to the class.</li>
+     *   <li>Use {@code new AstBuilder().buildFromString('myLock.lock(); try {} finally {myLock.unlock()}')}</li>
+     *   <li>to create the lock/try/finally structure.</li>
+     *   <li>The result is a list of statements: the lock() call and the TryCatchStatement.</li>
+     *   <li>Set the try block's body with {@code tryBlock.tryStatement = oldBody}.</li>
+     *   <li>Create a new {@link BlockStatement}, add the lock statement and try block, and set it as the method code.</li>
+     *   <li>Use {@code method.setCode(newBody)} to replace the method body.</li>
+     *   <li>Use full class names in AstBuilder strings (e.g., {@code java.util.concurrent.locks.ReentrantLock}).</li>
+     * </ul>
+     */
     public void visit(ASTNode[] astNodes, SourceUnit source) {
         // TASK Ensure the annotated class has a private ReentrantLock field and properly locks and unlocks in its all methods
         // Fill in the missing AST generation code to make the script pass
