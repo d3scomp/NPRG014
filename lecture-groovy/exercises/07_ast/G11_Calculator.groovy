@@ -25,7 +25,6 @@ public @interface Unsupported {}
 public class UnsupportedTransformation implements ASTTransformation {
 
     public void visit(ASTNode[] astNodes, SourceUnit source) {
-        //...
         // TASK The "Unsupported" transformation should make the annotated methods throw the UnsupportedOperationException
         // Fill in the missing AST generation code to make the script pass
         // You can take inspiration from exercises
@@ -37,7 +36,18 @@ public class UnsupportedTransformation implements ASTTransformation {
         // http://docs.groovy-lang.org/docs/groovy-latest/html/api/org/codehaus/groovy/ast/stmt/package-summary.html
         // http://docs.groovy-lang.org/docs/groovy-latest/html/api/org/codehaus/groovy/ast/tools/package-summary.html        
         // http://docs.groovy-lang.org/docs/groovy-latest/html/api/org/codehaus/groovy/ast/tools/GeneralUtils.html        
+        
+        MethodNode annotatedMethod = astNodes[1]
+        
     }
+    
+    public void addError(String msg, ASTNode expr, SourceUnit source) {
+        int line = expr.lineNumber
+        int col = expr.columnNumber
+        SyntaxException se = new SyntaxException(msg + '\n', line, col)
+        SyntaxErrorMessage sem = new SyntaxErrorMessage(se, source)
+        source.errorCollector.addErrorAndContinue(sem)
+    }    
 }
 
 final calculator = new GroovyShell(this.class.getClassLoader()).evaluate('''

@@ -2,7 +2,7 @@ import helpers.*
 
 
 /**
- * Returns true if text1 supports text2.
+ * Returns a summary of the given text using an LLM.
  */
 String summarize(String text) {
 
@@ -14,6 +14,9 @@ String summarize(String text) {
     summary
 }
 
+/**
+ * Corrects spelling errors in the given text using an LLM.
+ */
 String spellCorrect(String text) {
     def llm = new LLMChatConnector()
     llm.systemPrompt = '''
@@ -24,6 +27,9 @@ String spellCorrect(String text) {
     shortText
 }
 
+/**
+ * Rephrases the given text using an LLM with a grumpy professor tone.
+ */
 String rephrase(String text) {
     def llm = new LLMChatConnector(model: 'qwen3.6')
     llm.systemPrompt = '''

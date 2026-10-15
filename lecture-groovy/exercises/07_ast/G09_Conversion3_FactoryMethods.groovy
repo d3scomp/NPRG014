@@ -39,11 +39,12 @@ public class NumberConversionTransformation implements ASTTransformation {
         
         /* the add(a, b) method */        
         ASTNode left = varX('a')
-//        ASTNode right
-//        ASTNode plus
-        ASTNode exprstmt = returnS(left)        
+        ASTNode right = varX('b')
+        ASTNode plus = plusX(left, right)
+        ASTNode exprstmt = returnS(plus)        
         def param1 = new Parameter(ClassHelper.int_TYPE, "a")
-        annotatedClass.addMethod("add", Opcodes.ACC_PUBLIC, ClassHelper.Integer_TYPE, [param1] as Parameter[], [] as ClassNode[], exprstmt)        
+        def param2 = new Parameter(ClassHelper.int_TYPE, "b")        
+        annotatedClass.addMethod("add", Opcodes.ACC_PUBLIC, ClassHelper.Integer_TYPE, [param1, param2] as Parameter[], [] as ClassNode[], exprstmt)        
     }
 }
 
@@ -55,6 +56,4 @@ new Calculator()
 ''')
 
 println calculator.convertToNumber("20")
-//TASK: Enable the add(a, b) method that sums a and b
-//TIP: Seach GeneralUtils for the available methods
-//println calculator.add(3, 5)
+println calculator.add(3, 5)

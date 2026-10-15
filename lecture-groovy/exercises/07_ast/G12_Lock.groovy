@@ -28,8 +28,6 @@ public @interface Locking {}
 public class LockingTransformation implements ASTTransformation {
 
     public void visit(ASTNode[] astNodes, SourceUnit source) {
-
-        //...
         // TASK Ensure the annotated class has a private ReentrantLock field and properly locks and unlocks in its all methods
         // Fill in the missing AST generation code to make the script pass
         // You can take inspiration from exercises
@@ -47,6 +45,16 @@ public class LockingTransformation implements ASTTransformation {
         // buildFromString() returns an array of Statements constructed by the builder.
         // ClassNode.addField() accepts an expression, which can be obtained from a BlockStatement as blockStatement.statements.expression
         // ClassNode.addMethod() accepts a BlockStatement
+        
+        ClassNode clazz = astNodes[1]
+        //...
+        final methods = clazz.getMethods()
+        methods.each {method ->
+            final oldBody = method.getCode()
+            final newBody = new BlockStatement()
+            //...
+        }
+                
     }
 }
 
