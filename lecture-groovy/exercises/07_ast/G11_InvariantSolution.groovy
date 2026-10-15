@@ -15,13 +15,17 @@ import org.codehaus.groovy.ast.builder.AstBuilder
 import org.codehaus.groovy.ast.stmt.BlockStatement
 import org.codehaus.groovy.syntax.SyntaxException
 import org.codehaus.groovy.control.messages.SyntaxErrorMessage
+import org.codehaus.groovy.ast.stmt.Statement
+import org.codehaus.groovy.ast.expr.ConstantExpression
 import groovyjarjarasm.asm.Opcodes
 import org.codehaus.groovy.ast.ClassHelper
 
 @Retention(RetentionPolicy.SOURCE)
 @Target([ElementType.METHOD])
 @GroovyASTTransformationClass("InvariantTransformation")
-public @interface Invariant {}
+public @interface Invariant {
+    String value() default ""
+}
 
 
 @GroovyASTTransformation(phase = SEMANTIC_ANALYSIS)
@@ -31,28 +35,32 @@ public class InvariantTransformation implements ASTTransformation {
         MethodNode annotatedMethod = astNodes[1]
         def annotationExpression = astNodes[0].members.value
 
-        if (annotationExpression.class != ConstantExpression) {
+        if (!annotationExpression || annotationExpression.class != ConstantExpression) {
             addError("The invariant is not a constant expression", astNodes[0], source);
             return
         }
 
         String annotationValueString = annotationExpression.value
 
-        
-        final assertStmt = new AstBuilder().buildFromString('assert ' + annotationValueString)
+        final res = new AstBuilder().buildFromString(SEMANTIC_ANALYSIS, 'assert ' + annotationValueString)
+        Statement assertStmt = (Statement) res[0].statements[0]
+        if (assertStmt instanceof BlockStatement) {
+            assertStmt = assertStmt.statements[0]
+        }
+        assertStmt.setLineNumber(-1)
 
-        final methods = clazz.getMethods()
-        methods.each {method ->
-            final body = method.getCode()
-            final allStatements = body.statements
-            allStatements.each{stms ->
-                body.addStatement(assertStms.clone())
+        final body = annotatedMethod.getCode()
+        if (body instanceof BlockStatement) {
+            final allStatements = new ArrayList(body.statements)
+            body.statements.clear()
+            allStatements.each { stm ->
+                body.addStatement(stm)
+                body.addStatement(assertStmt)
             }
         }
 
-                
         //...
-        // TASK Ensure the annotated class has a private ReentrantLock field and properly locks and unlocks in its all methods
+        // TASK The "Invariant" transformation should insert the specified invariant assert statement right behind each existing statement in each annotated method
         // Fill in the missing AST generation code to make the script pass
         // You can take inspiration from exercises
         // Documentation and hints:
@@ -60,8 +68,14 @@ public class InvariantTransformation implements ASTTransformation {
         // http://docs.groovy-lang.org/docs/groovy-latest/html/api/org/codehaus/groovy/ast/expr/package-summary.html
         // http://docs.groovy-lang.org/docs/groovy-latest/html/api/org/codehaus/groovy/ast/stmt/package-summary.html
         // buildFromString() returns an array of Statements constructed by the builder.
-        // ClassNode.addField() accepts an expression, which can be obtained from a BlockStatement as blockStatement.statements.expression
-        // ClassNode.addMethod() accepts a BlockStatement
+    }
+
+    public void addError(String msg, ASTNode expr, SourceUnit source) {
+        int line = expr.lineNumber
+        int col = expr.columnNumber
+        SyntaxException se = new SyntaxException(msg + '\n', line, col)
+        SyntaxErrorMessage sem = new SyntaxErrorMessage(se, source)
+        source.errorCollector.addErrorAndContinue(sem)
     }
 }
 
@@ -69,23 +83,27 @@ final calculator = new GroovyShell(this.class.getClassLoader()).evaluate('''
 class Calculator {
     int sum = 0
     
-    @Invariant(sum == 0)
+    @Invariant('sum == 0')
     def change(int value) {
-        println 'Hello'
-        println 'Hi'        
+        println 'Changing...'
         sum = value - value
     }
 
+    int a = 10
+    int b = 0
+    
+    @Invariant('a+b == 10')
+    def adjust(int value) {
+        (a, b) = [a+value, b-value]
+        println 'Adjusting...'        
+    }
 }
 
 new Calculator()
 ''')
 
-(1..500).collect {index -> Thread.start {
-    calculator.add(index)
-    sleep(3)
-    calculator.subtract(index)
-}}*.join()
+calculator.change(10)
+calculator.adjust(5)
 
 assert 0 == calculator.sum
 
