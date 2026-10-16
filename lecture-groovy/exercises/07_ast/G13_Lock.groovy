@@ -61,15 +61,6 @@ public class LockingTransformation implements ASTTransformation {
      */
     public void visit(ASTNode[] astNodes, SourceUnit source) {
         // TASK Ensure the annotated class has a private ReentrantLock field and properly locks and unlocks in its all methods
-        // Fill in the missing AST generation code to make the script pass
-        // You can take inspiration from exercises
-        // Documentation and hints:
-        // http://docs.groovy-lang.org/docs/next/html/documentation/
-        // http://docs.groovy-lang.org/docs/groovy-latest/html/api/org/codehaus/groovy/ast/package-summary.html
-        // http://docs.groovy-lang.org/docs/groovy-latest/html/api/org/codehaus/groovy/ast/expr/package-summary.html
-        // http://docs.groovy-lang.org/docs/groovy-latest/html/api/org/codehaus/groovy/ast/stmt/package-summary.html
-        // http://docs.groovy-lang.org/docs/groovy-latest/html/api/org/codehaus/groovy/ast/tools/package-summary.html        
-        // http://docs.groovy-lang.org/docs/groovy-latest/html/api/org/codehaus/groovy/ast/tools/GeneralUtils.html
         
         // Use ClassHelper.make(java.util.concurrent.locks.ReentrantLock) to get a ClassNode instance for a given class
         // Use a complete class name, such as java.util.concurrent.locks.ReentrantLock when referring to classes from within AstBuilder code

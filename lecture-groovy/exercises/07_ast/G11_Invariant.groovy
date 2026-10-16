@@ -80,16 +80,9 @@ public class InvariantTransformation implements ASTTransformation {
 
         BlockStatement body = annotatedMethod.getCode()
 
+        // TASK The "Invariant" transformation should insert the specified invariant assert statement right behind each existing statement in each annotated method
         //...
         
-        // TASK The "Invariant" transformation should insert the specified invariant assert statement right behind each existing statement in each annotated method
-        // Fill in the missing AST generation code to make the script pass
-        // You can take inspiration from exercises
-        // Documentation and hints:
-        // http://docs.groovy-lang.org/docs/groovy-latest/html/api/org/codehaus/groovy/ast/package-summary.html
-        // http://docs.groovy-lang.org/docs/groovy-latest/html/api/org/codehaus/groovy/ast/expr/package-summary.html
-        // http://docs.groovy-lang.org/docs/groovy-latest/html/api/org/codehaus/groovy/ast/stmt/package-summary.html
-        // buildFromString() returns an array of Statements constructed by the builder.
     }
 
     public void addError(String msg, ASTNode expr, SourceUnit source) {

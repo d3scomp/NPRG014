@@ -110,3 +110,4 @@ new Calculator()
 ''')
 
 println calculator.correctAdd(2, 5)
+println "Error: the compilation should have failed!"

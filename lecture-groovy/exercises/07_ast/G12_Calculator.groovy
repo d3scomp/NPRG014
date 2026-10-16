@@ -59,16 +59,7 @@ public class UnsupportedTransformation implements ASTTransformation {
      */
     public void visit(ASTNode[] astNodes, SourceUnit source) {
         // TASK The "Unsupported" transformation should make the annotated methods throw the UnsupportedOperationException
-        // Fill in the missing AST generation code to make the script pass
-        // You can take inspiration from exercises
         // TASK Report an error when the method declared as @Unsupported has nonnempty body - e.g. multiply()
-        // Documentation and hints:
-        // http://docs.groovy-lang.org/docs/next/html/documentation/
-        // http://docs.groovy-lang.org/docs/groovy-latest/html/api/org/codehaus/groovy/ast/package-summary.html
-        // http://docs.groovy-lang.org/docs/groovy-latest/html/api/org/codehaus/groovy/ast/expr/package-summary.html
-        // http://docs.groovy-lang.org/docs/groovy-latest/html/api/org/codehaus/groovy/ast/stmt/package-summary.html
-        // http://docs.groovy-lang.org/docs/groovy-latest/html/api/org/codehaus/groovy/ast/tools/package-summary.html        
-        // http://docs.groovy-lang.org/docs/groovy-latest/html/api/org/codehaus/groovy/ast/tools/GeneralUtils.html        
         
         MethodNode annotatedMethod = astNodes[1]
         
