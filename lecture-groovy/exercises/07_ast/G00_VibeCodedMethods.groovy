@@ -34,7 +34,7 @@ public class VibeCodedTransformation implements ASTTransformation {
     public void visit(ASTNode[] astNodes, SourceUnit source) {
         MethodNode annotatedMethod = astNodes[1]
         def annotationExpression = astNodes[0].members.value
-        String annotationValueString = annotationExpression.value
+        String annotationValueString = "Method name: `${annotatedMethod.name}`. " + annotationExpression.value
         
         BlockStatement block = createStatements(annotationValueString)        
                 
@@ -59,7 +59,9 @@ public class VibeCodedTransformation implements ASTTransformation {
         def connector = new LLMChatConnector(debug: false, systemPrompt: '''
         You are a coding assistant. All your responses must be valid idiomatic Groovy code.
         You receive a description of the desired behavior of a single Groovy method and you return the body of that method.
-        Do not include the method signature or the wrapping braces.
+        You MUST NEVER include the method signature or the wrapping braces, always just the method's body.
+        Code that contains something like `def methodName() {` is wrong.
+        For recursion use the method name provided as part of the request.
         ''')
         
         def currentRequest = request
@@ -134,6 +136,9 @@ class Calculator {
 
     @VibeCoded("Multiplies parameters a and b")
     def multiply(a, b) {}
+    
+    @VibeCoded("Calculates a factorial of n")
+    def factorial(n) {}    
 }
 
 new Calculator()
@@ -147,5 +152,6 @@ try {
     calculator.divide(10, 0)
     assert false : "Should have thrown an exception"
 } catch (e) {}
+assert 720 == calculator.factorial(6)
 
 println 'well done'
