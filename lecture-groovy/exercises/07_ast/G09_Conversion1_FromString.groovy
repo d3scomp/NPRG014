@@ -13,6 +13,7 @@ import org.codehaus.groovy.transform.GroovyASTTransformation
 import org.codehaus.groovy.transform.GroovyASTTransformationClass
 import groovyjarjarasm.asm.Opcodes
 import static org.codehaus.groovy.control.CompilePhase.SEMANTIC_ANALYSIS
+import org.codehaus.groovy.classgen.VariableScopeVisitor
 
 @Retention(RetentionPolicy.SOURCE)
 @Target([ElementType.TYPE])

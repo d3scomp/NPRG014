@@ -19,6 +19,7 @@ import org.codehaus.groovy.ast.stmt.Statement
 import org.codehaus.groovy.ast.expr.ConstantExpression
 import groovyjarjarasm.asm.Opcodes
 import org.codehaus.groovy.ast.ClassHelper
+import org.codehaus.groovy.classgen.VariableScopeVisitor
 
 @Retention(RetentionPolicy.SOURCE)
 @Target([ElementType.METHOD])

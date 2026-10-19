@@ -20,6 +20,7 @@ import org.codehaus.groovy.transform.ASTTransformation
 import org.codehaus.groovy.transform.GroovyASTTransformation
 import org.codehaus.groovy.transform.GroovyASTTransformationClass
 import static org.codehaus.groovy.control.CompilePhase.SEMANTIC_ANALYSIS
+import org.codehaus.groovy.classgen.VariableScopeVisitor
 
 @Retention(RetentionPolicy.SOURCE)
 @Target([ElementType.METHOD])
@@ -62,6 +63,9 @@ public class RequiresTransformation implements ASTTransformation {
 
         def methodStatements = annotatedMethod.code.statements
         methodStatements.add(0, block)
+        
+        // Resolve the inserted variables in their destination context.
+        new VariableScopeVisitor(source).visitClass(annotatedMethod.declaringClass)        
     }
 
     def createStatements(String clause) {

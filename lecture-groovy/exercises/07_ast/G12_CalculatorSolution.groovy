@@ -13,6 +13,7 @@ import org.codehaus.groovy.ast.builder.AstBuilder
 import org.codehaus.groovy.ast.stmt.BlockStatement
 import org.codehaus.groovy.syntax.SyntaxException
 import org.codehaus.groovy.control.messages.SyntaxErrorMessage
+import org.codehaus.groovy.classgen.VariableScopeVisitor
 
 @Retention(RetentionPolicy.SOURCE)
 @Target([ElementType.METHOD])

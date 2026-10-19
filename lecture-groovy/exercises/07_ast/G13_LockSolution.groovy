@@ -17,6 +17,7 @@ import org.codehaus.groovy.syntax.SyntaxException
 import org.codehaus.groovy.control.messages.SyntaxErrorMessage
 import groovyjarjarasm.asm.Opcodes
 import org.codehaus.groovy.ast.ClassHelper
+import org.codehaus.groovy.classgen.VariableScopeVisitor
 
 @Retention(RetentionPolicy.SOURCE)
 @Target([ElementType.TYPE])
