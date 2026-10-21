@@ -1,151 +1,5 @@
 #!/usr/bin/env groovy
 
-/*
- * LLM Personal Agent
- *
- * =============================================================================
- * HIGH-LEVEL ARCHITECTURE
- * =============================================================================
- *
- * The application consists of a GUI and several specialized LLM interactions.
- *
- * Persistent files:
- *
- *   personalAgent/preferences.md
- *       └── Explicit user preferences.
- *
- *   personalAgent/learntUserInfo.md
- *       └── Facts learned from previous interactions.
- *
- *
- * EACH TIME THE USER PRESSES "SEND", THE FOLLOWING PIPELINE IS EXECUTED:
- *
- *
- *   ┌──────────────────────┐
- *   │      USER / GUI      │
- *   │  enters a request    │
- *   └──────────┬───────────┘
- *              │
- *              │ current user request
- *              ▼
- *   ┌─────────────────────────────────────┐
- *   │  Read persistent user information   │
- *   │                                     │
- *   │  preferences.md                     │
- *   │  learntUserInfo.md                  │
- *   └─────────────────┬───────────────────┘
- *                     │
- *                     │ current request +
- *                     │ persistent information
- *                     ▼
- *   ┌─────────────────────────────────────┐
- *   │     RELEVANT-BITS LLM               │
- *   │                                     │
- *   │  Selects only user information      │
- *   │  relevant to THIS request.          │
- *   └─────────────────┬───────────────────┘
- *                     │
- *                     │ relevant information
- *                     ▼
- *   ┌─────────────────────────────────────┐
- *   │        BUILD MAIN PROMPT            │
- *   │                                     │
- *   │  preferences                        │
- *   │  + relevant user information        │
- *   │  + current user request             │
- *   └─────────────────┬───────────────────┘
- *                     │
- *                     ▼
- *   ┌─────────────────────────────────────┐
- *   │          MAIN LLM                   │
- *   │                                     │
- *   │  Generates the actual answer.       │
- *   │  (Automatically handles MCP tools)  │
- *   └─────────────────┬───────────────────┘
- *                     │
- *                     │ proposed answer
- *                     ▼
- *   ┌─────────────────────────────────────┐
- *   │        VALIDATOR LLM                │
- *   │                                     │
- *   │  Checks whether the answer          │
- *   │  correctly addresses the request    │
- *   │  and respects the available user    │
- *   │  context.                           │
- *   └─────────────────┬───────────────────┘
- *                     │
- *               ┌──────┴──────┐
- *               │             │
- *           CORRECT         INVALID
- *               │             │
- *               │             └──────> ask main LLM again
- *               │                      (maximum 3 attempts)
- *               ▼
- *   ┌─────────────────────────────────────┐
- *   │          DISPLAY ANSWER             │
- *   │             IN GUI                  │
- *   └─────────────────┬───────────────────┘
- *                     │
- *                     ▼
- *   ┌─────────────────────────────────────┐
- *   │     INFORMATION-EXTRACTION LLM      │
- *   │                                     │
- *   │  Looks for new enduring facts       │
- *   │  learned about the user.            │
- *   └─────────────────┬───────────────────┘
- *                     │
- *                     │ new facts
- *                     ▼
- *   ┌─────────────────────────────────────┐
- *   │        learntUserInfo.md            │
- *   │                                     │
- *   │  Facts are persisted for use by     │
- *   │  future requests.                   │
- *   └─────────────────────────────────────┘
- *
- *
- * IMPORTANT DESIGN DECISION:
- *
- * The RELEVANT-BITS LLM is NOT run during application startup.
- *
- * It is run independently for EVERY user request because relevance depends
- * on what the user is asking about right now.
- *
- * For example, the same stored user information can result in different
- * relevant bits for:
- *
- *     "Suggest a quick snack for next Sunday afternoon"
- *
- * and:
- *
- *     "Which programming language should I learn?"
- *
- * The persistent information is therefore filtered dynamically according
- * to the current prompt.
- *
- *
- * THREADING:
- *
- * Swing GUI operations must happen on Swing's Event Dispatch Thread (EDT).
- *
- * Potentially slow LLM calls are performed in a background thread.
- *
- * GUI updates are sent back to the EDT using SwingUtilities.invokeLater().
- *
- * The Send button is disabled while one request is being processed.
- *
- *
- * GROOVY SCRIPT SCOPE:
- *
- * Variables used by methods defined in a Groovy script must be explicit
- * script fields when they are initialized as script variables.
- *
- * Therefore files, connectors, and Swing components accessed by methods
- * are declared with @Field below.
- */
-
-// ── Imports ──────────────────────────────────────────────────────────────────
-
 import helpers.*
 import groovy.swing.SwingBuilder
 import groovy.transform.Field
@@ -168,16 +22,11 @@ import java.nio.file.attribute.BasicFileAttributes
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 
-// TASK Update the ask_user tool and its registration so that the following query triggers the agent to show you an input dialog.
-// Be sure your learntUserInfo.md file does not contain enough info for the agent to create an answer without asking.
+// TASK 1 Then prompt it with "Greet me nicely using my full name and adjust for my age and status."
+// TASK 2 Then prompt "Remember that Groovy is my favourite programming language." Check the learntUserInfo.md file contains this fact.
+// TASK 3 Then ask the agent: "Does https://modelcontextprotocol.io/docs/2026-07-28/sdk mention my favourite programming language?"
 
-/*
- Greet me nicely using my full name and adjust for my age and status. Ask if you need more info about me.
-*/
-
-// ── Prompt Templates ─────────────────────────────────────────────────────────
-
-@Field final String PROMPT_MAIN_AGENT = 'You are a helpful personal agent.'
+@Field final String PROMPT_MAIN_AGENT = 'You are a helpful personal agent. Ask the user with tools, if you need additional info.'
 
 
 /*
@@ -276,7 +125,7 @@ if (!learntInfoFile.exists() && !learntInfoFile.parentFile.exists()) {
  * handle the execution of this closure automatically during its internal loop.
  */
 connector.registerTool(
-    "fetchWebPageContent",
+    "fetch_web_page_content",
     "Fetches the HTML content of a given web page URL.",
     [
         type: "object",
@@ -289,7 +138,7 @@ connector.registerTool(
         required: ["urlAddress"]
     ]
 ) { args ->
-    return fetchWebPageContent(args.urlAddress as String)
+    return fetch_web_page_content(args.urlAddress as String)
 }
 connector.registerTool(
     "list_directories",
@@ -364,7 +213,7 @@ connector.registerTool(
     """
     Displays a question to the user in a popup dialog and returns their typed answer.
     Use whenever additional information is needed from the user in order to fullfill a request.
-    Prefer using this tool to asking the user by responding to the user with your question.
+    Prefer using this tool rather than asking the user in your response.
     """,
     [
         type: "object",
@@ -624,7 +473,7 @@ $currentRelevantInfo
 
             println('Validating --------------------------------')
 
-            String validationAnswer = validate(reply, message, currentPreferences, currentRelevantInfo)
+            String validationAnswer = validate(reply, message, currentPreferences, currentRelevantInfo, currentRequest)
 
             println("Validation: $validationAnswer")
 
@@ -873,7 +722,7 @@ void saveLearntUserInfo(File file, String facts) {
  *
  *   INVALID
  */
-String validate(String response, String originalRequest, String preferences = '', String relevantInfo = '') {
+String validate(String response, String originalRequest, String preferences = '', String relevantInfo = '', String completeRequest = '') {
     String contextSection = ''
 
     if (preferences) {
@@ -911,6 +760,11 @@ The original user request was:
 $originalRequest
 ---------------
 
+Complete context used to answer the request:
+---------------
+$completeRequest
+---------------
+
 Evaluate whether the response:
 - Directly, accurately, and adequately addresses the user request.
 - Fulfills any explicit constraints, instructions, or format requirements
@@ -930,28 +784,99 @@ is INVALID.
     return answer
 }
 
-String fetchWebPageContent(String urlAddress) {
-    try {
-        HttpURLConnection connection = new URL(urlAddress).openConnection() as HttpURLConnection
-        
-        // Basic configuration to prevent hanging threads
-        connection.requestMethod = 'GET'
-        connection.connectTimeout = 120000
-        connection.readTimeout = 120000
-        connection.instanceFollowRedirects = true
+String fetch_web_page_content(String urlAddress) {
+    String currentUrl = urlAddress
+    int maxRedirects = 30
 
-        int responseCode = connection.responseCode
+    for (int i = 0; i <= maxRedirects; i++) {
+        HttpURLConnection connection = null
 
-        // Return the body for successful responses
-        if (responseCode in 200..299) {
-            return connection.inputStream.getText('UTF-8')
-        } else {
-            // Return the HTTP error code as a string for 4xx/5xx responses
-            return responseCode.toString()
+        try {
+            connection = new URL(urlAddress).openConnection() as HttpURLConnection
+            
+            // Basic configuration to prevent hanging threads
+            connection.requestMethod = 'GET'
+            connection.connectTimeout = 120000
+            connection.readTimeout = 120000
+            // Handle redirects ourselves.
+            connection.instanceFollowRedirects = false
+    
+            // Some websites reject requests without a browser-like User-Agent.
+            connection.setRequestProperty(
+                'User-Agent',
+                'Mozilla/5.0 (compatible; WebPageFetcher/1.0)'
+            )
+    
+            int responseCode = connection.responseCode
+    
+            // Handle redirects explicitly.
+            if (responseCode in [301, 302, 303, 307, 308]) {
+                String location = connection.getHeaderField('Location')
+    
+                if (!location) {
+                    return "${responseCode}: Missing Location header"
+                }
+    
+                if (i == maxRedirects) {
+                    return "ERROR: Too many redirects (limit: ${maxRedirects})"
+                }
+    
+                // Resolve relative Location headers correctly.
+                URL nextUrl = new URL(new URL(currentUrl), location)
+                String nextUrlString = nextUrl.toExternalForm()
+    
+                // Prevent redirects to unsupported protocols.
+                if (!(nextUrl.protocol in ['http', 'https'])) {
+                    return "ERROR: Unsupported redirect protocol: ${nextUrl.protocol}"
+                }
+    
+                currentUrl = nextUrlString
+                continue
+            }
+    
+            // Return the body for successful responses
+            if (responseCode in 200..299) {
+                String html = connection.inputStream.getText('UTF-8')
+                
+                // Extract content between <body> and </body> tags
+                String bodyContent
+                def bodyMatcher = html =~ /<body[^>]*>(.*?)<\/body>/
+                if (bodyMatcher.find()) {
+                    bodyContent = bodyMatcher.group(1)
+                } else {
+                    // If no body tag found, use the entire HTML
+                    bodyContent = html
+                }
+                
+                // Strip HTML tags to get plain text
+                String plainText = bodyContent.replaceAll(/<[^>]+>/, ' ')
+                // Normalize whitespace
+                plainText = plainText.replaceAll(/\s+/, ' ').trim()
+                
+                // Truncate to about a page worth of text (~3000 characters)
+                int maxChars = 3000
+                if (plainText.length() > maxChars) {
+                    plainText = plainText.substring(0, maxChars)
+                    // Try to cut at a word boundary
+                    int lastSpace = plainText.lastIndexOf(' ', maxChars - 50)
+                    if (lastSpace > maxChars - 100) {
+                        plainText = plainText.substring(0, lastSpace)
+                    }
+                    plainText += "\n\n[Note: Content truncated — the page contained more text than the ~${maxChars}-character limit. Only the beginning of the body content is shown.]"
+                }
+                
+                return plainText
+            } else {
+                // Return the HTTP error code as a string for 4xx/5xx responses
+                return responseCode.toString()
+            }
+        } catch (Exception e) {
+            return "ERROR: ${e.message}"
+        } finally {
+            connection?.disconnect()
         }
-    } catch (Exception e) {
-        return "ERROR: ${e.message}"
     }
+    return 'ERROR: Redirect processing failed'
 }
 
 String list_directories(String targetPath) {
