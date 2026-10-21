@@ -14,14 +14,17 @@ import java.awt.Color
 import java.awt.FlowLayout
 import java.awt.Font
 
+//TASK See how the preferences.md file influences your conversation with the LLM. E.g. ask for meal recommendations.
+//TASK Make changes to the preferences.md file and observe the effect on the conversation.
+
 File preferencesFile = new File('personalAgent/preferences.md')
 if (!preferencesFile.exists()) {
-    preferencesFile = new File(new File('./lecture-groovy/exercises/03_llm_scripting'), 'personalAgent/preferences.md')
+    preferencesFile = new File(new File('./lecture-groovy/exercises/09_llm_agents'), 'personalAgent/preferences.md')
 }
 preferences = preferencesFile.exists() ? preferencesFile.text.trim() : ''
 
 
-def connector = new LLMChatConnector(debug: false, model: 'qwen3.6', systemPrompt: 'You are a helpful personal agent.')
+def connector = new LLMChatConnector(debug: false, model: 'gemma4', systemPrompt: 'You are a helpful personal agent.')
 def swing = new SwingBuilder()
 
 swing.edt {
@@ -150,7 +153,7 @@ $preferences
 ---------------
 """ : ''
 
-    def validator = new LLMChatConnector(debug: false, model: 'qwen3.6', systemPrompt: """
+    def validator = new LLMChatConnector(debug: false, model: 'gemma4', systemPrompt: """
 You validate whether the provided response correctly and appropriately addresses the user request.
 ${preferencesSection}
 The original user request was: 

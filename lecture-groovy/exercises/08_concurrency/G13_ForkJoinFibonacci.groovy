@@ -1,19 +1,35 @@
-import groovyx.gpars.GParsPool
-import static groovyx.gpars.GParsPool.withPool
+import java.util.concurrent.ForkJoinPool
+import java.util.concurrent.RecursiveTask
 
 /**
- * The simplest possible parallel implementation of naive recursive Fibonacci number calculator
+ * The simplest possible parallel implementation of naive recursive Fibonacci number calculator.
+ *
+ * Using the standard Java ForkJoinPool + RecursiveTask, which is
+ * demonstrated here.
  */
+
+class FibTask extends RecursiveTask<Long> {
+    final int n
+
+    FibTask(int n) { this.n = n }
+
+    @Override
+    protected Long compute() {
+        if (n <= 2) return 1L
+        FibTask taskA = new FibTask(n - 2)
+        taskA.fork()                       // schedule sub-task asynchronously
+        FibTask taskB = new FibTask(n - 1)
+        return taskB.invoke() + taskA.join()  // compute one branch directly, join the other
+    }
+}
 
 final t1 = System.currentTimeMillis()
 def numberOfThreads = 10
-withPool(numberOfThreads) {
-    println GParsPool.runForkJoin(32) { n ->
-        if (n <= 2) return 1
-        forkOffChild(n - 2)
-        forkOffChild(n - 1)
-        getChildrenResults().sum()
-    }
+def pool = new ForkJoinPool(numberOfThreads)
+try {
+    println pool.invoke(new FibTask(32))
+} finally {
+    pool.shutdown()
 }
 println "Time: " + (System.currentTimeMillis() - t1)
 

@@ -125,7 +125,7 @@ class LLMChatConnectorWithTools {
      * @return the final assistant's response string
      */
     String chat() {
-        int maxIterations = 10
+        int maxIterations = 20
         int loopCount = 0
 
         while (loopCount < maxIterations) {
@@ -141,14 +141,14 @@ class LLMChatConnectorWithTools {
 
             // 2. Check if the LLM requested any tools
             if (responseMsg.tool_calls) {
-                if (debug) println "=== Tool Calls Detected ==="
+                println "=== Tool Calls Detected ==="
 
                 responseMsg.tool_calls.each { tc ->
                     def func = tc.function
                     String toolName = func?.name
                     Map toolArgs = (func?.arguments instanceof Map) ? func.arguments : [:]
 
-                    if (debug) println "Executing Tool: ${toolName} | Args: ${toolArgs}"
+                    println "Executing Tool: ${toolName} | Args: ${toolArgs}"
 
                     def tool = registeredTools.find { it.name == toolName }
                     String toolResultText
@@ -165,7 +165,8 @@ class LLMChatConnectorWithTools {
                         toolResultText = "Error: Tool '${toolName}' is not registered."
                     }
 
-                    if (debug) println "Tool Result: ${toolResultText}"
+                    println "Tool Result: ${toolResultText}"
+                    println ''
 
                     // 3. Append the tool result so the LLM can read it on the next loop iteration
                     appendToolMessage(toolName, toolResultText)
@@ -217,6 +218,10 @@ class LLMChatConnectorWithTools {
             println "URL: ${baseUrl}"
             println "Body: ${jsonBody}"
             println '==================='
+        } else {
+            println '=== Calling LLM ==='
+            println 'Tools: ' + registeredTools.collect {it.name}
+            println ''
         }
 
         HttpURLConnection conn = (HttpURLConnection) new URL(baseUrl).openConnection()

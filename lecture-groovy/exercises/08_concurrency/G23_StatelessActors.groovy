@@ -1,34 +1,35 @@
-import groovy.transform.Immutable
-import groovyx.gpars.actor.DynamicDispatchActor
+import groovy.concurrent.Actor
+import org.apache.groovy.runtime.async.AsyncSupport
 
-class MyCounter extends DynamicDispatchActor {
-    private int counter = 0
+record GetRequest() {}
 
-    def onMessage(int value) {
-        println "Received an integer: $value"
-        this.counter += value
-    }
+def counter = Actor.stateful(0) { state, message ->
+    switch (message) {
+        case Integer:
+            println "Received an integer: $message"
+            return state + message
 
-    def onMessage(String value) {
-        println "Received a string: $value"
-        this.counter += value.size()
-    }
+        case String:
+            println "Received a string: $message"
+            return state + message.size()
 
-    def onMessage(GetRequest value) {
-        reply this.counter
+        case GetRequest:
+            return state
+
+        default:
+            throw new IllegalArgumentException(
+                "Unsupported message: $message"
+            )
     }
 }
 
-final MyCounter counter = new MyCounter().start()
-counter << 10
-counter << 20
-counter << 'Hello'
-assert 35 == counter.sendAndWait(new GetRequest())
+counter.send(10)
+counter.send(20)
+counter.send('Hello')
 
-//TODO Uncomment the following lines to see how mesage handlers can be added dynamically at runtime
-//counter.when {Double value -> println "Received a double $value"}
-//counter 1.0
+assert 35 == AsyncSupport.await(
+    counter.sendAndGet(new GetRequest())
+)
 
-@Immutable final class GetRequest {}
-
+counter.stop()
 println 'done'

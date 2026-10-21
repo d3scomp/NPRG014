@@ -14,7 +14,7 @@ import java.awt.Color
 import java.awt.FlowLayout
 import java.awt.Font
 
-def connector = new LLMChatConnector(debug: false, model: 'qwen3.6', systemPrompt: 'You are a helpful personal agent.')
+def connector = new LLMChatConnector(debug: false, model: 'gemma4', systemPrompt: 'You are a helpful personal agent.')
 def swing = new SwingBuilder()
 
 swing.edt {
@@ -129,7 +129,7 @@ swing.edt {
 }
 
 String validate(String response, String originalRequest) {
-    def validator = new LLMChatConnector(debug: false, model: 'qwen3.6', systemPrompt: """
+    def validator = new LLMChatConnector(debug: false, model: 'gemma4', systemPrompt: """
 You validate whether the provided response correctly and appropriately addresses the user request.
 The original user request was: 
 ---------------

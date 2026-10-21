@@ -154,6 +154,7 @@ import javax.swing.JFrame
 import javax.swing.JScrollPane
 import javax.swing.JTextArea
 import javax.swing.JButton
+import javax.swing.JOptionPane
 import javax.swing.SwingUtilities
 import javax.swing.border.EmptyBorder
 
@@ -162,11 +163,21 @@ import java.awt.Color
 import java.awt.FlowLayout
 import java.awt.Font
 
+import java.nio.file.*
+import java.nio.file.attribute.BasicFileAttributes
+import java.time.ZoneOffset
+import java.time.format.DateTimeFormatter
+
+// TASK Update the ask_user tool and it sregistration so that the following query triggers the agent to show you an input dialog.
+// Be sure your learntUserInfo.md file does not contain enough info for the agent to create an answer without asking.
+
+/*
+ Greet me nicely using my full name and adjust for my age and status. Ask if you need more info about me.
+*/
 
 // ── Prompt Templates ─────────────────────────────────────────────────────────
 
-@Field final String PROMPT_MAIN_AGENT =
-        'You are a helpful personal agent.'
+@Field final String PROMPT_MAIN_AGENT = 'You are a helpful personal agent.'
 
 
 /*
@@ -224,12 +235,10 @@ Rules:
 // these objects to be actual script fields rather than local variables.
 //
 
-@Field File preferencesFile = new File(
-        'personalAgent/preferences.md'
-)
+@Field File preferencesFile = new File('personalAgent/preferences.md')
 
 if (!preferencesFile.exists()) {
-    preferencesFile =  new File(new File('./lecture-groovy/exercises/03_llm_scripting'), 'personalAgent/preferences.md')
+    preferencesFile =  new File(new File('./lecture-groovy/exercises/09_llm_agents'), 'personalAgent/preferences.md')
 }
 
 @Field String preferences =
@@ -237,14 +246,10 @@ if (!preferencesFile.exists()) {
                 ? preferencesFile.text.trim()
                 : ''
 
-@Field File learntInfoFile = new File(
-        'personalAgent/learntUserInfo.md'
-)
+@Field File learntInfoFile = new File('personalAgent/learntUserInfo.md')
 
-if (!learntInfoFile.exists() &&
-        !learntInfoFile.parentFile.exists()) {
-
-    learntInfoFile = new File(new File('./lecture-groovy/exercises/03_llm_scripting'), 'personalAgent/learntUserInfo.md')
+if (!learntInfoFile.exists() && !learntInfoFile.parentFile.exists()) {
+    learntInfoFile = new File(new File('./lecture-groovy/exercises/09_llm_agents'), 'personalAgent/learntUserInfo.md')
 }
 
 
@@ -258,12 +263,11 @@ if (!learntInfoFile.exists() &&
  *
  * Generates the actual answer to the user's request.
  */
-@Field def connector =
-        new LLMChatConnectorWithTools(
-                debug: true,
-                model: 'qwen3.6',
-                systemPrompt: PROMPT_MAIN_AGENT
-        )
+@Field def connector = new LLMChatConnectorWithTools(
+    debug: false,
+    model: 'gemma4',
+    systemPrompt: PROMPT_MAIN_AGENT
+)
 
 /*
  * REGISTER MCP TOOLS
@@ -272,52 +276,72 @@ if (!learntInfoFile.exists() &&
  * handle the execution of this closure automatically during its internal loop.
  */
 connector.registerTool(
-        "fetchWebPageContent",
-        "Fetches the HTML content of a given web page URL.",
-        [
-                type: "object",
-                properties: [
-                        urlAddress: [
-                                type: "string",
-                                description: "The URL of the web page to fetch"
-                        ]
-                ],
-                required: ["urlAddress"]
-        ]
+    "fetchWebPageContent",
+    "Fetches the HTML content of a given web page URL.",
+    [
+        type: "object",
+        properties: [
+            urlAddress: [
+                type: "string",
+                description: "The URL of the web page to fetch"
+            ]
+        ],
+        required: ["urlAddress"]
+    ]
 ) { args ->
     return fetchWebPageContent(args.urlAddress as String)
 }
 connector.registerTool(
-        "list_directories",
-        "Lists the contents of a directory, returning a multi-line string with the file type (DIR/FILE), UTC updated timestamp, and file name.",
-        [
-                type: "object",
-                properties: [
-                        targetPath: [
-                                type: "string",
-                                description: "The absolute or relative path of the directory to list"
-                        ]
-                ],
-                required: ["targetPath"]
-        ]
+    "list_directories",
+    "Lists the contents of a directory, returning a multi-line string with the file type (DIR/FILE), UTC updated timestamp, and file name.",
+    [
+        type: "object",
+        properties: [
+            targetPath: [
+                type: "string",
+                description: "The absolute or relative path of the directory to list"
+            ]
+        ],
+        required: ["targetPath"]
+    ]
 ) { args ->
     return list_directories(args.targetPath as String)
 }
 connector.registerTool(
-        "read_file",
-        "Reads the content of a file and returns it as a multi-line string. Both absolute and relative paths are allowed.",
-        [
-                type: "object",
-                properties: [
-                        path: [
-                                type: "string",
-                                description: "The absolute or relative path to the file to read."
-                        ]
-                ],
-                required: ["path"]
-        ]
+    "read_file",
+    "Reads the content of a file and returns it as a multi-line string. Both absolute and relative paths are allowed.",
+    [
+        type: "object",
+        properties: [
+            path: [
+                type: "string",
+                description: "The absolute or relative path to the file to read."
+            ]
+        ],
+        required: ["path"]
+    ]
 ) { args ->
     return read_file(args.path as String)
+}
+connector.registerTool(
+    "ask_user",
+    """
+    Displays a question to the user in a popup dialog and returns their typed answer.
+    Use whenever additional information is needed from the user in order to fullfill a request.
+    Prefer using this tool to asking the user by responding to the user with your question.
+    """,
+    [
+        type: "object",
+        properties: [
+            question: [
+                type: "string",
+                description: "The question to ask the user."
+            ]
+        ],
+        required: ["question"]
+    ]
+) { args ->
+    return ask_user(args.question as String)
 }
 
 /*
@@ -327,12 +351,11 @@ connector.registerTool(
  *
  * The current user request is supplied to this connector.
  */
-@Field def relevantBitsConnector =
-        new LLMChatConnector(
-                debug: false,
-                model: 'qwen3.6',
-                systemPrompt: PROMPT_RELEVANT_BITS
-        )
+@Field def relevantBitsConnector = new LLMChatConnector(
+    debug: false,
+    model: 'gemma4',
+    systemPrompt: PROMPT_RELEVANT_BITS
+)
 
 
 /*
@@ -340,12 +363,11 @@ connector.registerTool(
  *
  * Identifies new enduring facts about the user after the response.
  */
-@Field def infoExtractionConnector =
-        new LLMChatConnector(
-                debug: false,
-                model: 'qwen3.6',
-                systemPrompt: PROMPT_INFO_EXTRACTION
-        )
+@Field def infoExtractionConnector = new LLMChatConnector(
+    debug: false,
+    model: 'gemma4',
+    systemPrompt: PROMPT_INFO_EXTRACTION
+)
 
 
 // ── GUI State ────────────────────────────────────────────────────────────────
@@ -367,125 +389,85 @@ connector.registerTool(
 // ── Build GUI ────────────────────────────────────────────────────────────────
 
 swing.edt {
-
     mainFrame = frame(
-            title: 'LLM Personal Agent',
-            size: [640, 480],
-            locationByPlatform: true
+        title: 'LLM Personal Agent',
+        size: [640, 480],
+        locationByPlatform: true
     ) {
-
         borderLayout()
-
 
         // ── Central chat history display ────────────────────────────────────
 
         scrollPane(
-                constraints: BorderLayout.CENTER,
-                verticalScrollBarPolicy:
-                        JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-                horizontalScrollBarPolicy:
-                        JScrollPane.HORIZONTAL_SCROLLBAR_NEVER
+            constraints: BorderLayout.CENTER,
+            verticalScrollBarPolicy: JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+            horizontalScrollBarPolicy: JScrollPane.HORIZONTAL_SCROLLBAR_NEVER
         ) {
-
             /*
              * Explicit assignment to the @Field.
              */
             chatArea = textArea(
-                    text: '',
-                    editable: false,
-                    lineWrap: true,
-                    wrapStyleWord: true,
-                    font: new Font(
-                            'Monospaced',
-                            Font.PLAIN,
-                            13
-                    ),
-                    background: new Color(
-                            245,
-                            245,
-                            245
-                    )
+                text: '',
+                editable: false,
+                lineWrap: true,
+                wrapStyleWord: true,
+                font: new Font('Monospaced', Font.PLAIN, 13),
+                background: new Color(245, 245, 245)
             )
         }
-
 
         // ── Bottom input area ───────────────────────────────────────────────
 
         panel(
-                constraints: BorderLayout.SOUTH,
-                border: new EmptyBorder(
-                        8,
-                        8,
-                        8,
-                        8
-                )
+            constraints: BorderLayout.SOUTH,
+            border: new EmptyBorder(8, 8, 8, 8)
         ) {
-
             borderLayout()
 
-
             inputField = textArea(
-                    rows: 3,
-                    lineWrap: true,
-                    wrapStyleWord: true
+                rows: 3,
+                lineWrap: true,
+                wrapStyleWord: true
             )
 
-
             panel(
-                    constraints: BorderLayout.EAST
+                constraints: BorderLayout.EAST
             ) {
-
                 flowLayout(
-                        new FlowLayout(
-                                FlowLayout.CENTER,
-                                8,
-                                0
-                        )
+                    new FlowLayout(FlowLayout.CENTER, 8, 0)
                 )
-
 
                 // ── Send button ─────────────────────────────────────────────
 
                 sendButton = button(
-                        text: 'Send',
-                        enabled: true,
+                    text: 'Send',
+                    enabled: true,
+                    actionPerformed: {
+                        String message = inputField.text.trim()
 
-                        actionPerformed: {
+                        if (message) {
+                            chatArea.append("user: ${message}\n")
+                            inputField.text = ''
 
-                            String message =
-                                    inputField.text.trim()
+                            /*
+                             * Prevent concurrent requests.
+                             */
+                            sendButton.enabled = false
 
-
-                            if (message) {
-
-                                chatArea.append(
-                                        "user: ${message}\n"
-                                )
-
-                                inputField.text = ''
-
-                                /*
-                                 * Prevent concurrent requests.
-                                 */
-                                sendButton.enabled = false
-
-
-                                /*
-                                 * Run the complete LLM pipeline in the
-                                 * background so that the Swing EDT remains
-                                 * responsive.
-                                 */
-                                Thread.start {
-
-                                    handleUserMessage(message)
-                                }
+                            /*
+                             * Run the complete LLM pipeline in the
+                             * background so that the Swing EDT remains
+                             * responsive.
+                             */
+                            Thread.start {
+                                handleUserMessage(message)
                             }
                         }
+                    }
                 )
             }
         }
     }
-
 
     mainFrame.show()
 }
@@ -529,24 +511,14 @@ swing.edt {
  * 9. New facts are saved to learntUserInfo.md.
  */
 def handleUserMessage(String message) {
-
     try {
-
         // ────────────────────────────────────────────────────────────────────
         // (1) Read the latest persistent information
         // ────────────────────────────────────────────────────────────────────
 
-        String currentPreferences =
-                preferencesFile.exists()
-                        ? preferencesFile.text.trim()
-                        : preferences
+        String currentPreferences = preferencesFile.exists() ? preferencesFile.text.trim() : preferences
 
-
-        String allLearntInfo =
-                learntInfoFile.exists()
-                        ? learntInfoFile.text.trim()
-                        : ''
-
+        String allLearntInfo = learntInfoFile.exists() ? learntInfoFile.text.trim() : ''
 
         // ────────────────────────────────────────────────────────────────────
         // (2) Request-specific relevant-information retrieval
@@ -557,18 +529,9 @@ def handleUserMessage(String message) {
         // The current user message is explicitly supplied to the retrieval LLM.
         //
 
-        println(
-                'Retrieving relevant user information for current request -----'
-        )
+        println('Retrieving relevant user information for current request ----')
 
-
-        String currentRelevantInfo =
-                retrieveRelevantBits(
-                        message,
-                        currentPreferences,
-                        allLearntInfo
-                )
-
+        String currentRelevantInfo = retrieveRelevantBits(message, currentPreferences, allLearntInfo)
 
         // ────────────────────────────────────────────────────────────────────
         // (3) Build the main-agent prompt
@@ -576,100 +539,64 @@ def handleUserMessage(String message) {
 
         def promptParts = []
 
-
         if (currentPreferences) {
-
             promptParts << """User preferences:
 ---------------
 $currentPreferences
 ---------------"""
         }
 
-
         if (currentRelevantInfo) {
-
             promptParts << """Relevant user information for this request:
 ---------------
 $currentRelevantInfo
 ---------------"""
         }
 
-
         /*
          * The current user request is always included.
          */
         promptParts << message
 
-
-        String currentRequest =
-                promptParts.join('\n\n')
-
+        String currentRequest = promptParts.join('\n\n')
 
         // ────────────────────────────────────────────────────────────────────
         // (4) Main LLM + validation loop
         // ────────────────────────────────────────────────────────────────────
 
         int counter = 0
-
         final int MAX_COUNT = 3
-
         String reply = ''
 
-
         do {
-
-            println(
-                    'Asking main LLM -------------------------------'
-            )
+            println('Asking main LLM -------------------------------')
 
             /*
              * The new LLMChatConnector internally orchestrates the 
              * agent loop, intercepts tool execution requests, calls the
              * registered groovy closure, and sends the results back to the LLM.
              */
-            String answer =
-                    connector.ask(currentRequest)
+            String answer = connector.ask(currentRequest)
 
+            reply = answer
 
-            reply =
-                    answer
-
-
-            println(
-                    "$message : $reply"
-            )
-
+            println("$message : $reply")
 
             // ────────────────────────────────────────────────────────────────
             // Validate the proposed answer
             // ────────────────────────────────────────────────────────────────
 
-            println(
-                    'Validating --------------------------------'
-            )
+            println('Validating --------------------------------')
 
+            String validationAnswer = validate(reply, message, currentPreferences, currentRelevantInfo)
 
-            String validationAnswer =
-                    validate(
-                            reply,
-                            message,
-                            currentPreferences,
-                            currentRelevantInfo
-                    )
-
-
-            println(
-                    "Validation: $validationAnswer"
-            )
-
+            println("Validation: $validationAnswer")
 
             if (validationAnswer.trim().startsWith('INVALID')) {
-
                 /*
                  * Ask the main LLM to correct the response.
                  */
-                currentRequest =
-                        """Please correct the response.
+                currentRequest = """Please correct the response.
 
 Validation failed. Result:
 $validationAnswer
@@ -679,100 +606,63 @@ $message
 
 Please provide a corrected response."""
 
-
                 counter++
-
             } else {
-
                 break
             }
-
         } while (counter < MAX_COUNT)
 
-
         if (counter >= MAX_COUNT) {
-
-            throw new IllegalArgumentException(
-                    "The supplied response is not valid: $reply"
-            )
+            throw new IllegalArgumentException("The supplied response is not valid: $reply")
         }
-
 
         // ────────────────────────────────────────────────────────────────────
         // (5) Display reply on the Swing EDT
         // ────────────────────────────────────────────────────────────────────
 
         SwingUtilities.invokeLater {
-
-            chatArea.append(
-                    "assistant: ${reply}\n"
-            )
-
-
-            chatArea.setCaretPosition(
-                    chatArea.document.length
-            )
-
-
-            sendButton.enabled =
-                    true
+            chatArea.append("assistant: ${reply}\n")
+            chatArea.setCaretPosition(chatArea.document.length)
+            sendButton.enabled = true
         }
-
 
         // ────────────────────────────────────────────────────────────────────
         // (6) Extract new user facts
         // ────────────────────────────────────────────────────────────────────
 
         try {
-
-            println(
-                    'Extracting new user info ------------------'
-            )
-
+            println('Extracting new user info ------------------')
 
             infoExtractionConnector.clearMessages()
 
-
-            String extractedFacts =
-                    infoExtractionConnector.ask(
-                            """User message:
+            String extractedFacts = infoExtractionConnector.ask("""User message:
 $message
 
+Known user preferences:
+
+$currentPreferences
+
+Known info about the user:
+
+$allLearntInfo
+
 Assistant reply:
-$reply"""
-                    )
+$reply""")
 
-
-            if (extractedFacts &&
-                    !extractedFacts.trim().equalsIgnoreCase('NONE') &&
-                    !extractedFacts.trim().startsWith('NONE')) {
-
-                saveLearntUserInfo(
-                        learntInfoFile,
-                        extractedFacts
-                )
-
+            if (extractedFacts && !extractedFacts.trim().equalsIgnoreCase('NONE') && !extractedFacts.trim().startsWith('NONE')) {
+                saveLearntUserInfo(learntInfoFile, extractedFacts)
             } else {
-
-                println(
-                        'No new user info learned.'
-                )
+                println('No new user info learned.')
             }
-
         } catch (Exception extractErr) {
-
             /*
              * Failure of the optional extraction step does not invalidate
              * an otherwise successful answer.
              */
-            println(
-                    "Error extracting user info: ${extractErr.message}"
-            )
+            println("Error extracting user info: ${extractErr.message}")
         }
 
-
     } catch (Exception e) {
-
         /*
          * Report any error from the main pipeline to the GUI.
          *
@@ -780,14 +670,8 @@ $reply"""
          * components are modified through invokeLater().
          */
         SwingUtilities.invokeLater {
-
-            chatArea.append(
-                    "assistant: [ERROR] ${e.message}\n"
-            )
-
-
-            sendButton.enabled =
-                    true
+            chatArea.append("assistant: [ERROR] ${e.message}\n")
+            sendButton.enabled = true
         }
     }
 }
@@ -826,14 +710,8 @@ $reply"""
  * A retrieval failure is deliberately non-fatal. The main LLM can still
  * answer using the explicit preferences and current request.
  */
-String retrieveRelevantBits(
-        String message,
-        String preferences = '',
-        String learntInfo = ''
-) {
-
+String retrieveRelevantBits(String message, String preferences = '', String learntInfo = '') {
     try {
-
         /*
          * Start with a clean connector conversation.
          *
@@ -842,7 +720,6 @@ String retrieveRelevantBits(
          */
         relevantBitsConnector.clearMessages()
 
-
         /*
          * IMPORTANT:
          *
@@ -850,8 +727,7 @@ String retrieveRelevantBits(
          *
          * This is what makes retrieval request-specific.
          */
-        String retrievalPrompt =
-                """User preferences:
+        String retrievalPrompt = """User preferences:
 ${preferences ?: 'None'}
 
 Conversation history and learned user information:
@@ -863,55 +739,30 @@ $message
 Please retrieve and consolidate only the user information and preferences
 that are relevant to answering this current request."""
 
+        println('Calling relevant-bits LLM ---------------------')
 
-        println(
-                'Calling relevant-bits LLM ---------------------'
-        )
+        String retrieved = relevantBitsConnector.ask(retrievalPrompt)
 
+        if (retrieved && !retrieved.trim().equalsIgnoreCase('NONE') && !retrieved.trim().startsWith('NONE')) {
+            String relevantInfo = retrieved.trim()
 
-        String retrieved =
-                relevantBitsConnector.ask(
-                        retrievalPrompt
-                )
-
-
-        if (retrieved &&
-                !retrieved.trim().equalsIgnoreCase('NONE') &&
-                !retrieved.trim().startsWith('NONE')) {
-
-            String relevantInfo =
-                    retrieved.trim()
-
-
-            println(
-                    "Relevant info for current request:\n$relevantInfo"
-            )
-
+            println("Relevant info for current request:\n$relevantInfo")
 
             return relevantInfo
         }
 
-
-        println(
-                'No relevant user info found for current request.'
-        )
-
+        println('No relevant user info found for current request.')
 
         return ''
 
-
     } catch (Exception e) {
-
         /*
          * Relevant-bit retrieval is an auxiliary step.
          *
          * If it fails, allow the main agent to continue without
          * request-specific user information.
          */
-        println(
-                "Error retrieving relevant bits: ${e.message}"
-        )
-
+        println("Error retrieving relevant bits: ${e.message}")
 
         return ''
     }
@@ -926,76 +777,39 @@ that are relevant to answering this current request."""
  *
  * Duplicate facts and "NONE" responses are ignored.
  */
-void saveLearntUserInfo(
-        File file,
-        String facts
-) {
+void saveLearntUserInfo(File file, String facts) {
+    String cleanFacts = facts.trim()
 
-    String cleanFacts =
-            facts.trim()
-
-
-    if (!cleanFacts ||
-            cleanFacts.equalsIgnoreCase('NONE') ||
-            cleanFacts.startsWith('NONE')) {
-
+    if (!cleanFacts || cleanFacts.equalsIgnoreCase('NONE') || cleanFacts.startsWith('NONE')) {
         return
     }
 
-
     file.parentFile?.mkdirs()
 
-
     if (!file.exists()) {
-
-        file.text =
-                "# Learnt User Information\n\n"
+        file.text = "# Learnt User Information\n\n"
     }
 
+    String existingText = file.text
 
-    String existingText =
-            file.text
-
-
-    boolean appended =
-            false
-
+    boolean appended = false
 
     cleanFacts.eachLine { line ->
+        String trimmed = line.trim()
 
-        String trimmed =
-                line.trim()
-
-
-        if (trimmed &&
-                !trimmed.equalsIgnoreCase('NONE') &&
-                !existingText.contains(trimmed)) {
-
-
-            if (!trimmed.startsWith('-') &&
-                    !trimmed.startsWith('*')) {
-
-                trimmed =
-                        "- " + trimmed
+        if (trimmed && !trimmed.equalsIgnoreCase('NONE') && !existingText.contains(trimmed)) {
+            if (!trimmed.startsWith('-') && !trimmed.startsWith('*')) {
+                trimmed = "- " + trimmed
             }
 
+            file.append(trimmed + "\n")
 
-            file.append(
-                    trimmed + "\n"
-            )
-
-
-            appended =
-                    true
+            appended = true
         }
     }
 
-
     if (appended) {
-
-        println(
-                "Learnt user info saved to ${file.name}:\n$cleanFacts"
-        )
+        println("Learnt user info saved to ${file.name}:\n$cleanFacts")
     }
 }
 
@@ -1023,19 +837,10 @@ void saveLearntUserInfo(
  *
  *   INVALID
  */
-String validate(
-        String response,
-        String originalRequest,
-        String preferences = '',
-        String relevantInfo = ''
-) {
-
-    String contextSection =
-            ''
-
+String validate(String response, String originalRequest, String preferences = '', String relevantInfo = '') {
+    String contextSection = ''
 
     if (preferences) {
-
         contextSection += """
 User preferences:
 ---------------
@@ -1044,9 +849,7 @@ $preferences
 """
     }
 
-
     if (relevantInfo) {
-
         contextSection += """
 Relevant user information:
 ---------------
@@ -1055,17 +858,13 @@ $relevantInfo
 """
     }
 
-
     /*
      * The validator is intentionally created for the validation operation.
      */
-    def validator =
-            new LLMChatConnector(
-                    debug: false,
-                    model: 'qwen3.6',
-
-                    systemPrompt:
-                            """
+    def validator = new LLMChatConnector(
+        debug: false,
+        model: 'gemma4',
+        systemPrompt: """
 You validate whether the provided response correctly and appropriately
 addresses the user request.
 
@@ -1088,12 +887,9 @@ You must respond with text starting with either 'CORRECT' or 'INVALID'.
 A detailed explanation of your decision should follow only if the response
 is INVALID.
 """
-            )
+    )
 
-
-    String answer =
-            validator.ask(response)
-
+    String answer = validator.ask(response)
 
     return answer
 }
@@ -1121,11 +917,6 @@ String fetchWebPageContent(String urlAddress) {
         return "ERROR: ${e.message}"
     }
 }
-
-import java.nio.file.*
-import java.nio.file.attribute.BasicFileAttributes
-import java.time.ZoneOffset
-import java.time.format.DateTimeFormatter
 
 String list_directories(String targetPath) {
     Path path = Paths.get(targetPath).toAbsolutePath().normalize()
@@ -1192,4 +983,33 @@ String read_file(String path) {
     // Groovy's .text property safely handles opening, reading, and closing the stream,
     // returning the full multi-line string content.
     return targetFile.text
+}
+
+/**
+ * Displays a question to the user in a Swing JOptionPane dialog and returns the answer.
+ * Designed for MCP tool invocation by LLM agents.
+ *
+ * The dialog is shown on the Swing EDT to ensure thread safety.
+ *
+ * @param question The question to ask the user.
+ * @return The user's typed answer, or an empty string if the user cancelled the dialog.
+ * @throws IllegalArgumentException if the question is null or empty.
+ */
+String ask_user(String question) {
+    if (question == null || question.trim().isEmpty()) {
+        throw new IllegalArgumentException("System Error: The 'question' argument cannot be null or empty.")
+    }
+
+    final String[] result = ['']
+
+    SwingUtilities.invokeAndWait {
+        String answer = JOptionPane.showInputDialog(question, '')
+        result[0] = answer != null ? answer : ''
+    }
+
+    if (result[0].isEmpty()) {
+        return "The user cancelled or provided no answer."
+    }
+
+    return result[0]
 }

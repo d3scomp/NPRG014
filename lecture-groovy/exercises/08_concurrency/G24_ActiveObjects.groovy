@@ -1,34 +1,34 @@
-import groovyx.gpars.actor.DynamicDispatchActor
-import groovyx.gpars.activeobject.*
-import org.codehaus.groovy.runtime.NullObject
+
+import groovy.transform.ActiveMethod
+import groovy.transform.ActiveObject
 
 @ActiveObject
 class MyCounter {
     private int counter = 0
 
     @ActiveMethod
-    def incrementBy(int value) {
+    void incrementBy(int value) {
         println "Received an integer: $value"
-        this.counter += value
+        counter += value
     }
 
     @ActiveMethod
-    def update(String value) {
+    void update(String value) {
         println "Received a string: $value"
-        this.counter += value.size()
+        counter += value.size()
     }
 
     @ActiveMethod
-    def getValue(NullObject value) {
-        return this.counter
+    int getValue() {
+        counter
     }
 }
 
-final MyCounter counter = new MyCounter()
-counter.incrementBy 10
-counter.incrementBy 20
-counter.update 'Hello'
-println counter.getValue().get()
-assert 35 == counter.getValue().get()
+def counter = new MyCounter()
+counter.incrementBy(10)
+counter.incrementBy(20)
+counter.update('Hello')
 
+assert counter.getValue() == 35
+println counter.getValue()
 println 'done'

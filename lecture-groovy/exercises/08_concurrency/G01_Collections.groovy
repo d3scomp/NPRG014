@@ -1,5 +1,6 @@
 import groovy.swing.SwingBuilder
-import groovyx.gpars.GParsPool
+import groovy.concurrent.ParallelScope
+import groovy.concurrent.Pool
 import javax.swing.JFrame
 import javax.swing.JSlider
 import javax.swing.SwingConstants
@@ -67,7 +68,7 @@ final JFrame frame = new SwingBuilder().frame(title: 'Parallelizer Demo') {
                                         it.perform()
                                     }
                                 } else {
-                                    GParsPool.withPool {
+                                    ParallelScope.withPool(Pool.cpu()) {
                                         processors.eachParallel {
                                             it.perform()
                                         }
