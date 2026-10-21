@@ -895,7 +895,6 @@ is INVALID.
 }
 
 String fetchWebPageContent(String urlAddress) {
-    if (1 < 5) return "This is a dummy content of the web page $urlAddress. Words: USA, Canada, EU"
     try {
         HttpURLConnection connection = new URL(urlAddress).openConnection() as HttpURLConnection
         
@@ -903,6 +902,7 @@ String fetchWebPageContent(String urlAddress) {
         connection.requestMethod = 'GET'
         connection.connectTimeout = 120000
         connection.readTimeout = 120000
+        connection.instanceFollowRedirects = true
 
         int responseCode = connection.responseCode
 

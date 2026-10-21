@@ -168,7 +168,7 @@ import java.nio.file.attribute.BasicFileAttributes
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 
-// TASK Update the ask_user tool and it sregistration so that the following query triggers the agent to show you an input dialog.
+// TASK Update the ask_user tool and its registration so that the following query triggers the agent to show you an input dialog.
 // Be sure your learntUserInfo.md file does not contain enough info for the agent to create an answer without asking.
 
 /*
@@ -322,6 +322,42 @@ connector.registerTool(
     ]
 ) { args ->
     return read_file(args.path as String)
+}
+connector.registerTool(
+    "write_file",
+    "Writes content to a file. Only files within the allowed project directory can be written.",
+    [
+        type: "object",
+        properties: [
+            path: [
+                type: "string",
+                description: "The absolute or relative path to the file to write."
+            ],
+            content: [
+                type: "string",
+                description: "The content to write to the file."
+            ]
+        ],
+        required: ["path", "content"]
+    ]
+) { args ->
+    return write_file(args.path as String, args.content as String)
+}
+connector.registerTool(
+    "run_command",
+    "Runs a command-line command and returns its output. Only allowed commands can be executed.",
+    [
+        type: "object",
+        properties: [
+            command: [
+                type: "string",
+                description: "The command-line command to execute."
+            ]
+        ],
+        required: ["command"]
+    ]
+) { args ->
+    return run_command(args.command as String)
 }
 connector.registerTool(
     "ask_user",
@@ -895,7 +931,6 @@ is INVALID.
 }
 
 String fetchWebPageContent(String urlAddress) {
-    if (1 < 5) return "This is a dummy content of the web page $urlAddress. Words: USA, Canada, EU"
     try {
         HttpURLConnection connection = new URL(urlAddress).openConnection() as HttpURLConnection
         
@@ -903,6 +938,7 @@ String fetchWebPageContent(String urlAddress) {
         connection.requestMethod = 'GET'
         connection.connectTimeout = 120000
         connection.readTimeout = 120000
+        connection.instanceFollowRedirects = true
 
         int responseCode = connection.responseCode
 
@@ -963,7 +999,7 @@ String list_directories(String targetPath) {
  */
 String read_file(String path) {
     if (path == null || path.trim().isEmpty()) {
-        throw new IllegalArgumentException("System Error: The 'path' argument cannot be null or empty.")
+        return "System Error: The 'path' argument cannot be null or empty."
     }
 
     File targetFile = new File(path)
@@ -973,16 +1009,92 @@ String read_file(String path) {
     String absolutePath = targetFile.absolutePath
 
     if (!targetFile.exists()) {
-        throw new IllegalArgumentException("System Error: File not found. No file exists at path: ${absolutePath}. Please verify the directory contents or path.")
+        return "System Error: File not found. No file exists at path: ${absolutePath}. Please verify the directory contents or path."
     }
 
     if (targetFile.isDirectory()) {
-        throw new IllegalArgumentException("System Error: The provided path points to a directory, not a file: ${absolutePath}. Please provide a path to a specific file, or use a directory listing tool.")
+        return "System Error: The provided path points to a directory, not a file: ${absolutePath}. Please provide a path to a specific file, or use a directory listing tool."
     }
 
     // Groovy's .text property safely handles opening, reading, and closing the stream,
     // returning the full multi-line string content.
     return targetFile.text
+}
+
+/**
+ * Writes content to a file.
+ * Designed for MCP tool invocation by LLM agents.
+ *
+ * The file can only be written if its canonical absolute path starts with
+ * /Users/vaclav/work/mff/NPRG014/.
+ *
+ * @param path The absolute or relative path to the file.
+ * @param content The content to write to the file.
+ * @return A confirmation message.
+ * @throws IllegalArgumentException if the path is invalid, outside the allowed directory, or a directory.
+ */
+String write_file(String path, String content) {
+    if (path == null || path.trim().isEmpty()) {
+        return "System Error: The 'path' argument cannot be null or empty."
+    }
+
+    File targetFile = new File(path)
+
+    // Resolve the canonical path to prevent symlink-based directory traversal
+    String canonicalPath = targetFile.canonicalPath
+
+    // Security check: restrict writes to the allowed project directory
+    if (!canonicalPath.startsWith('/Users/vaclav/work/mff/NPRG014/lecture-groovy/exercises/')) {
+        return "Write not allowed. Path ${canonicalPath} is outside the allowed directory /Users/vaclav/work/mff/NPRG014/."
+    }
+
+    // Ensure parent directories exist
+    targetFile.parentFile?.mkdirs()
+
+    // Groovy's .text property safely handles opening, writing, and closing the stream
+    targetFile.text = content
+
+    return "File written successfully: ${canonicalPath}"
+}
+
+/**
+ * Writes content to a file.
+ * Designed for MCP tool invocation by LLM agents.
+ *
+ * The file can only be written if its canonical absolute path starts with
+ * /Users/vaclav/work/mff/NPRG014/.
+ *
+ * @param path The absolute or relative path to the file.
+ * @param content The content to write to the file.
+ * @return A confirmation message.
+ * @throws IllegalArgumentException if the path is invalid, outside the allowed directory, or a directory.
+ */
+String run_command(String command) {
+    if (command == null || command.trim().isEmpty()) {
+        return "System Error: The 'command' argument cannot be null or empty."
+    }
+
+    // Validate against a white-list of commands
+    def allowedCommands = ['java -version', 'groovy -version', 'ls']
+    if (!allowedCommands.any { command.startsWith(it) }) {
+        def connector = new LLMChatConnector(systemPrompt: '''
+        Your task is to validate whether the provided string is a safe, read-only CLI command.
+        Calling `groovyConsole` in order to open the Groovy console app should be allowed.
+        Reply with ALLOWED or DENIED only. Nothing else ever.
+        ''')
+        
+        // Validate the command with an LLM
+        def answer = connector.chat(command)
+        println "*** COMMAND VERIFIED: $command : $answer"
+        if (!answer.startsWith('ALLOWED')) {
+            // DENIED by LLM verifier
+            return "System Error: Command not allowed. Only 'java -version', 'groovy -version', 'ls' and LLM-validated commands are permitted."
+        } else {
+            // ALLOWED by LLM verifier        
+            // BEWARE: If you comment out the following like you risk that a potentially harmful command can get run on your machine!!!
+            return "Command should run, but we just mock it here without actually running it. Invent an answer yourself."
+        }
+    }
 }
 
 /**
@@ -997,7 +1109,7 @@ String read_file(String path) {
  */
 String ask_user(String question) {
     if (question == null || question.trim().isEmpty()) {
-        throw new IllegalArgumentException("System Error: The 'question' argument cannot be null or empty.")
+        return "System Error: The 'question' argument cannot be null or empty."
     }
 
     final String[] result = ['']

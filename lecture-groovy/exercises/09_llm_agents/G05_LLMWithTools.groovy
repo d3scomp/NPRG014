@@ -110,7 +110,7 @@ String list_directories(String targetPath) {
  */
 String read_file(String path) {
     if (path == null || path.trim().isEmpty()) {
-        throw new IllegalArgumentException("System Error: The 'path' argument cannot be null or empty.")
+        return "System Error: The 'path' argument cannot be null or empty."
     }
 
     File targetFile = new File(path)
@@ -120,11 +120,11 @@ String read_file(String path) {
     String absolutePath = targetFile.absolutePath
 
     if (!targetFile.exists()) {
-        throw new IllegalArgumentException("System Error: File not found. No file exists at path: ${absolutePath}. Please verify the directory contents or path.")
+        return "System Error: File not found. No file exists at path: ${absolutePath}. Please verify the directory contents or path."
     }
 
     if (targetFile.isDirectory()) {
-        throw new IllegalArgumentException("System Error: The provided path points to a directory, not a file: ${absolutePath}. Please provide a path to a specific file, or use a directory listing tool.")
+        return "System Error: The provided path points to a directory, not a file: ${absolutePath}. Please provide a path to a specific file, or use a directory listing tool."
     }
 
     // Groovy's .text property safely handles opening, reading, and closing the stream,
@@ -145,10 +145,10 @@ def handleUserMessage(String message) {
         return answer
 }
 
-// TASK Specify the directory below and observe the behavior
+// TASK Specify the directory below (may be also relative to CWD) and observe the behavior
 
 def result = handleUserMessage("""
-   Start searching the directories at <path to the project repository>/NPRG014/lecture-groovy/exercises/ 
+   Start searching the directories at <path to the project repository>/lecture-groovy/exercises/ 
    and recursively search its subdirectories until you find the file named `secretNumber.md`. Read the number it holds.
 """)
 println result

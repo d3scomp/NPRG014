@@ -130,7 +130,7 @@ String list_directories(String targetPath) {
  */
 String read_file(String path) {
     if (path == null || path.trim().isEmpty()) {
-        throw new IllegalArgumentException("System Error: The 'path' argument cannot be null or empty.")
+        return "System Error: The 'path' argument cannot be null or empty."
     }
 
     File targetFile = new File(path)
@@ -140,11 +140,11 @@ String read_file(String path) {
     String absolutePath = targetFile.absolutePath
 
     if (!targetFile.exists()) {
-        throw new IllegalArgumentException("System Error: File not found. No file exists at path: ${absolutePath}. Please verify the directory contents or path.")
+        return "System Error: File not found. No file exists at path: ${absolutePath}. Please verify the directory contents or path."
     }
 
     if (targetFile.isDirectory()) {
-        throw new IllegalArgumentException("System Error: The provided path points to a directory, not a file: ${absolutePath}. Please provide a path to a specific file, or use a directory listing tool.")
+        return "System Error: The provided path points to a directory, not a file: ${absolutePath}. Please provide a path to a specific file, or use a directory listing tool."
     }
 
     // Groovy's .text property safely handles opening, reading, and closing the stream,
@@ -166,7 +166,7 @@ String read_file(String path) {
  */
 String write_file(String path, String content) {
     if (path == null || path.trim().isEmpty()) {
-        throw new IllegalArgumentException("System Error: The 'path' argument cannot be null or empty.")
+        return "System Error: The 'path' argument cannot be null or empty."
     }
 
     File targetFile = new File(path)
@@ -174,9 +174,9 @@ String write_file(String path, String content) {
     // Resolve the canonical path to prevent symlink-based directory traversal
     String canonicalPath = targetFile.canonicalPath
 
-    // Security check: restrict writes to the allowed project directory
-    if (!canonicalPath.startsWith('/Users/vaclav/work/mff/NPRG014/lecture-groovy/exercises/')) {
-        return "Write not allowed. Path ${canonicalPath} is outside the allowed directory /Users/vaclav/work/mff/NPRG014/."
+    // Security check: restrict writes to the allowed project directory (absolute path)
+    if (!canonicalPath.startsWith('<path to the project repository>/lecture-groovy/exercises/')) {
+        return "Write not allowed. Path ${canonicalPath} is outside the allowed directory."
     }
 
     // Ensure parent directories exist
@@ -201,7 +201,7 @@ def handleUserMessage(String message) {
         return answer
 }
 
-// TASK 1 Specify the directory <path to the project repository> above and below and observe the behavior
+// TASK 1 Specify the directory <path to the project repository> above and below (absolute or relative) and observe the behavior
 // TASK 2 Secure the write_file tool so that it can only write to 
 //        the <path to the project repository>/lecture-groovy/exercises/ directory
 //        Delete the welcome.txt and not_welcome.txt files

@@ -146,7 +146,7 @@ String list_directories(String targetPath) {
  */
 String read_file(String path) {
     if (path == null || path.trim().isEmpty()) {
-        throw new IllegalArgumentException("System Error: The 'path' argument cannot be null or empty.")
+        return "System Error: The 'path' argument cannot be null or empty."
     }
 
     File targetFile = new File(path)
@@ -156,11 +156,11 @@ String read_file(String path) {
     String absolutePath = targetFile.absolutePath
 
     if (!targetFile.exists()) {
-        throw new IllegalArgumentException("System Error: File not found. No file exists at path: ${absolutePath}. Please verify the directory contents or path.")
+        return "System Error: File not found. No file exists at path: ${absolutePath}. Please verify the directory contents or path."
     }
 
     if (targetFile.isDirectory()) {
-        throw new IllegalArgumentException("System Error: The provided path points to a directory, not a file: ${absolutePath}. Please provide a path to a specific file, or use a directory listing tool.")
+        return "System Error: The provided path points to a directory, not a file: ${absolutePath}. Please provide a path to a specific file, or use a directory listing tool."
     }
 
     // Groovy's .text property safely handles opening, reading, and closing the stream,
@@ -182,7 +182,7 @@ String read_file(String path) {
  */
 String write_file(String path, String content) {
     if (path == null || path.trim().isEmpty()) {
-        throw new IllegalArgumentException("System Error: The 'path' argument cannot be null or empty.")
+        return "System Error: The 'path' argument cannot be null or empty."
     }
 
     File targetFile = new File(path)
@@ -218,7 +218,7 @@ String write_file(String path, String content) {
  */
 String run_command(String command) {
     if (command == null || command.trim().isEmpty()) {
-        throw new IllegalArgumentException("System Error: The 'command' argument cannot be null or empty.")
+        return "System Error: The 'command' argument cannot be null or empty."
     }
 
     // Validate against a white-list of commands
@@ -226,13 +226,21 @@ String run_command(String command) {
     if (!allowedCommands.any { command.startsWith(it) }) {
         def connector = new LLMChatConnector(systemPrompt: '''
         Your task is to validate whether the provided string is a safe, read-only CLI command.
+        Calling `groovyConsole` in order to open the Groovy console app should be allowed.
         Reply with ALLOWED or DENIED only. Nothing else ever.
         ''')
         
         // Validate the command with an LLM
         def answer = connector.chat(command)
-        if (!answer.startsWith('ALLOWED'))
-            return "System Error: Command not allowed. Only 'java -version', 'groovy -version', and 'ls' commands are permitted."
+        println "*** COMMAND VERIFIED: $command : $answer"
+        if (!answer.startsWith('ALLOWED')) {
+            // DENIED by LLM verifier
+            return "System Error: Command not allowed. Only 'java -version', 'groovy -version', 'ls' and LLM-validated commands are permitted."
+        } else {
+            // ALLOWED by LLM verifier        
+            // BEWARE: If you comment out the following like you risk that a potentially harmful command can get run on your machine!!!
+            return "Command should run, but we just mock it here without actually running it. Invent an answer yourself."
+        }
     }
 
     def process = Runtime.getRuntime().exec(command)
@@ -283,5 +291,12 @@ def result3 = handleUserMessage("""
    Make a `surprisingDirectory` directory in the current directory.
 """)
 println result3
+println ''
+
+println '*** Starting Groovy console -----------------------------'
+def result4 = handleUserMessage("""
+   Open groovyConsole for me.
+""")
+println result4
 
 println 'well done'
