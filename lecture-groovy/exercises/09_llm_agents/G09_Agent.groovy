@@ -22,9 +22,9 @@ import java.nio.file.attribute.BasicFileAttributes
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 
-// TASK 1 Then prompt it with "Greet me nicely using my full name and adjust for my age and status."
-// TASK 2 Then prompt "Remember that Groovy is my favourite programming language." Check the learntUserInfo.md file contains this fact.
-// TASK 3 Then ask the agent: "Does https://modelcontextprotocol.io/docs/2026-07-28/sdk mention my favourite programming language?"
+// TASK 1: Prompt the agent with "Greet me nicely using my full name and adjust for my age and status."
+// TASK 2: Prompt "Remember that Groovy is my favourite programming language." Then check that learntUserInfo.md contains this fact.
+// TASK 3: Ask the agent: "Does https://groovy-lang.org/ mention my favourite programming language?"
 
 @Field final String PROMPT_MAIN_AGENT = 'You are a helpful personal agent. Ask the user with tools, if you need additional info.'
 
@@ -121,8 +121,8 @@ if (!learntInfoFile.exists() && !learntInfoFile.parentFile.exists()) {
 /*
  * REGISTER MCP TOOLS
  *
- * Registering the tool on the connector. The enhanced LLMChatConnector will 
- * handle the execution of this closure automatically during its internal loop.
+ * Registering tools on the connector. The enhanced LLMChatConnector handles
+ * the execution of each registered closure automatically during its internal loop.
  */
 connector.registerTool(
     "fetch_web_page_content",
@@ -212,7 +212,7 @@ connector.registerTool(
     "ask_user",
     """
     Displays a question to the user in a popup dialog and returns their typed answer.
-    Use whenever additional information is needed from the user in order to fullfill a request.
+    Use whenever additional information is needed from the user in order to fulfill a request.
     Prefer using this tool rather than asking the user in your response.
     """,
     [
@@ -361,7 +361,7 @@ swing.edt {
 // ── Message Pipeline ─────────────────────────────────────────────────────────
 
 /*
- * Handles ONE complete user request.
+ * Handles a single user request end to end.
  *
  * ---------------------------------------------------------------------------
  * PER-REQUEST PIPELINE
@@ -373,32 +373,32 @@ swing.edt {
  *       │
  *       └──> relevant-bits LLM
  *             receives:
- *                - preferences
- *                - all learned information
- *                - CURRENT user request
+ *               - preferences
+ *               - all learned information
+ *               - the current user request
  *
- * 3. Build prompt for main LLM:
+ * 3. Build the prompt for the main LLM:
  *
  *       preferences
  *       + relevant information
  *       + current request
  *
- * 4. Main LLM generates an answer.
+ * 4. The main LLM generates an answer.
  *
- * 5. Validator LLM checks the answer.
+ * 5. A validator checks the answer.
  *
- * 6. If INVALID, retry the main LLM.
+ * 6. If INVALID, retry the main LLM (up to MAX_COUNT attempts).
  *
  * 7. Display the answer.
  *
- * 8. Information-extraction LLM analyzes the interaction.
+ * 8. An information-extraction LLM analyzes the interaction.
  *
  * 9. New facts are saved to learntUserInfo.md.
  */
 def handleUserMessage(String message) {
     try {
         // ────────────────────────────────────────────────────────────────────
-        // (1) Read the latest persistent information
+        // (1) Read the latest persistent user information
         // ────────────────────────────────────────────────────────────────────
 
         String currentPreferences = preferencesFile.exists() ? preferencesFile.text.trim() : preferences
@@ -406,11 +406,10 @@ def handleUserMessage(String message) {
         String allLearntInfo = learntInfoFile.exists() ? learntInfoFile.text.trim() : ''
 
         // ────────────────────────────────────────────────────────────────────
-        // (2) Request-specific relevant-information retrieval
+        // (2) Retrieve information relevant to this request
         // ────────────────────────────────────────────────────────────────────
         //
-        // This happens for EVERY request.
-        //
+        // Runs for every request.
         // The current user message is explicitly supplied to the retrieval LLM.
         //
 
@@ -419,7 +418,7 @@ def handleUserMessage(String message) {
         String currentRelevantInfo = retrieveRelevantBits(message, currentPreferences, allLearntInfo)
 
         // ────────────────────────────────────────────────────────────────────
-        // (3) Build the main-agent prompt
+        // (3) Build the prompt for the main agent
         // ────────────────────────────────────────────────────────────────────
 
         def promptParts = []
@@ -446,7 +445,7 @@ $currentRelevantInfo
         String currentRequest = promptParts.join('\n\n')
 
         // ────────────────────────────────────────────────────────────────────
-        // (4) Main LLM + validation loop
+        // (4) Main LLM with validation loop
         // ────────────────────────────────────────────────────────────────────
 
         int counter = 0
@@ -457,9 +456,9 @@ $currentRelevantInfo
             println('Asking main LLM -------------------------------')
 
             /*
-             * The new LLMChatConnector internally orchestrates the 
-             * agent loop, intercepts tool execution requests, calls the
-             * registered groovy closure, and sends the results back to the LLM.
+             * The LLMChatConnector internally orchestrates the
+             * agent loop: it intercepts tool execution requests, calls the
+             * registered Groovy closure, and sends the results back to the LLM.
              */
             String answer = connector.ask(currentRequest)
 
@@ -470,6 +469,9 @@ $currentRelevantInfo
             // ────────────────────────────────────────────────────────────────
             // Validate the proposed answer
             // ────────────────────────────────────────────────────────────────
+            //
+            // The validate() function creates a fresh LLM connector configured
+            // as a validator and checks the answer against the request and context.
 
             println('Validating --------------------------------')
 
@@ -479,7 +481,7 @@ $currentRelevantInfo
 
             if (validationAnswer.trim().startsWith('INVALID')) {
                 /*
-                 * Ask the main LLM to correct the response.
+                 * The validation failed — ask the main LLM to correct the response.
                  */
                 currentRequest = """Please correct the response.
 
@@ -502,7 +504,7 @@ Please provide a corrected response."""
         }
 
         // ────────────────────────────────────────────────────────────────────
-        // (5) Display reply on the Swing EDT
+        // (5) Display the reply on the Swing EDT
         // ────────────────────────────────────────────────────────────────────
 
         SwingUtilities.invokeLater {
@@ -512,7 +514,7 @@ Please provide a corrected response."""
         }
 
         // ────────────────────────────────────────────────────────────────────
-        // (6) Extract new user facts
+        // (6) Extract new facts about the user
         // ────────────────────────────────────────────────────────────────────
 
         try {
@@ -541,7 +543,7 @@ $reply""")
             }
         } catch (Exception extractErr) {
             /*
-             * Failure of the optional extraction step does not invalidate
+             * Failure of this optional extraction step does not invalidate
              * an otherwise successful answer.
              */
             println("Error extracting user info: ${extractErr.message}")
@@ -551,8 +553,8 @@ $reply""")
         /*
          * Report any error from the main pipeline to the GUI.
          *
-         * This code runs from the background thread, therefore the Swing
-         * components are modified through invokeLater().
+         * This code runs on a background thread, so Swing components
+         * are updated through invokeLater().
          */
         SwingUtilities.invokeLater {
             chatArea.append("assistant: [ERROR] ${e.message}\n")
@@ -598,19 +600,18 @@ $reply""")
 String retrieveRelevantBits(String message, String preferences = '', String learntInfo = '') {
     try {
         /*
-         * Start with a clean connector conversation.
+         * Clear the connector's conversation history.
          *
          * This prevents an earlier retrieval request from becoming
-         * unintended context for the current retrieval request.
+         * unintended context for the current one.
          */
         relevantBitsConnector.clearMessages()
 
         /*
          * IMPORTANT:
          *
-         * The CURRENT USER REQUEST is explicitly included here.
-         *
-         * This is what makes retrieval request-specific.
+         * The current user request is explicitly included here.
+         * This is what makes the retrieval request-specific.
          */
         String retrievalPrompt = """User preferences:
 ${preferences ?: 'None'}
@@ -642,9 +643,9 @@ that are relevant to answering this current request."""
 
     } catch (Exception e) {
         /*
-         * Relevant-bit retrieval is an auxiliary step.
+         * Retrieving relevant bits is an auxiliary step.
          *
-         * If it fails, allow the main agent to continue without
+         * If it fails, the main agent continues without
          * request-specific user information.
          */
         println("Error retrieving relevant bits: ${e.message}")
@@ -744,7 +745,7 @@ $relevantInfo
     }
 
     /*
-     * The validator is intentionally created for the validation operation.
+     * A fresh validator connector is created for each validation call.
      */
     def validator = new LLMChatConnector(
         debug: false,
@@ -951,7 +952,7 @@ String read_file(String path) {
  * Designed for MCP tool invocation by LLM agents.
  *
  * The file can only be written if its canonical absolute path starts with
- * /Users/vaclav/work/mff/NPRG014/.
+ * /Users/vaclav/work/mff/NPRG014/lecture-groovy/exercises/.
  *
  * @param path The absolute or relative path to the file.
  * @param content The content to write to the file.
@@ -968,9 +969,9 @@ String write_file(String path, String content) {
     // Resolve the canonical path to prevent symlink-based directory traversal
     String canonicalPath = targetFile.canonicalPath
 
-    // Security check: restrict writes to the allowed project directory
+    // Security check: restrict writes to the allowed exercises directory
     if (!canonicalPath.startsWith('/Users/vaclav/work/mff/NPRG014/lecture-groovy/exercises/')) {
-        return "Write not allowed. Path ${canonicalPath} is outside the allowed directory /Users/vaclav/work/mff/NPRG014/."
+        return "Write not allowed. Path ${canonicalPath} is outside the allowed directory /Users/vaclav/work/mff/NPRG014/lecture-groovy/exercises/."
     }
 
     // Ensure parent directories exist
@@ -983,16 +984,15 @@ String write_file(String path, String content) {
 }
 
 /**
- * Writes content to a file.
+ * Runs a command-line command and returns its output.
  * Designed for MCP tool invocation by LLM agents.
  *
- * The file can only be written if its canonical absolute path starts with
- * /Users/vaclav/work/mff/NPRG014/.
+ * Only whitelisted commands or commands approved by an LLM validator
+ * are permitted to execute.
  *
- * @param path The absolute or relative path to the file.
- * @param content The content to write to the file.
- * @return A confirmation message.
- * @throws IllegalArgumentException if the path is invalid, outside the allowed directory, or a directory.
+ * @param command The command-line command to execute.
+ * @return The command output or an error/validation message.
+ * @throws IllegalArgumentException if the command is null or empty.
  */
 String run_command(String command) {
     if (command == null || command.trim().isEmpty()) {
@@ -1016,7 +1016,7 @@ String run_command(String command) {
             return "System Error: Command not allowed. Only 'java -version', 'groovy -version', 'ls' and LLM-validated commands are permitted."
         } else {
             // ALLOWED by LLM verifier        
-            // BEWARE: If you comment out the following like you risk that a potentially harmful command can get run on your machine!!!
+            // BEWARE: If you comment out the following line, you risk running a potentially harmful command on your machine!
             return "Command should run, but we just mock it here without actually running it. Invent an answer yourself."
         }
     }

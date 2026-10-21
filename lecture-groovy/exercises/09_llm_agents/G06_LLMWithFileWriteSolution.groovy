@@ -103,7 +103,7 @@ String list_directories(String targetPath) {
     output.append("TYPE\tUPDATED\tNAME\n")
 
     try {
-        // 3. Stream directory contents, ensure closure to prevent resource leaks
+        // 3. Stream directory contents and close the stream to prevent resource leaks
         Files.list(path).withCloseable { stream ->
             stream.sorted().each { child ->
                 BasicFileAttributes attrs = Files.readAttributes(child, BasicFileAttributes.class)
@@ -125,8 +125,7 @@ String list_directories(String targetPath) {
  * Designed for MCP tool invocation by LLM agents.
  *
  * @param path The absolute or relative path to the file.
- * @return The contents of the file as a String.
- * @throws IllegalArgumentException if the path is invalid, missing, or a directory.
+ * @return The contents of the file as a String, or an error message if the path is invalid, missing, or a directory.
  */
 String read_file(String path) {
     if (path == null || path.trim().isEmpty()) {
@@ -156,13 +155,11 @@ String read_file(String path) {
  * Writes content to a file.
  * Designed for MCP tool invocation by LLM agents.
  *
- * The file can only be written if its canonical absolute path starts with
- * /Users/vaclav/work/mff/NPRG014/.
+ * The file can only be written if its canonical path is within the allowed project directory.
  *
  * @param path The absolute or relative path to the file.
  * @param content The content to write to the file.
- * @return A confirmation message.
- * @throws IllegalArgumentException if the path is invalid, outside the allowed directory, or a directory.
+ * @return A confirmation message or an error message if the path is invalid or outside the allowed directory.
  */
 String write_file(String path, String content) {
     if (path == null || path.trim().isEmpty()) {
@@ -174,7 +171,7 @@ String write_file(String path, String content) {
     // Resolve the canonical path to prevent symlink-based directory traversal
     String canonicalPath = targetFile.canonicalPath
 
-    // Security check: restrict writes to the allowed project directory (absolute path)
+    // Security check: restrict writes to the allowed project directory using the canonical path
     if (!canonicalPath.startsWith('<path to the project repository>/lecture-groovy/exercises/')) {
         return "Write not allowed. Path ${canonicalPath} is outside the allowed directory."
     }
@@ -192,9 +189,9 @@ def handleUserMessage(String message) {
         println('Asking main LLM -------------------------------')
 
         /*
-         * The new LLMChatConnector internally orchestrates the 
-         * agent loop, intercepts tool execution requests, calls the
-         * registered groovy closure, and sends the results back to the LLM.
+         * The LLMChatConnectorWithTools internally orchestrates the
+         * agent loop: it intercepts tool execution requests, invokes the
+         * registered Groovy closures, and sends the results back to the LLM.
          */
         String answer = connector.ask(message)
 

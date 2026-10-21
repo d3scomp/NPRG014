@@ -83,7 +83,7 @@ String list_directories(String targetPath) {
     output.append("TYPE\tUPDATED\tNAME\n")
 
     try {
-        // 3. Stream directory contents, ensure closure to prevent resource leaks
+        // 3. Stream directory contents and ensure the stream is closed to prevent resource leaks
         Files.list(path).withCloseable { stream ->
             stream.sorted().each { child ->
                 BasicFileAttributes attrs = Files.readAttributes(child, BasicFileAttributes.class)
@@ -105,8 +105,7 @@ String list_directories(String targetPath) {
  * Designed for MCP tool invocation by LLM agents.
  *
  * @param path The absolute or relative path to the file.
- * @return The contents of the file as a String.
- * @throws IllegalArgumentException if the path is invalid, missing, or a directory.
+ * @return The contents of the file as a String, or an error message if the path is invalid, missing, or points to a directory.
  */
 String read_file(String path) {
     if (path == null || path.trim().isEmpty()) {
@@ -145,7 +144,7 @@ def handleUserMessage(String message) {
         return answer
 }
 
-// TASK Specify the directory below (may be also relative to CWD) and observe the behavior
+// TASK: Specify the directory below (absolute or relative to CWD) and observe the behavior
 
 def result = handleUserMessage("""
    Start searching the directories at <path to the project repository>/lecture-groovy/exercises/ 

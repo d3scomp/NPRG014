@@ -7,7 +7,7 @@
  * HIGH-LEVEL ARCHITECTURE
  * =============================================================================
  *
- * The application consists of a GUI and several specialized LLM interactions.
+ * The application combines a Swing GUI with several specialized LLM calls.
  *
  * Persistent files:
  *
@@ -41,7 +41,7 @@
  *   ┌─────────────────────────────────────┐
  *   │     RELEVANT-BITS LLM               │
  *   │                                     │
- *   │  Selects only user information      │
+ *   │  Selects only the user information  │
  *   │  relevant to THIS request.          │
  *   └─────────────────┬───────────────────┘
  *                     │
@@ -107,10 +107,10 @@
  *
  * The RELEVANT-BITS LLM is NOT run during application startup.
  *
- * It is run independently for EVERY user request because relevance depends
- * on what the user is asking about right now.
+ * Instead, it runs independently for every user request because relevance
+ * depends on what the user is asking about right now.
  *
- * For example, the same stored user information can result in different
+ * For example, the same stored user information can yield different
  * relevant bits for:
  *
  *     "Suggest a quick snack for next Sunday afternoon"
@@ -119,28 +119,26 @@
  *
  *     "Which programming language should I learn?"
  *
- * The persistent information is therefore filtered dynamically according
- * to the current prompt.
+ * The persistent information is therefore filtered dynamically, according
+ * to the current request.
  *
  *
  * THREADING:
  *
- * Swing GUI operations must happen on Swing's Event Dispatch Thread (EDT).
+ * Swing GUI operations must run on Swing's Event Dispatch Thread (EDT).
+ * Potentially slow LLM calls are performed in a background thread,
+ * and GUI updates are posted back to the EDT via SwingUtilities.invokeLater().
  *
- * Potentially slow LLM calls are performed in a background thread.
- *
- * GUI updates are sent back to the EDT using SwingUtilities.invokeLater().
- *
- * The Send button is disabled while one request is being processed.
+ * The Send button is disabled while a request is being processed.
  *
  *
  * GROOVY SCRIPT SCOPE:
  *
- * Variables used by methods defined in a Groovy script must be explicit
- * script fields when they are initialized as script variables.
+ * In a Groovy script, variables that are accessed by script-level methods
+ * must be declared as script fields using the @Field annotation.
  *
- * Therefore files, connectors, and Swing components accessed by methods
- * are declared with @Field below.
+ * Accordingly, files, connectors, and Swing components that are shared
+ * across methods are declared with @Field below.
  */
 
 // ── Imports ──────────────────────────────────────────────────────────────────
@@ -167,12 +165,11 @@ import java.awt.Font
         'You are a helpful personal agent.'
 
 /*
- * System prompt for the request-specific information retrieval LLM.
+ * System prompt for the request-specific information-retrieval LLM.
  *
  * This LLM does NOT answer the user's question.
- *
- * It receives the persistent user information AND the current request.
- * It selects only information that is relevant to the current request.
+ * Instead, it receives the persistent user information together with
+ * the current request and selects only the information relevant to it.
  */
 @Field final String PROMPT_RELEVANT_BITS = '''
 You are an information retrieval and consolidation assistant.
@@ -196,7 +193,7 @@ Rules:
 /*
  * System prompt for the information-extraction LLM.
  *
- * This LLM runs AFTER the answer has been produced.
+ * This LLM runs after the final answer has been produced.
  */
 @Field final String PROMPT_INFO_EXTRACTION = '''
 You are a personal information extraction assistant.
@@ -212,11 +209,9 @@ Rules:
 
 // ── Persistent Files ─────────────────────────────────────────────────────────
 //
-// @Field is important here.
-//
-// handleUserMessage(), retrieveRelevantBits(), and saveLearntUserInfo()
-// are methods of the generated Groovy script class. They therefore need
-// these objects to be actual script fields rather than local variables.
+// These variables are declared with @Field because handleUserMessage(),
+// retrieveRelevantBits(), and saveLearntUserInfo() are script-level methods
+// that need access to them as script fields rather than local variables.
 //
 
 @Field File preferencesFile = new File('personalAgent/preferences.md')
@@ -239,39 +234,35 @@ if (!learntInfoFile.exists() &&
 
 // ── LLM Connectors ───────────────────────────────────────────────────────────
 //
-// These are also @Field variables because they are accessed by methods.
+// These connectors are also declared with @Field so that script-level
+// methods can access them.
 //
 
 /*
- * MAIN LLM
- *
- * Generates the actual answer to the user's request.
+ * Main LLM — generates the answer to the user's request.
  */
 @Field def connector = new LLMChatConnector(debug: false, model: 'gemma4', systemPrompt: PROMPT_MAIN_AGENT)
 
 /*
- * RELEVANT-BITS LLM
+ * Relevant-bits LLM — called once per user request.
  *
- * Called ONCE FOR EACH USER REQUEST.
- *
- * The current user request is supplied to this connector.
+ * The current user request is passed to this connector so that it can
+ * determine which stored facts are relevant.
  */
 @Field def relevantBitsConnector = new LLMChatConnector(debug: false, model: 'gemma4', systemPrompt: PROMPT_RELEVANT_BITS)
 
 /*
- * INFORMATION-EXTRACTION LLM
- *
- * Identifies new enduring facts about the user after the response.
+ * Information-extraction LLM — identifies new enduring facts about
+ * the user after the response has been produced.
  */
 @Field def infoExtractionConnector = new LLMChatConnector(debug: false, model: 'gemma4', systemPrompt: PROMPT_INFO_EXTRACTION)
 
 // ── GUI State ────────────────────────────────────────────────────────────────
 
 /*
- * Swing components are explicit @Field variables.
- *
- * This allows both the GUI-building closure and ordinary script methods
- * such as handleUserMessage() to access the same components.
+ * Swing components are declared as @Field variables so that both the
+ * GUI-building closure and script-level methods such as handleUserMessage()
+ * can access the same component instances.
  */
 @Field JFrame mainFrame = null
 @Field JTextArea chatArea = null
@@ -291,7 +282,8 @@ swing.edt {
 
         scrollPane(constraints: BorderLayout.CENTER, verticalScrollBarPolicy: JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, horizontalScrollBarPolicy: JScrollPane.HORIZONTAL_SCROLLBAR_NEVER) {
             /*
-             * Explicit assignment to the @Field.
+             * Assign the text area to the @Field variable so that
+             * script-level methods can access it.
              */
             chatArea = textArea(text: '', editable: false, lineWrap: true, wrapStyleWord: true, font: new Font('Monospaced', Font.PLAIN, 13), background: new Color(245, 245, 245))
         }
@@ -327,7 +319,7 @@ swing.edt {
 // ── Message Pipeline ─────────────────────────────────────────────────────────
 
 /*
- * Handles ONE complete user request.
+ * Handles a single user request end to end.
  *
  * ---------------------------------------------------------------------------
  * PER-REQUEST PIPELINE
@@ -335,65 +327,41 @@ swing.edt {
  *
  * 1. Read the latest persistent files.
  *
- * 2. retrieveRelevantBits()
- *       │
- *       └──> relevant-bits LLM
- *             receives:
- *                - preferences
- *                - all learned information
- *                - CURRENT user request
+ * 2. Call retrieveRelevantBits(), which invokes the relevant-bits LLM
+ *    with the user's preferences, all learned information, and the
+ *    current request.
  *
- * 3. Build prompt for main LLM:
+ * 3. Build the prompt for the main LLM from the preferences,
+ *    the relevant information, and the current request.
  *
- *       preferences
- *       + relevant information
- *       + current request
+ * 4. The main LLM generates an answer.
  *
- * 4. Main LLM generates an answer.
+ * 5. A validator LLM checks the answer.
  *
- * 5. Validator LLM checks the answer.
+ * 6. If the answer is INVALID, retry the main LLM (up to three attempts).
  *
- * 6. If INVALID, retry the main LLM.
+ * 7. Display the answer in the GUI.
  *
- * 7. Display the answer.
+ * 8. An information-extraction LLM analyzes the interaction for new facts.
  *
- * 8. Information-extraction LLM analyzes the interaction.
- *
- * 9. New facts are saved to learntUserInfo.md.
+ * 9. Any new facts are saved to learntUserInfo.md.
  */
 def handleUserMessage(String message) {
-
-    // TASK 1:
-    // 1. Add „- User likes France“ to the `learntUserInfo.md` file, remove all other info.
-    // 2. Start a conversation with a question: „I like France very much. Any tips for a two-day trip to Paris?“
-    // 3. Wait for a response
-    // 4. Check the `learntUserInfo.md` file for duplicate entries
-
-    // TASK 2 Make sure that the LLM responsible for info extraction knows the info obtained
-    // from the "preferences" file and the "memory" file so it does not store duplicates.
-    // Repeat the scenario above to test your correction.
 
     try {
         // ────────────────────────────────────────────────────────────────────
         // (1) Read the latest persistent information
         // ────────────────────────────────────────────────────────────────────
-        String currentPreferences =
-                preferencesFile.exists()
-                        ? preferencesFile.text.trim()
-                        : preferences
+        String currentPreferences = preferencesFile.exists() ? preferencesFile.text.trim() : preferences
 
-        String allLearntInfo =
-                learntInfoFile.exists()
-                        ? learntInfoFile.text.trim()
-                        : ''
+        String allLearntInfo = learntInfoFile.exists() ? learntInfoFile.text.trim() : ''
 
         // ────────────────────────────────────────────────────────────────────
-        // (2) Request-specific relevant-information retrieval
+        // (2) Retrieve the user information relevant to this specific request
         // ────────────────────────────────────────────────────────────────────
         //
-        // This happens for EVERY request.
-        //
-        // The current user message is explicitly supplied to the retrieval LLM.
+        // This step runs for every request because relevance depends on
+        // what the user is currently asking about.
         //
         println('Retrieving relevant user information for current request -----')
         String currentRelevantInfo = retrieveRelevantBits(message, currentPreferences, allLearntInfo)
@@ -416,7 +384,7 @@ $currentRelevantInfo
         }
 
         /*
-         * The current user request is always included.
+         * The user's current request is always appended to the prompt.
          */
         promptParts << message
         String currentRequest = promptParts.join('\n\n')
@@ -432,7 +400,7 @@ $currentRelevantInfo
             reply = answer
             println("$message : $reply")
             // ────────────────────────────────────────────────────────────────
-            // Validate the proposed answer
+            // Validate the answer produced by the main LLM
             // ────────────────────────────────────────────────────────────────
             println('Validating --------------------------------')
             String validationAnswer = validate(reply, message, currentPreferences, currentRelevantInfo)
@@ -440,7 +408,8 @@ $currentRelevantInfo
 
             if (validationAnswer.trim().startsWith('INVALID')) {
                 /*
-                 * Ask the main LLM to correct the response.
+                 * The validator flagged the answer as invalid.
+                 * Ask the main LLM to produce a corrected response.
                  */
                 currentRequest =
                         """Please correct the response.
@@ -462,7 +431,7 @@ Please provide a corrected response."""
         }
 
         // ────────────────────────────────────────────────────────────────────
-        // (5) Display reply on the Swing EDT
+        // (5) Display the reply on the Swing EDT
         // ────────────────────────────────────────────────────────────────────
         SwingUtilities.invokeLater {
             chatArea.append("assistant: ${reply}\n")
@@ -471,8 +440,22 @@ Please provide a corrected response."""
         }
 
         // ────────────────────────────────────────────────────────────────────
-        // (6) Extract new user facts
+        // (6) Extract any new facts about the user from this interaction
         // ────────────────────────────────────────────────────────────────────
+        
+    // TASK 1
+    // 1. Replace the contents of `learntUserInfo.md` with a single line: "- User likes France".
+    // 2. Send the message: "I like France very much. Any tips for a two-day trip to Paris?"
+    // 3. Wait for the response.
+    // 4. Inspect `learntUserInfo.md` and observe that the fact is stored twice.
+
+    // TASK 2
+    // Prevent duplicates by ensuring the information-extraction LLM is aware of the facts
+    // already stored in the preferences file and the memory file.
+    // The `allLearntInfo` variable holds the current content of the memory file.
+    // The `currentPreferences` variable holds the current content of the preferences file.    
+    // Re-run the scenario above to verify that the duplicate is no longer saved.
+        
         try {
             println('Extracting new user info ------------------')
             infoExtractionConnector.clearMessages()
@@ -480,7 +463,8 @@ Please provide a corrected response."""
 $message
 
 Assistant reply:
-$reply""")
+$reply
+""")
             if (extractedFacts &&
                     !extractedFacts.trim().equalsIgnoreCase('NONE') &&
                     !extractedFacts.trim().startsWith('NONE')) {
@@ -491,18 +475,18 @@ $reply""")
 
         } catch (Exception extractErr) {
             /*
-             * Failure of the optional extraction step does not invalidate
-             * an otherwise successful answer.
+             * The extraction step is optional: a failure here should not
+             * invalidate an otherwise successful answer.
              */
             println("Error extracting user info: ${extractErr.message}")
         }
 
     } catch (Exception e) {
         /*
-         * Report any error from the main pipeline to the GUI.
+         * Report pipeline errors in the GUI.
          *
-         * This code runs from the background thread, therefore the Swing
-         * components are modified through invokeLater().
+         * Because this code runs on a background thread, Swing components
+         * are updated through invokeLater().
          */
         SwingUtilities.invokeLater {
             chatArea.append("assistant: [ERROR] ${e.message}\n")
@@ -515,55 +499,42 @@ $reply""")
 // ── Relevant Information Retrieval ───────────────────────────────────────────
 
 /**
- * Retrieves information relevant to ONE particular user request.
+ * Retrieves the user information relevant to a single user request.
  *
- * This method completely encapsulates the relevantBitsConnector interaction.
+ * This method encapsulates the entire interaction with the relevant-bits LLM.
  *
  * Parameters:
  *
  *   message
- *       The CURRENT user request.
+ *       The current user request.
  *
  *   preferences
- *       Current contents of preferences.md.
+ *       The current contents of preferences.md.
  *
  *   learntInfo
- *       Current contents of learntUserInfo.md.
+ *       The current contents of learntUserInfo.md.
  *
- * The current request is essential because "relevant information" is
- * request-dependent.
+ * The current request is essential because relevance is request-dependent.
  *
  * Returns:
  *
- *   relevant user information as text
+ *   The relevant user information as plain text, or an empty string if no
+ *   relevant information was found or if retrieval failed.
  *
- * or:
- *
- *   an empty string if no relevant information was found or retrieval failed.
- *
- *
- * A retrieval failure is deliberately non-fatal. The main LLM can still
- * answer using the explicit preferences and current request.
+ * A retrieval failure is deliberately non-fatal: the main LLM can still
+ * answer using the explicit preferences and the current request.
  */
-String retrieveRelevantBits(
-        String message,
-        String preferences = '',
-        String learntInfo = '') {
+String retrieveRelevantBits(String message, String preferences = '', String learntInfo = '') {
     try {
         /*
-         * Start with a clean connector conversation.
-         *
-         * This prevents an earlier retrieval request from becoming
-         * unintended context for the current retrieval request.
+         * Clear any previous messages so that an earlier retrieval request
+         * does not become unintended context for the current one.
          */
         relevantBitsConnector.clearMessages()
 
         /*
-         * IMPORTANT:
-         *
-         * The CURRENT USER REQUEST is explicitly included here.
-         *
-         * This is what makes retrieval request-specific.
+         * The current user request is explicitly included in the prompt.
+         * This is what makes the retrieval specific to the current request.
          */
         String retrievalPrompt =
                 """User preferences:
@@ -599,10 +570,8 @@ that are relevant to answering this current request."""
 
     } catch (Exception e) {
         /*
-         * Relevant-bit retrieval is an auxiliary step.
-         *
-         * If it fails, allow the main agent to continue without
-         * request-specific user information.
+         * Retrieval is an auxiliary step: if it fails, the main agent
+         * continues without request-specific user information.
          */
         println("Error retrieving relevant bits: ${e.message}")
 
@@ -610,14 +579,11 @@ that are relevant to answering this current request."""
     }
 }
 
-
 // ── Persistent User Information ──────────────────────────────────────────────
 
 /**
  * Appends newly extracted facts about the user to the persistent
- * information file.
- *
- * Duplicate facts and "NONE" responses are ignored.
+ * information file, skipping duplicates and "NONE" responses.
  */
 void saveLearntUserInfo(
         File file,
@@ -671,25 +637,13 @@ void saveLearntUserInfo(
 // ── Response Validation ──────────────────────────────────────────────────────
 
 /**
- * Sends the proposed response to a separate LLM validator.
+ * Sends the proposed response to a separate LLM for validation.
  *
- * The validator checks whether the response:
+ * The validator checks whether the response addresses the original request,
+ * follows explicit constraints, respects user preferences and known facts,
+ * and remains coherent without contradictions or irrelevant divergence.
  *
- *   - addresses the original user request,
- *   - follows explicit constraints,
- *   - respects user preferences,
- *   - respects relevant user information,
- *   - is coherent,
- *   - avoids contradictions and false claims,
- *   - avoids irrelevant divergence.
- *
- * Returns a string starting with:
- *
- *   CORRECT
- *
- * or:
- *
- *   INVALID
+ * Returns a string that starts with either "CORRECT" or "INVALID".
  */
 String validate(String response, String originalRequest, String preferences = '', String relevantInfo = '') {
     String contextSection =
@@ -714,7 +668,8 @@ $relevantInfo
     }
 
     /*
-     * The validator is intentionally created for the validation operation.
+     * A fresh validator connector is created for each validation call
+     * so that previous validation conversations do not interfere.
      */
     def validator = new LLMChatConnector(debug: false, model: 'gemma4', systemPrompt: """
 You validate whether the provided response correctly and appropriately

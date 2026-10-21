@@ -15,7 +15,7 @@ import java.awt.FlowLayout
 import java.awt.Font
 
 //TASK See how the preferences.md file influences your conversation with the LLM. E.g. ask for meal recommendations.
-//TASK Make changes to the preferences.md file and observe the effect on the conversation.
+//TASK Make changes to the preferences.md file and observe the effect on the conversation after restart.
 
 File preferencesFile = new File('personalAgent/preferences.md')
 if (!preferencesFile.exists()) {

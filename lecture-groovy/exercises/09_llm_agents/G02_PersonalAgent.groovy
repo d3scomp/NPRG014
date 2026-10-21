@@ -25,7 +25,7 @@ swing.edt {
     ) {
         borderLayout()
 
-        // Central chat history display
+        // Central area displaying the chat history
         scrollPane(
                 constraints: BorderLayout.CENTER,
                 verticalScrollBarPolicy: JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
@@ -42,7 +42,7 @@ swing.edt {
             )
         }
 
-        // Bottom input area
+        // Bottom panel for user input
         panel(
                 constraints: BorderLayout.SOUTH,
                 border: new EmptyBorder(8, 8, 8, 8)
@@ -69,12 +69,12 @@ swing.edt {
                                 return
                             }
 
-                            // Update UI immediately
+                            // Update the UI immediately with the user's message
                             chatArea.append("user: ${message}\n")
                             inputField.text = ''
                             sendButton.enabled = false
 
-                            // Do the potentially slow LLM call off the EDT
+                            // Run the potentially slow LLM call in a background thread, off the EDT
                             Thread.start {
                                 try {
                                     def currentRequest = message
@@ -104,7 +104,7 @@ swing.edt {
                                         throw new IllegalArgumentException("The supplied response is not valid: $reply")
                                     }
 
-                                    // Return to EDT for Swing updates
+                                    // Switch back to the EDT thread for safe Swing UI updates
                                     SwingUtilities.invokeLater {
                                         chatArea.append("assistant: ${reply}\n")
                                         chatArea.setCaretPosition(

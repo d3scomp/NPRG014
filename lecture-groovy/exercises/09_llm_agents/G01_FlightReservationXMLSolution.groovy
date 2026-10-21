@@ -7,8 +7,8 @@ All your responses must be valid XML code that encode the provided informal trav
 
 You analyze the context provided by the user and extract information that is deducible from it to build the XML definition.
 
-IMPORTANT: As far as `dateRangeStart` annd `dateRangeEnd`, do your best to fill them with values. They represent the broadest possible
-date range to search for flights in. Try to extract or second-guess the info even if not explicitly mentioned by the user.
+IMPORTANT: For `dateRangeStart` and `dateRangeEnd`, do your best to fill them with values. They represent the broadest possible
+date range to search for flights. Try to extract or infer this information even if it is not explicitly mentioned by the user.
 
 IMPORTANT: Other than dates, you must not invent and assign values that cannot be derived from the provided context! Leave those properties unassigned.
 
@@ -76,7 +76,7 @@ String xmlData = ''
 do {
     def answer = connector.ask(currentRequest)
 
-    // EXTRACT CODE FROM MARKDOWN
+    // Extract XML code from the Markdown response
     xmlData = answer
     def matcher = answer =~ /(?s)```(?:xml)?\s*(.*?)```/
     if (matcher.find()) {
@@ -105,7 +105,6 @@ if (counter >= MAX_COUNT) {
 println 'Processing the data --------------------------------'
 println xmlData
 
-//TASK Enforce the "travelClass" element to only allow "First", "Business" and "Economy" by changing the schema, uncomment below to test
 def xml = new groovy.xml.XmlSlurper().parseText(xmlData)
 assert xml.travelClass.text() in ['First', 'Business', 'Economy']
 
