@@ -2,5 +2,5 @@ lazy val core = project.in(file("."))
   .settings(
     name := "NPRG014 Scala",
     version := "3.0.0",
-    scalaVersion := "3.7.3"
+    scalaVersion := "3.9.0"
   )
