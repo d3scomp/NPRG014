@@ -27,9 +27,7 @@ counter.send(10)
 counter.send(20)
 counter.send('Hello')
 
-assert 35 == AsyncSupport.await(
-    counter.sendAndGet(new GetRequest())
-)
+assert 35 == AsyncSupport.await(counter.sendAndGet(new GetRequest()))
 
 counter.stop()
 println 'done'

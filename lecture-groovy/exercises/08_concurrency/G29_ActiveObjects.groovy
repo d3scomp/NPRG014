@@ -1,6 +1,7 @@
-
 import groovy.transform.ActiveMethod
 import groovy.transform.ActiveObject
+
+// TASK Investigate the effect of the @ActiveObject and @ActiveMethod annotations in the AST inspector
 
 @ActiveObject
 class MyCounter {
@@ -22,6 +23,11 @@ class MyCounter {
     int getValue() {
         counter
     }
+
+    @ActiveMethod(blocking=false)
+    def getValueAsync() {
+        counter
+    }
 }
 
 def counter = new MyCounter()
@@ -31,4 +37,6 @@ counter.update('Hello')
 
 assert counter.getValue() == 35
 println counter.getValue()
+
+println await counter.getValueAsync()
 println 'done'

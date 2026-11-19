@@ -1,7 +1,4 @@
-import groovyx.gpars.agent.Agent
-import groovyx.gpars.group.*
-
-def group = new DefaultPGroup()
+import groovy.concurrent.Agent
 
 interface Cart {
     void addIfNotPresent(String product)
@@ -12,17 +9,20 @@ interface Cart {
 //TODO Correct the implementation of the CartImpl class using Agents so that it is thread-safe and correct in concurrent execution
 
 class CartImpl implements Cart {
-    private contents = []
+    private contents = Agent.create([])
 
     void addIfNotPresent(String product) {
-        if (!contents.contains(product)) {
-            sleep 10 //simulate calculation here
-            contents << product
+        contents.send {cartContent ->
+            if (!cartContent.contains(product)) {
+                sleep 10 //simulate calculation here
+                cartContent << product
+            }
+            return cartContent
         }
     }
 
     List getContents() {
-        contents.asImmutable()
+        await(contents.getAsync())
     }
 }
 

@@ -17,8 +17,8 @@ Please bring your laptop to the lecture with the following software pre-installe
 *   **Download:** Get the latest JDK 17+ from the [Java download site](https://www.oracle.com/java/technologies/downloads/) (or use an open-source distribution like [Adoptium](https://adoptium.net/)).
 *   **Verify:** Open your terminal or command prompt and run `java -version` to ensure it is installed correctly.
 
-#### 2. Install Groovy (5.0.x or later)
-*   **Download:** Grab Groovy 5.0.x or later from the [Groovy download page](http://groovy-lang.org/download.html).
+#### 2. Install Groovy (6.0.x or later)
+*   **Download:** Grab Groovy 6.0.x or later from the [Groovy download page](http://groovy-lang.org/download.html).
 *   **Verify:** Make sure the `groovyConsole` editor tool can be started from your command line. *(Note: Mind the capitalization of the command!)*
 
 #### 3. Install Git & Clone the Repository
@@ -142,7 +142,7 @@ ollama pull nimble (optional, very large)
   ** Dataflow
   ** Fork-join
   ** Actors
-  ** Intro into AI Agentic systems
+* Intro into AI Agentic systems
 
 ### Preparation
 * Same as for Lesson 1 (Groovy, JDK, Ollama)

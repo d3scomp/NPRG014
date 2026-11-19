@@ -19,7 +19,8 @@ class FibTask extends RecursiveTask<Long> {
         FibTask taskA = new FibTask(n - 2)
         taskA.fork()                       // schedule sub-task asynchronously
         FibTask taskB = new FibTask(n - 1)
-        return taskB.invoke() + taskA.join()  // compute one branch directly, join the other
+        taskB.fork()        
+        return taskB.join() + taskA.join()  // compute one branch directly, join the other
     }
 }
 

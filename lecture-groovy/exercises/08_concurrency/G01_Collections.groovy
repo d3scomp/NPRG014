@@ -18,12 +18,13 @@ class FileProcessor {
     JSlider slider
 
     public void perform() {
+        def randomW = new Random()
         final int wordCount = random.nextInt(MAX_WORDS)
         for (counter in (1..wordCount)) {
             if (counter % 100 == 0) {
                 SwingUtilities.invokeLater { (slider.value = (int) (counter / 100)) }
 //                Thread.sleep 100
-                1.upto(200000) { new Random().nextInt(30) }
+                1.upto(800000) { randomW.nextInt(30) }
             }
         }
     }
@@ -68,9 +69,9 @@ final JFrame frame = new SwingBuilder().frame(title: 'Parallelizer Demo') {
                                         it.perform()
                                     }
                                 } else {
-                                    ParallelScope.withPool(Pool.cpu()) {
-                                        processors.eachParallel {
-                                            it.perform()
+                                    processors.each {proc ->
+                                        Thread.start {
+                                            proc.perform()
                                         }
                                     }
                                 }

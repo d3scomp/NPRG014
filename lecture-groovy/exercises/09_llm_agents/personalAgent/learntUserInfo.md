@@ -4,6 +4,6 @@
 - User has never been to Spain
 - User does not speak Spanish
 
-- User's name is Vaclav
-- User prefers to be addressed with consideration for their assumed high status (e.g., "His Majesty")
-- User's favorite programming language is Groovy
+- Prefers traveling solo.
+- Prefers a low budget for travel.
+- Prefers Italy as a travel destination.

@@ -1,6 +1,12 @@
 #!/usr/bin/env groovy
 
-// TASK: Give me a number between 1 and 10.
+// TASK: "Give me a number between 1 and 10." - most LLM give the answer 7 almost all the time.
+// To avoid this limitation, a tool for random number generation can be provided to the LLM.
+// You must provide a tool that calculates a random number between given inclusive boundaries e.g. random_number(1, 10),
+// register it with the `connector` and so have the LLM trigger the tool whenever it needs a random number.
+// This way the answer to the original question will be randomly distributed among the numbers 1 - 10.
+// Take inspiration from the other mcp tools already present in this script.
+// Make no other changes than defining and registering a new tool.
 
 import helpers.*
 import groovy.swing.SwingBuilder
@@ -23,72 +29,48 @@ import java.time.format.DateTimeFormatter
  * Generates the actual answer to the user's request.
  */
 @Field def connector = new LLMChatConnectorWithTools(
-    debug: false,
-    model: 'gemma4',
-    systemPrompt: PROMPT_MAIN_AGENT
+        debug: false,
+        model: 'gemma4',
+        systemPrompt: PROMPT_MAIN_AGENT
 )
 
 /*
  * REGISTER MCP TOOLS
  *
- * Registering the tool on the connector. The enhanced LLMChatConnector will 
+ * Registering the tool on the connector. The enhanced LLMChatConnector will
  * handle the execution of this closure automatically during its internal loop.
  */
 connector.registerTool(
-    "list_directories",
-    "Lists the contents of a directory, returning a multi-line string with the file type (DIR/FILE), UTC updated timestamp, and file name.",
-    [
-        type: "object",
-        properties: [
-            targetPath: [
-                type: "string",
-                description: "The absolute or relative path of the directory to list"
-            ]
-        ],
-        required: ["targetPath"]
-    ]
+        "list_directories",
+        "Lists the contents of a directory, returning a multi-line string with the file type (DIR/FILE), UTC updated timestamp, and file name.",
+        [
+                type: "object",
+                properties: [
+                        targetPath: [
+                                type: "string",
+                                description: "The absolute or relative path of the directory to list"
+                        ]
+                ],
+                required: ["targetPath"]
+        ]
 ) { args ->
     return list_directories(args.targetPath as String)
 }
 connector.registerTool(
-    "read_file",
-    "Reads the content of a file and returns it as a multi-line string. Both absolute and relative paths are allowed.",
-    [
-        type: "object",
-        properties: [
-            path: [
-                type: "string",
-                description: "The absolute or relative path to the file to read."
-            ]
-        ],
-        required: ["path"]
-    ]
+        "read_file",
+        "Reads the content of a file and returns it as a multi-line string. Both absolute and relative paths are allowed.",
+        [
+                type: "object",
+                properties: [
+                        path: [
+                                type: "string",
+                                description: "The absolute or relative path to the file to read."
+                        ]
+                ],
+                required: ["path"]
+        ]
 ) { args ->
     return read_file(args.path as String)
-}
-connector.registerTool(
-    "random_number",
-    """
-    Returns a truly random number between from and to values (including)
-    Use whenever asked for a random number.
-    Prefer using this tool to guessing it yourself.
-    """,
-    [
-        type: "object",
-        properties: [
-            from: [
-                type: "string",
-                description: "The lower boundary."
-            ],
-            to: [
-                type: "string",
-                description: "The higher boundary."
-            ]            
-        ],
-        required: ["from", "to"]
-    ]
-) { args ->
-    return random_number(args.from as String, args.to as String)
 }
 
 String list_directories(String targetPath) {
@@ -115,7 +97,7 @@ String list_directories(String targetPath) {
                 BasicFileAttributes attrs = Files.readAttributes(child, BasicFileAttributes.class)
                 String type = attrs.isDirectory() ? "DIR" : "FILE"
                 String updated = formatter.format(attrs.lastModifiedTime().toInstant())
-                
+
                 output.append("${type}\t${updated}\t${child.fileName}\n")
             }
         }
@@ -158,37 +140,18 @@ String read_file(String path) {
     return targetFile.text
 }
 
-String random_number(String from, String to) {
-    if (from == null || from.trim().isEmpty()) {
-        return "System Error: The 'from' argument cannot be null or empty."
-    }
-    if (to == null || to.trim().isEmpty()) {
-        return "System Error: The 'to' argument cannot be null or empty."
-    }
-    int fromNum = from as Integer
-    if (fromNum == null) {
-        return "The 'from' argument cannot parsed to a number."
-    }
-    int toNum = to as Integer    
-    if (toNum == null) {
-        return "The 'to' argument cannot parsed to a number."
-    }
-    
-    return new Random().nextInt(toNum+1) + fromNum as String
-}
-
 def handleUserMessage(String message) {
-        connector.clearMessages()
-        println('Asking main LLM -------------------------------')
+    connector.clearMessages()
+    println('Asking main LLM -------------------------------')
 
-        /*
-         * The new LLMChatConnector internally orchestrates the 
-         * agent loop, intercepts tool execution requests, calls the
-         * registered groovy closure, and sends the results back to the LLM.
-         */
-        String answer = connector.ask(message)
+    /*
+     * The LLMChatConnectorWithTools class internally orchestrates the
+     * agent loop, intercepts tool execution requests, calls the
+     * registered groovy closure, and sends the results back to the LLM.
+     */
+    String answer = connector.ask(message)
 
-        return answer
+    return answer
 
 }
 
