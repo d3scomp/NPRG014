@@ -6,7 +6,7 @@ def doneSignal = new CompletableFuture<Boolean>()
 record ScoreUpdate(String who, int points) {}
 
 // ACTOR 4: The scoreboard
-def scoreboard = Actor.stateful([Alice: 0, Bob: 0, round: 0]) { scores, msg ->
+def scoreboard = Actor.stateful([Alice: 0, Bob: 0, updates: 0]) { scores, msg ->
 
     if (msg == 'snapshot') {
         return scores
@@ -18,8 +18,8 @@ def scoreboard = Actor.stateful([Alice: 0, Bob: 0, round: 0]) { scores, msg ->
         scores[msg.who]=msg.points
         
         } catch (e) {e.printStackTrace()}
-        scores['round']++
-        if (scores['round'] >= 6) doneSignal.complete(true)
+        scores['updates']++
+        if (scores['updates'] >= 6) doneSignal.complete(true)
         return scores
     } else {
         return 'Unknown request'

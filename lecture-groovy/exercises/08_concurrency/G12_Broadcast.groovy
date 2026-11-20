@@ -1,6 +1,8 @@
 import groovy.concurrent.BroadcastChannel
 import groovy.concurrent.Awaitable
 
+// With BroadcastChannel all readers read all messages
+
 def broadcast = BroadcastChannel.create()
 def sub1 = broadcast.subscribe()
 def sub2 = broadcast.subscribe()

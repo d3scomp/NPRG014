@@ -8,7 +8,7 @@ final product1 = numbers.inject(1G) { acc, n -> acc * n }
 println product1
 
 // Idiomatic parallel reduction using the JDK ForkJoinPool
-final product2 = numbers.parallelStream().reduce(1G) { a, b -> a * b }
-println product2
+final product2 = numbers.parallelStream().reduce() { a, b -> a * b }
+println product2.get()
 
-assert product1 == product2
+assert product1 == product2.get()

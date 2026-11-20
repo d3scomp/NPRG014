@@ -24,7 +24,8 @@ import java.time.format.DateTimeFormatter
 
 // TASK 1: Prompt the agent with "Greet me nicely using my full name and adjust for my age and status."
 // TASK 2: Prompt "Remember that Groovy is my favourite programming language." Then check that learntUserInfo.md contains this fact.
-// TASK 3: Ask the agent: "Does https://groovy-lang.org/ mention my favourite programming language?"
+// TASK 4: Restart the session
+// TASK 4: Ask the agent: "Does https://groovy-lang.org/ mention my favourite programming language?"
 
 @Field final String PROMPT_MAIN_AGENT = 'You are a helpful personal agent. Ask the user with tools, if you need additional info.'
 

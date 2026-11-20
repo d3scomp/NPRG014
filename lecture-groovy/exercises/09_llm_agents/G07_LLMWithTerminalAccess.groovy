@@ -172,8 +172,7 @@ String read_file(String path) {
  * Writes content to a file.
  * Designed for MCP tool invocation by LLM agents.
  *
- * The file can only be written if its canonical absolute path starts with
- * /Users/vaclav/work/mff/NPRG014/.
+ * The file can only be written if its canonical absolute path starts with an agreed prefix.
  *
  * @param path The absolute or relative path to the file.
  * @param content The content to write to the file.
@@ -191,8 +190,9 @@ String write_file(String path, String content) {
     String canonicalPath = targetFile.canonicalPath
 
     // Security check: restrict writes to the allowed project directory only
-    if (!canonicalPath.startsWith('/Users/vaclav/work/mff/NPRG014/lecture-groovy/exercises/')) {
-        return "Write not allowed. Path ${canonicalPath} is outside the allowed directory /Users/vaclav/work/mff/NPRG014/."
+    // TODO Set the path to your project
+    if (!canonicalPath.startsWith('<path to the NPRG014 project>/lecture-groovy/exercises/')) {
+        return "Write not allowed. Path ${canonicalPath} is outside the allowed directory."
     }
 
     // Ensure parent directories exist
@@ -284,17 +284,17 @@ def result2 = handleUserMessage("""
 println result2
 println ''
 
-println '*** Creating a directory -----------------------------'
+println '*** Starting Groovy console -----------------------------'
 def result3 = handleUserMessage("""
-   Make a `surprisingDirectory` directory in the current directory.
+   Open groovyConsole for me with a command-line command.
 """)
 println result3
-println ''
 
-println '*** Starting Groovy console -----------------------------'
+println '*** Creating a directory -----------------------------'
 def result4 = handleUserMessage("""
-   Open groovyConsole for me.
+   Make a `surprisingDirectory` directory in the current directory.
 """)
 println result4
+println ''
 
 println 'well done'
