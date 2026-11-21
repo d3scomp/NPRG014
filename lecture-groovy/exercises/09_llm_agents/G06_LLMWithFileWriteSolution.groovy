@@ -10,6 +10,8 @@ import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 
 
+@Field final pathToProjectRepo = '/Users/'
+
 // ── Prompt Templates ─────────────────────────────────────────────────────────
 
 @Field final String PROMPT_MAIN_AGENT = 'You are a helpful personal agent.'
@@ -172,7 +174,7 @@ String write_file(String path, String content) {
     String canonicalPath = targetFile.canonicalPath
 
     // Security check: restrict writes to the allowed project directory using the canonical path
-    if (!canonicalPath.startsWith('<path to the project repository>/lecture-groovy/exercises/')) {
+    if (!canonicalPath.startsWith(pathToProjectRepo + 'lecture-groovy/exercises/')) {
         return "Write not allowed. Path ${canonicalPath} is outside the allowed directory."
     }
 
@@ -198,19 +200,19 @@ def handleUserMessage(String message) {
         return answer
 }
 
-// TASK 1 Specify the directory <path to the project repository> above and below (absolute or relative) and observe the behavior
+// TASK 1 Specify the directory `pathToProjectRepo` value above and observe the behavior
 // TASK 2 Secure the write_file tool so that it can only write to 
-//        the <path to the project repository>/lecture-groovy/exercises/ directory
+//        the ${pathToProjectRepo}lecture-groovy/exercises/ directory
 //        Delete the welcome.txt and not_welcome.txt files
 //        Observe the behavior. Writing to not_welcome.txt should be forbidden
 
 def result1 = handleUserMessage("""
-   Write the text 'I was here, Fantomas!' into the `welcome.txt` file in `<path to the project repository>/lecture-groovy/exercises/`.
+   Write the text 'I was here, Fantomas!' into the `welcome.txt` file in `${pathToProjectRepo}lecture-groovy/exercises/`.
 """)
 println result1
 
 def result2 = handleUserMessage("""
-   Write the text 'I was here, Fantomas!' into the `not_welcome.txt` file in `<path to the project repository>/lecture-groovy/`.
+   Write the text 'I was here, Fantomas!' into the `not_welcome.txt` file in `${pathToProjectRepo}lecture-groovy/`.
 """)
 println result2
 

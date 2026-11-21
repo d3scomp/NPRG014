@@ -10,6 +10,8 @@ import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 
 
+@Field final pathToProjectRepo = '/Users/'
+
 // ── Prompt Templates ─────────────────────────────────────────────────────────
 
 @Field final String PROMPT_MAIN_AGENT = 'You are a helpful personal agent.'
@@ -155,9 +157,11 @@ String read_file(String path) {
  * Writes content to a file.
  * Designed for MCP tool invocation by LLM agents.
  *
+ * The file can only be written if its canonical path is within the allowed project directory.
+ *
  * @param path The absolute or relative path to the file.
  * @param content The content to write to the file.
- * @return A confirmation message or an error message if the path is invalid.
+ * @return A confirmation message or an error message if the path is invalid or outside the allowed directory.
  */
 String write_file(String path, String content) {
     if (path == null || path.trim().isEmpty()) {
@@ -170,7 +174,7 @@ String write_file(String path, String content) {
     String canonicalPath = targetFile.canonicalPath
 
     // TODO: Add a security check to restrict writes to the allowed project directory
-    // <path to the project repository>/lecture-groovy/exercises/
+    // ${pathToProjectRepo}/lecture-groovy/exercises/
 
     // Ensure parent directories exist
     targetFile.parentFile?.mkdirs()
@@ -194,19 +198,19 @@ def handleUserMessage(String message) {
         return answer
 }
 
-// TASK 1 Specify the directory <path to the project repository> above and below (absolute or relative) and observe the behavior
+// TASK 1 Specify the directory `pathToProjectRepo` value above and observe the behavior
 // TASK 2 Secure the write_file tool so that it can only write to 
-//        the <path to the project repository>/lecture-groovy/exercises/ directory
+//        the ${pathToProjectRepo}lecture-groovy/exercises/ directory
 //        Delete the welcome.txt and not_welcome.txt files
 //        Observe the behavior. Writing to not_welcome.txt should be forbidden
 
 def result1 = handleUserMessage("""
-   Write the text 'I was here, Fantomas!' into the `welcome.txt` file in `<path to the project repository>/lecture-groovy/exercises/`.
+   Write the text 'I was here, Fantomas!' into the `welcome.txt` file in `${pathToProjectRepo}lecture-groovy/exercises/`.
 """)
 println result1
 
 def result2 = handleUserMessage("""
-   Write the text 'I was here, Fantomas!' into the `not_welcome.txt` file in `<path to the project repository>/lecture-groovy/`.
+   Write the text 'I was here, Fantomas!' into the `not_welcome.txt` file in `${pathToProjectRepo}lecture-groovy/`.
 """)
 println result2
 
